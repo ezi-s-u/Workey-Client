@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    --main-color: #FCC572;
+    --kakao-color: #FAE100;
+    --gray-color: rgba(84, 83, 83, 0.6);
+    --white-color: #fff;
+    --black-color: #000000;
+    --main-font: 'Pretendard-Regular';
+    --normal-font-size: 0.8em;
+    --big-font-size: 1.3em;
+    --small-font-size: 0.5em;
+    --light-border: 0.1em;
+    --normal-border: 0.15em;
+    --light-border-radius: 0.1em;
+    --normal-border-radius: 0.3em;
+    --big-border-radius: 0.5em;
+    --big-font-weight: 900;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: var(--main-font);
+}
+
+header {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 40px;
+    margin: 0;
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .title {
+    position: absolute;
+    left: 6vw;
+}
+
+.title {
+    font-size: var(--big-font-size);
+}
+
+.bi{
+    font-size: 20px;
+}
+
+header .hamberger_menu {
+    position: absolute;
+    width: 30px;
+    right: 1vw;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+input:focus {
+    outline-color: var(--main-color);
+}
