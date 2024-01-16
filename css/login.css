@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 360px;
+  height: 800px;
+  display: flex;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: blueviolet;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.container {
+  width: 100vw;
+  margin: 60px 42px 60px 42px;
+  background-color: rgb(43, 226, 220);
+  display: flex;
+}
+
+.top > button {
+  background-color:transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: bold;
+}
