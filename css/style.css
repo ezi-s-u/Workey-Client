@@ -6,12 +6,23 @@
 }
 
 :root {
-    --main-color: #FCC572;
-    --kakao-color: #FAE100;
-    --gray-color: rgba(84, 83, 83, 0.6);
-    --white-color: #fff;
+    --purple-color-01: #9F57FB;
+    --purple-color-02: #C18FFF;
+    --purple-color-03: #D5B4FF;
+    --purple-color-04: #E2CCFF;
+    --purple-color-05: #EFE2FB;
+    --yellow-color-01: #FFEC90;
+    --yellow-color-02: #FFF6CC;
     --black-color: #000000;
+    --gray-color-01: #272727;
+    --gray-color-02: #383838;
+    --gray-color-03: #767676;
+    --gray-color-04: #B1B1B1;
+    --gray-color-05: #D3D3D3;
+    --gray-color-06: #E5E5EA;
+    --white-color: #fff;
     --main-font: 'Pretendard-Regular';
+    --font-size: 48px;
     --normal-font-size: 0.8em;
     --big-font-size: 1.3em;
     --small-font-size: 0.5em;
