@@ -6,21 +6,21 @@
 }
 
 :root {
-    --purple-color-01: #9F57FB;
-    --purple-color-02: #C18FFF;
-    --purple-color-03: #D5B4FF;
-    --purple-color-04: #E2CCFF;
-    --purple-color-05: #EFE2FB;
-    --yellow-color-01: #FFEC90;
-    --yellow-color-02: #FFF6CC;
-    --black-color: #000000;
-    --gray-color-01: #272727;
-    --gray-color-02: #383838;
-    --gray-color-03: #767676;
-    --gray-color-04: #B1B1B1;
-    --gray-color-05: #D3D3D3;
-    --gray-color-06: #E5E5EA;
-    --white-color: #fff;
+    --purple-01: #9F57FB;
+    --purple-02: #C18FFF;
+    --purple-03: #D5B4FF;
+    --purple-04: #E2CCFF;
+    --purple-05: #EFE2FB;
+    --yellow-01: #FFEC90;
+    --yellow-02: #FFF6CC;
+    --black: #000000;
+    --gray-01: #272727;
+    --gray-02: #383838;
+    --gray-03: #767676;
+    --gray-04: #B1B1B1;
+    --gray-05: #D3D3D3;
+    --gray-06: #E5E5EA;
+    --white: #fff;
     --main-font: 'Pretendard-Regular';
     --font-size: 48px;
     --normal-font-size: 0.8em;
