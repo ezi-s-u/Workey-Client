@@ -22,16 +22,8 @@
     --gray-06: #E5E5EA;
     --white: #fff;
     --main-font: 'Pretendard-Regular';
-    --font-size: 48px;
-    --normal-font-size: 0.8em;
-    --big-font-size: 1.3em;
-    --small-font-size: 0.5em;
-    --light-border: 0.1em;
-    --normal-border: 0.15em;
-    --light-border-radius: 0.1em;
-    --normal-border-radius: 0.3em;
-    --big-border-radius: 0.5em;
-    --big-font-weight: 900;
+    --header-height: 70px;
+    --header-img-width: 60px;
 }
 
 * {
@@ -40,36 +32,25 @@
     font-family: var(--main-font);
 }
 
+body {
+    padding-top: var(--header-height);
+}
+
 header {
     z-index: 9999;
     position: fixed;
     top: 0;
-    width: 100vw;
-    height: 40px;
-    margin: 0;
-    background-color: var(--main-color);
+    left: 0;
+    right: 0;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    height: var(--header-height);
+    background: var(--purple-01);
 }
 
-header .title {
-    position: absolute;
-    left: 6vw;
-}
-
-.title {
-    font-size: var(--big-font-size);
-}
-
-.bi{
-    font-size: 20px;
-}
-
-header .hamberger_menu {
-    position: absolute;
-    width: 30px;
-    right: 1vw;
+header>.header-img {
+    margin: auto;
+    width: var(--header-img-width);
+    /* height: 35px; */
 }
 
 ::-webkit-scrollbar {
