@@ -1,0 +1,29 @@
+.running-time-box {
+    position: relative;
+    background-color: aqua;
+    text-align: center;
+    margin: 1.5em;
+}
+
+.sentence {
+    position: relative;
+    width: 100%;
+    /* margin: 10px auto; */
+    padding: 0;
+}
+
+.sentence > .sentence-img {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.sentence > .sentence-comment {
+    position: absolute;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0);
+    text-align: center;
+    top: 35%;
+    left: 50%;
+    width: 200%;
+    transform: translate( -50%, -50% );
+}
