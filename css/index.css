@@ -1,31 +1,101 @@
-.wrapper {
-    background-image: linear-gradient(to bottom, var(--purple-01) 35%, var(--white) 35%);
+html,
+body {
+    width: 100%;
 }
 
+/* 전체 설정 */
+.wrapper {
+    background-image: linear-gradient(to bottom, var(--purple-01) 25%, var(--white) 25%);
+}
 .container {
+    width: 100%;
     text-align: center;
 }
 
+/* 월급날까지 남은 일수 */
+.payday-box {
+    position: relative;
+    width: 100%;
+    margin: 10px auto;
+    padding: 0;
+    text-align: center;
+    margin: 2em 0 2em 0;
+    /* background-color: aqua; */
+}
+.payday-img {
+    position: relative;
+    width: 100%;
+    vertical-align: middle;
+    padding: 0;
+}
+.payday-img > img {
+    position: relative;
+    width: 100%;
+    object-fit: cover;/* img 딱 맞게 */
+}
+.d-day-box {
+    position: absolute;
+    /* padding: 5px 10px; */
+    text-align: center;
+    top: 68%;
+    left: 50%;
+    width: 100%;
+    transform: translate( -50%, -50% );
+    /* background-color: rgba(0, 0, 0, 0); */
+    /* background-color: rgb(164, 240, 149); */
+}
+#payday-title-txt {
+    position: absolute;
+    top: -3vh;
+    left: 0;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 900;
+    /* background-color: antiquewhite; */
+    /* text-align: center; */
+}
+#d-day-txt {
+    position: absolute;
+    top: 0vh;
+    left: 0;
+    width: 100%;
+    font-size: 32px;
+    font-weight: 700;
+    /* background-color: brown; */
+}
+#lefted-payday-txt {
+    position: absolute;
+    top: 5.5vh;
+    left: 0;
+    width: 100%;
+    font-size: 13px;
+    font-weight: lighter;
+}
+
+/* 현재 일한 시간 바 */
 .running-time-box {
     position: relative;
     background-color: aqua;
     text-align: center;
 }
-
 .sentence {
     position: relative;
     width: 100%;
+    height: fit-content;
+    background-color: bisque;
     /* margin: 10px auto; */
-    padding: 0;
-    margin: 0;
+    /* padding: 0; */
+    /* margin: 0; */
     text-align: center;
 }
-
-.sentence > .sentence-img {
+.sentence > .sentence-img > img { 
+    position: relative;
+    width: fit-content;
     width: 100%;
+    padding: 0;
+    height: 100%;
     vertical-align: middle;
 }
-
 .sentence > .sentence-comment {
     position: absolute;
     /* padding: 5px 10px; */
@@ -35,4 +105,60 @@
     left: 50%;
     width: 100%;
     transform: translate( -50%, -50% );
+}
+
+/* Real-time */
+.record-box {
+    position: relative;
+    float: right;
+    background-color: white;
+    border: solid 0.1em var(--gray-05);
+    border-radius: 0.9em;
+    padding: 0.5em 0.7em 0.5em 0.7em;
+    margin-bottom: 10vh;
+}
+
+/* 현재 일한 시간 보기 */
+.working-time-box {
+    margin: 2em 0 1em 0;
+    position: relative;
+    height: fit-content;
+    margin-top: 25%;
+    background-color: rgb(241, 188, 199);
+}
+
+/* 일러스트 달리는 곳 */
+.illustration-state {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+/* 출퇴근 시간 */
+.working-time {
+    font-size: 13px;
+    font-weight: 900;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* progress bar */
+.progress-bar {
+    /* border: 1px red solid; */
+    background-color: var(--purple-05);
+}
+.working-time-bar {
+    position: relative;
+    /* margin-top: 10vh; */
+    height: 10px;
+    width: 0%;
+    animation: working-time-bar 1s;
+    background-color: rgb(153, 0, 255);
+    /* background-color: none; */
+    border: 1px purple solid;  
+    /* border-radius: 0.1em;  */
+}
+@keyframes working-time-bar {
+    from{width: 0%} to{width:100%}
 }
