@@ -51,22 +51,19 @@ p {
   font-size: 12px;
 }
 
-input {
-  
-}
-
 option {
   padding: 10px;
   font-size: 14px;
 }
 
-.top > button {
+.go-back > button {
   background-color:transparent;
   border: none;
   font-size: 13px;
   font-weight: bold;
   color: var(--purple-03);
   margin-bottom: 65px;
+  text-align: left;
 }
 
 .personal-inform {
