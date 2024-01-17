@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workey</title>
+  <link href="./css/style.css" rel="stylesheet">
   <link href="./css/login.css" rel="stylesheet">
 </head>
 <body>
@@ -12,9 +13,49 @@
     <div class="container">
         <div class="top">
             <button type="button">Go back</button>
-            
+            <h3>Create an account</h3>
+        </div>
+        <div class="personal-inform">
+          <p class="text-light">First Name</p>
+          <input type="text">
+          <p class="text-light">Last Name</p>
+          <input type="text">
+          <p class="text-light">Email</p>
+          <input type="text">
+          <p class="text-light">Password</p>
+          <input type="text">
+          <p class="text-light">Check the password</p>
+          <input type="text">
+          <p class="text-light" id="text-explan">This information is not publicly displayed.</p>
+        </div>
+        <div class="company-inform">
+          <p class="text-thick">company : </p>
+          <select>
+            <option value="google">Google</option>
+            <option value="tesla">Tesla</option>
+            <option value="apple">Apple</option>
+            <option value="amazon">Amazon</option>
+            <option value="meta">Meta</option>
+            <option value="microsoft">Microsoft</option>
+            <option value="lg">LG</option>
+            <option value="others">Others</option>
+          </select>
+          <p class="text-thick">Start Time : </p>
+          <div class="container-element">
+            <img src="./img/icon_start_time.svg">
+            <input type="time">
+          </div>
+          <p class="text-thick">End Time : </p>
+          <div class="container-element">
+            <img src="./img/icon_end_time.svg">
+            <input type="time">
+          </div>
+          <button type="submit">Sign up</button>
         </div>
     </div>
 </div>
 </body>
+<script>
+
+</script>
 </html>
