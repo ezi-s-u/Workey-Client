@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workey</title>
-  <link href="./css/style.css" rel="stylesheet">
   <link href="./css/login.css" rel="stylesheet">
 </head>
 <body>
@@ -30,7 +29,7 @@
         </div>
         <div class="company-inform">
           <p class="text-thick">company : </p>
-          <select>
+          <select id="companies" onchange="changeCompanySelect()">
             <option value="google">Google</option>
             <option value="tesla">Tesla</option>
             <option value="apple">Apple</option>
@@ -40,6 +39,7 @@
             <option value="lg">LG</option>
             <option value="others">Others</option>
           </select>
+          <input type="text" id="otherInput" class="other-input" placeholder="Please write here your company">
           <p class="text-thick">Start Time : </p>
           <div class="container-element">
             <img src="./img/icon_start_time.svg">
@@ -54,8 +54,14 @@
         </div>
     </div>
 </div>
-</body>
 <script>
+  function changeCompanySelect() {
+    const selectElement = document.getElementById('companies');
+    const otherInput = document.getElementById('otherInput');
 
+    otherInput.style.display = (selectElement.value === 'others') ? 'block' : 'none';
+
+  }
 </script>
+</body>
 </html>
