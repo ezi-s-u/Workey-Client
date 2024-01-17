@@ -1,8 +1,15 @@
+.wrapper {
+    background-image: linear-gradient(to bottom, var(--purple-01) 35%, var(--white) 35%);
+}
+
+.container {
+    text-align: center;
+}
+
 .running-time-box {
     position: relative;
     background-color: aqua;
     text-align: center;
-    margin: 1.5em;
 }
 
 .sentence {
@@ -10,6 +17,8 @@
     width: 100%;
     /* margin: 10px auto; */
     padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
 .sentence > .sentence-img {
@@ -19,11 +28,11 @@
 
 .sentence > .sentence-comment {
     position: absolute;
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
     background-color: rgba(0, 0, 0, 0);
     text-align: center;
     top: 35%;
     left: 50%;
-    width: 200%;
+    width: 100%;
     transform: translate( -50%, -50% );
 }
