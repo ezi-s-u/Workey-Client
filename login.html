@@ -10,58 +10,30 @@
 <body>
   <div class="wrapper">
     <div class="container">
-        <div class="top">
-            <button type="button">Go back</button>
-            <h3>Create an account</h3>
-        </div>
-        <div class="personal-inform">
-          <p class="text-light">First Name</p>
-          <input type="text">
-          <p class="text-light">Last Name</p>
-          <input type="text">
-          <p class="text-light">Email</p>
-          <input type="text">
-          <p class="text-light">Password</p>
-          <input type="text">
-          <p class="text-light">Check the password</p>
-          <input type="text">
-          <p class="text-light" id="text-explan">This information is not publicly displayed.</p>
-        </div>
-        <div class="company-inform">
-          <p class="text-thick">company : </p>
-          <select id="companies" onchange="changeCompanySelect()">
-            <option value="google">Google</option>
-            <option value="tesla">Tesla</option>
-            <option value="apple">Apple</option>
-            <option value="amazon">Amazon</option>
-            <option value="meta">Meta</option>
-            <option value="microsoft">Microsoft</option>
-            <option value="lg">LG</option>
-            <option value="others">Others</option>
-          </select>
-          <input type="text" id="otherInput" class="other-input" placeholder="Please write here your company">
-          <p class="text-thick">Start Time : </p>
-          <div class="container-element">
-            <img src="./img/icon_start_time.svg">
-            <input type="time">
-          </div>
-          <p class="text-thick">End Time : </p>
-          <div class="container-element">
-            <img src="./img/icon_end_time.svg">
-            <input type="time">
-          </div>
-          <button type="submit">Sign up</button>
-        </div>
+      <div class="go-back">
+        <button type="button">Go back</button>
+      </div>
+      <div class="top">
+        <img src="./img/logo_normal.svg">
+      </div>
+      <div class="inform">
+        <p class="text-light">First Name</p>
+        <input type="text">
+        <p class="text-light">Last Name</p>
+        <input type="text">
+        <p class="text-light">Email</p>
+        <input type="text">
+        <p class="text-light">Password</p>
+        <input type="text">
+      </div>
+      <button type="submit" id="loginButton">Login In</button>
+      <div class="bottom">
+        <a href="#" class="find-password">Forgot your password?</a>
+      </div>
     </div>
-</div>
+  </div>
 <script>
-  function changeCompanySelect() {
-    const selectElement = document.getElementById('companies');
-    const otherInput = document.getElementById('otherInput');
-
-    otherInput.style.display = (selectElement.value === 'others') ? 'block' : 'none';
-
-  }
+  
 </script>
 </body>
 </html>
