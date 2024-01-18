@@ -123,13 +123,19 @@ header>.header-img {
     width: 20vw;
     text-align: center;
 }
-
+.nav-img {
+    height: 23px;
+}
 .nav-p {
     color: var(--gray-03);
 }
 
 .color-p {
     color: var(--purple-01);
+}
+#home-img {
+    position: relative;
+    top: -2px;
 }
 
 ::-webkit-scrollbar {
