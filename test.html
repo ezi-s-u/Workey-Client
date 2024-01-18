@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .container {
+            margin-top: 200px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .progress-bar {
+            border: 1px red solid;
+        }
+
+        .working-time-bar {
+            height: 20px;
+            width: 10%;
+            background-color: rgb(153, 0, 255);
+            /* background-color: none; */
+            border: 1px purple solid;   
+        }
+
+    </style>
+</head>
+<script> 
+window.onload = function() {
+    let perc = 10;
+
+    document.getElementById("inc_btn").onclick = function() {
+        document.querySelector(".working-time-bar").style.width = `${perc+=10}%`;
+        document.querySelector(".working-time-bar").style.transition = ".5s";
+    };
+}
+</script>
+<body>
+    <div class="container">
+        <div></div>
+    </div>
+
+    <div class="progress-bar">
+        <div class="working-time-bar"></div>
+    </div>
+    <input id="inc_btn" type="button" value="increase" style="margin-top: 30px;">
+</body>
+</html>
