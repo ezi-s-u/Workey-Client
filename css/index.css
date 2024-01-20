@@ -4,10 +4,23 @@ body {
 }
 
 /* 전체 설정 */
-.wrapper {
-    background-image: linear-gradient(to bottom, var(--purple-01) 40%, var(--white) 40%);
+body {
+    padding-top: 0;
 }
-
+header {
+    background-color: rgba(0, 0, 0, 0);
+}
+.wrapper {
+}
+.background-box {
+    position: absolute;
+    height: 43vh;
+    width: 100vw;
+    top: -10vh;
+    border-radius: 1em;
+    background-color: aqua;
+    background-image: linear-gradient(to top left, var(--purple-09) 30%, var(--purple-07) 60%);
+}
 .container {
     width: 100%;
     text-align: center;
@@ -55,7 +68,7 @@ body {
     top: -3vh;
     left: 0;
     width: 100%;
-    font-size: 15px;
+    font-size: var(--regular-font-size);
     font-weight: 900;
     /* background-color: antiquewhite; */
     /* text-align: center; */
@@ -123,7 +136,7 @@ body {
     position: relative;
     float: right;
     /* background-color: white; */
-    border: solid 0.1em var(--gray-05);
+    border: solid 0.1em var(--gray-06);
     border-radius: 0.9em;
     padding: 0.5em 0.7em 0.5em 0.7em;
     margin-bottom: 10vh;
