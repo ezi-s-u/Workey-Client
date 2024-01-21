@@ -48,17 +48,21 @@
         <p class="text-light" id="text-explan">This information is not publicly displayed.</p>
       </div>
       <div class="company-inform">
-        <p class="text-thick">company : </p>
-        <select id="companies" onchange="changeCompanySelect()">
-          <option value="google">Google</option>
-          <option value="tesla">Tesla</option>
-          <option value="apple">Apple</option>
-          <option value="amazon">Amazon</option>
-          <option value="meta">Meta</option>
-          <option value="microsoft">Microsoft</option>
-          <option value="lg">LG</option>
-          <option value="others">Others</option>
-        </select>
+        <p class="text-thick">Company : </p>
+        <div class="selectBox">
+          <img src="./img/icon_company.svg">
+          <button class="label">Google</button>
+          <ul class="optionList">
+            <li class="optionItem">Google</li>
+            <li class="optionItem">Tesla</li>
+            <li class="optionItem">Apple</li>
+            <li class="optionItem">Amazon</li>
+            <li class="optionItem">Meta</li>
+            <li class="optionItem">Microsoft</li>
+            <li class="optionItem">LG</li>
+            <li class="optionItem">Others</li>
+          </ul>
+        </div>
         <input type="text" id="otherInput" class="other-input" placeholder="Please write here your company">
         <p class="text-thick">Start Time : </p>
         <div class="container-element">
@@ -70,6 +74,17 @@
           <img src="./img/icon_end_time.svg">
           <input type="time">
         </div>
+        <p class="text-thick">Until Payday : </p>
+        <select id="paydays" onchange="changePaydaySelect()">
+          <option value="google">Google</option>
+          <option value="tesla">Tesla</option>
+          <option value="apple">Apple</option>
+          <option value="amazon">Amazon</option>
+          <option value="meta">Meta</option>
+          <option value="microsoft">Microsoft</option>
+          <option value="lg">LG</option>
+          <option value="others">Others</option>
+        </select>
         <button type="submit">Sign up</button>
       </div>
     </div>
