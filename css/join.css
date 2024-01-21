@@ -21,6 +21,7 @@
   --gray-05: #D3D3D3;
   --gray-06: #E5E5EA;
   --white: #fff;
+  --red: #C36C64;
   --main-font: 'Pretendard-Regular';
   --header-height: 50px;
   --header-img-width: 45px;
@@ -37,12 +38,13 @@
   width: 100vw;
   display: flex;
   overflow-x: hidden;
+  padding-top: 200px;
 }
 
 .container {
   position: relative;
   width: 100vw;
-  margin: 3em;
+  margin: 0em 3em 3em 3em;
   display: flex;
   flex-direction: column;
 }
@@ -51,9 +53,17 @@ p {
   font-size: 12px;
 }
 
-option {
-  padding: 10px;
-  font-size: 14px;
+header {
+  position: relative;
+  width: 100vw;
+  display: flex;
+  overflow-x: hidden;
+  flex-direction: column;
+  padding: 3em 3em 0em 3em;
+  position: fixed;
+  padding-bottom: 40px;
+  z-index: 1;
+  background-color: white;
 }
 
 .go-back > button {
@@ -67,13 +77,29 @@ option {
 }
 
 .personal-inform {
-  margin: 43px 0px 73px 0px;
+  margin: 0px 0px 73px 0px;
 }
 
-.personal-inform > input {
+.div-input {
   width: 100%;
-  border-width: 0 0 1px;
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  border: none;
+  border-bottom: 1px solid #868686;
+}
+
+.div-input > input {
+  width: 100%;
+  border: none;
   outline: none;
+  padding-bottom: 2px;
+  margin-right: 5px;
+}
+
+.div-input > img {
+  display: none;
+  padding-bottom: 5px;
 }
 
 .text-light {
@@ -159,4 +185,14 @@ option {
 
 #otherInput {
   display: none;
+}
+
+#warning-icon {
+  display: none;
+}
+
+#warning-message {
+  display: none;
+  margin-top: 5px;
+  color: var(--red);
 }

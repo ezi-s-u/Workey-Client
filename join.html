@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,60 +9,71 @@
   <link href="./css/join.css" rel="stylesheet">
 </head>
 <body>
+  <header>
+    <div class="go-back">
+      <button type="button">Go back</button>
+    </div>
+    <h3>Create an account</h3>
+  </header>
   <div class="wrapper">
     <div class="container">
-      <div class="go-back">
-        <button type="button">Go back</button>
+      <div class="personal-inform">
+        <p class="text-light">First Name</p>
+        <div class="div-input">
+          <input type="text" oninput="writeData(this.value, 0)">
+          <img src="./img/icon_check.svg" class="check-icon">
+        </div>
+        <p class="text-light">Last Name</p>
+        <div class="div-input">
+          <input type="text" oninput="writeData(this.value, 1)">
+          <img src="./img/icon_check.svg" class="check-icon">
+        </div>
+        <p class="text-light">Email</p>
+        <div class="div-input">
+          <input type="text" oninput="checkEmail(this.value)">
+          <img src="./img/icon_check.svg" class="check-icon">
+          <img src="./img/icon_warning.svg" id="warning-icon">
+        </div>
+        <p id="warning-message">Please enter your email address</p>
+        <p class="text-light">Password</p>
+        <div class="div-input">
+          <input type="password" oninput="writeData(this.value, 3)" id="password">
+          <img src="./img/icon_check.svg" class="check-icon">
+        </div>
+        <p class="text-light">Check the password</p>
+        <div class="div-input">
+          <input type="password" oninput="checkPassword(this.value)" id="check-password">
+          <img src="./img/icon_check.svg" class="check-icon">
+        </div>
+        <p class="text-light" id="text-explan">This information is not publicly displayed.</p>
       </div>
-      <h3>Create an account</h3>
-        <div class="personal-inform">
-          <p class="text-light">First Name</p>
-          <input type="text">
-          <p class="text-light">Last Name</p>
-          <input type="text">
-          <p class="text-light">Email</p>
-          <input type="text">
-          <p class="text-light">Password</p>
-          <input type="text">
-          <p class="text-light">Check the password</p>
-          <input type="text">
-          <p class="text-light" id="text-explan">This information is not publicly displayed.</p>
+      <div class="company-inform">
+        <p class="text-thick">company : </p>
+        <select id="companies" onchange="changeCompanySelect()">
+          <option value="google">Google</option>
+          <option value="tesla">Tesla</option>
+          <option value="apple">Apple</option>
+          <option value="amazon">Amazon</option>
+          <option value="meta">Meta</option>
+          <option value="microsoft">Microsoft</option>
+          <option value="lg">LG</option>
+          <option value="others">Others</option>
+        </select>
+        <input type="text" id="otherInput" class="other-input" placeholder="Please write here your company">
+        <p class="text-thick">Start Time : </p>
+        <div class="container-element">
+          <img src="./img/icon_start_time.svg">
+          <input type="time">
         </div>
-        <div class="company-inform">
-          <p class="text-thick">company : </p>
-          <select id="companies" onchange="changeCompanySelect()">
-            <option value="google">Google</option>
-            <option value="tesla">Tesla</option>
-            <option value="apple">Apple</option>
-            <option value="amazon">Amazon</option>
-            <option value="meta">Meta</option>
-            <option value="microsoft">Microsoft</option>
-            <option value="lg">LG</option>
-            <option value="others">Others</option>
-          </select>
-          <input type="text" id="otherInput" class="other-input" placeholder="Please write here your company">
-          <p class="text-thick">Start Time : </p>
-          <div class="container-element">
-            <img src="./img/icon_start_time.svg">
-            <input type="time">
-          </div>
-          <p class="text-thick">End Time : </p>
-          <div class="container-element">
-            <img src="./img/icon_end_time.svg">
-            <input type="time">
-          </div>
-          <button type="submit">Sign up</button>
+        <p class="text-thick">End Time : </p>
+        <div class="container-element">
+          <img src="./img/icon_end_time.svg">
+          <input type="time">
         </div>
+        <button type="submit">Sign up</button>
+      </div>
     </div>
-</div>
-<script>
-  function changeCompanySelect() {
-    const selectElement = document.getElementById('companies');
-    const otherInput = document.getElementById('otherInput');
-
-    otherInput.style.display = (selectElement.value === 'others') ? 'block' : 'none';
-
-  }
-</script>
+  </div>
+  <script src="./js/join.js"></script>
 </body>
 </html>
