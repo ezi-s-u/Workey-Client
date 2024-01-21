@@ -6,24 +6,41 @@
 }
 
 :root {
-    --purple-01: #9F57FB;
+    --purple-01: #813CEE;
     --purple-02: #C18FFF;
-    --purple-03: #D5B4FF;
+    --purple-03: #A579EB;
     --purple-04: #E2CCFF;
     --purple-05: #EFE2FB;
-    --yellow-01: #FFEC90;
+    --purple-06: #F6EDFF;
+    --purple-07: #8C50EB;
+    --purple-08: #7224EC;
+    --purple-09: #4404A8;
+    --purple-10: #BFA6E7;
+    --yellow-01: #FFF0AC;
     --yellow-02: #FFF6CC;
     --black: #000000;
     --gray-01: #272727;
     --gray-02: #383838;
-    --gray-03: #767676;
-    --gray-04: #B1B1B1;
-    --gray-05: #D3D3D3;
-    --gray-06: #E5E5EA;
+    --gray-03: #666666;
+    --gray-04: #767676;
+    --gray-05: #B1B1B1;
+    --gray-06: #D3D3D3;
+    --gray-07: #E5E5EA;
+    --gray-08: #868686;
+    --record-color: #D75A56;
     --white: #fff;
     --main-font: 'Pretendard-Regular';
+
     --header-height: 50px;
     --header-img-width: 45px;
+    --nav-height: 60px;
+
+    --regular-font-size: 1.2em;
+    --question-font-size: 1.05em;
+
+    --light-weight: 400;
+    --regular-weight: 600;
+    --bold-weight: 900;
 }
 
 * {
@@ -34,6 +51,7 @@
 
 body {
     padding-top: var(--header-height);
+    padding-bottom: var(--nav-height);
 }
 
 .wrapper {
@@ -64,16 +82,24 @@ header {
     background: var(--purple-01);
 }
 
-header>.header-img {
+header>.header-img,
+header>#header-date {
     margin: auto;
     width: var(--header-img-width);
+}
+header>#header-date {
+    position: relative;
+    width: fit-content;
+    color: white;
+    font-size: 14px;
+    /* background-color: #B1B1B1; */
 }
 
 /* 네비게이션 바 */
 #nav {
     position: relative;
     width: 100vw;
-    height: 60px;
+    height: var(--nav-height);
     position: fixed;
     bottom: 0;
     text-align: center;
@@ -109,7 +135,7 @@ header>.header-img {
     position: relative;
     display: block;
     background-color: white;
-    height: 60px;
+    height: var(--nav-height);
     font-size: 14px;
     text-align: center;
     text-decoration: none;

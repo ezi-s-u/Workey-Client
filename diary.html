@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +9,91 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/diary.css">
 </head>
+
 <body>
     <header>
-        <img src="./img/logo_white.svg" class="header-img" alt="마이페이지">
+        <span id="header-date">January 1st, 2024</span>
         <!-- <img src="./img/logo_white_mypage.svg" class="header-img" alt="마이페이지"> -->
     </header>
     <div class="wrapper">
         <div class="container">
-
+            <div class="diary-box">
+                <div class="logo-img">
+                    <img src="./img/logo_normal.svg" alt="로고">
+                </div>
+                <div class="question-box">
+                    <span class="title" id="first-name">(name)</span>,
+                    <span class="title" id="question">think you've grown up today is there a part?</span>
+                </div>
+                <textarea name="answer" id="answer" cols="300" rows="10" placeholder="Write down the day."></textarea>
+            </div>
+            <div class="self-check-box">
+                <span class="title">Self Check</span>
+                <hr>
+                <div class="self-check-list">
+                    <div class="question">
+                        <label for="question">Q. Any satisfying accomplishments today?</label><br>
+                        <div class="input-box">
+                            <input type="radio" name="question" checked>
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                        </div>
+                        <div class="info-box">
+                            <span>yes!</span>
+                            <span>soso</span>
+                            <span>bad</span>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <label for="question">Q. Any satisfying accomplishments today?</label><br>
+                        <div class="input-box">
+                            <input type="radio" name="question" checked>
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                        </div>
+                        <div class="info-box">
+                            <span>yes!</span>
+                            <span>soso</span>
+                            <span>bad</span>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <label for="question">Q. Any satisfying accomplishments today?</label><br>
+                        <div class="input-box">
+                            <input type="radio" name="question" checked>
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                        </div>
+                        <div class="info-box">
+                            <span>yes!</span>
+                            <span>soso</span>
+                            <span>bad</span>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <label for="question">Q. Any satisfying accomplishments today?</label><br>
+                        <div class="input-box">
+                            <input type="radio" name="question" checked>
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                            <input type="radio" name="question">
+                        </div>
+                        <div class="info-box">
+                            <span>yes!</span>
+                            <span>soso</span>
+                            <span>bad</span>
+                        </div>
+                    </div>
+                    <button>Send</button>   
+                </div>
+            </div>
         </div>
     </div>
     <nav id="nav">
@@ -77,4 +155,5 @@
                 </a></li>
     </nav>
 </body>
+
 </html>

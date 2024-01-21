@@ -4,8 +4,21 @@ body {
 }
 
 /* 전체 설정 */
-.wrapper {
-    background-image: linear-gradient(to bottom, var(--purple-01) 40%, var(--white) 40%);
+body {
+    padding-top: 0;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.background-box {
+    position: absolute;
+    height: 43vh;
+    width: 100vw;
+    top: -7vh;
+    border-radius: 1em;
+    background-image: linear-gradient(to top left, var(--purple-09) 30%, var(--purple-07) 60%);
 }
 
 .container {
@@ -20,7 +33,7 @@ body {
     margin: 10px auto;
     padding: 0;
     text-align: center;
-    margin: 4em 0 4em 0;
+    margin: 6em 0 4em 0;
     /* background-color: aqua; */
 }
 
@@ -55,7 +68,7 @@ body {
     top: -3vh;
     left: 0;
     width: 100%;
-    font-size: 15px;
+    font-size: var(--regular-font-size);
     font-weight: 900;
     /* background-color: antiquewhite; */
     /* text-align: center; */
@@ -122,11 +135,74 @@ body {
 .record-box {
     position: relative;
     float: right;
+    height: auto;
     /* background-color: white; */
-    border: solid 0.1em var(--gray-05);
-    border-radius: 0.9em;
-    padding: 0.5em 0.7em 0.5em 0.7em;
+    /* border: solid 0.1em var(--gray-06); */
+    box-shadow: 1px 2px 3px #00000020;
+    border-radius: 0.8em;
+    padding: 0.4em 0.5em 0.4em 0.5em;
     margin-bottom: 10vh;
+    /* background-color: #c44; */
+    display: table-cell;
+    vertical-align: middle;
+}
+.record-box > #current-state {
+    position: relative;
+    top: -1px;
+
+}
+#switch {
+    position: absolute;
+    /* hidden */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.switch_label {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 24px;
+    height: 13px;
+    top: 1.7px;
+    background: #fff;
+    border: 2px solid var(--record-color);
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.switch_label:hover {
+    background: #efefef;
+}
+
+.onf_btn {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 20px;
+    background: var(--record-color);
+    transition: 0.2s;
+}
+
+/* checking style */
+#switch:checked+.switch_label {
+    background: var(--record-color);
+    border: 2px solid var(--record-color);
+}
+
+#switch:checked+.switch_label:hover {
+    background: var(--record-color);
+}
+
+/* move */
+#switch:checked+.switch_label .onf_btn {
+    left: 13px;
+    background: #fff;
+    box-shadow: 1px 2px 3px #00000020;
 }
 
 /* 현재 일한 시간 보기 */
@@ -177,6 +253,7 @@ body {
     from {
         width: 0%
     }
+
     to {
         width: 100%
     }
