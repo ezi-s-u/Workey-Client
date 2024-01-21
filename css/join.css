@@ -18,7 +18,7 @@
   --gray-02: #383838;
   --gray-03: #767676;
   --gray-04: #B1B1B1;
-  --gray-05: #D3D3D3;
+  --gray-05: #D9D9D9;
   --gray-06: #E5E5EA;
   --white: #fff;
   --red: #C36C64;
@@ -196,3 +196,98 @@ option {
   margin-top: 5px;
   color: var(--red);
 }
+
+/* SELECT 커스텀 */
+.selectBox * {
+  box-sizing: border-box;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.selectBox {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #D9D9D9;
+  background: url('../img/icon_select.svg') calc(100% - 7px) center no-repeat;
+  background-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.selectBox img {
+  width: 20%;
+  height: 60%;
+}
+
+.selectBox:after {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 100%; 
+  position: absolute; 
+  top: 0; 
+  right: 35px;
+  text-align: center;
+}
+
+.selectBox .label {
+  left: 50%;
+  color: var(--gray-03);
+  width: 100%;
+  height: inherit;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  border: 0 none;
+  outline: 0 none;
+  padding-left: 15px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.selectBox .optionList {
+  position: absolute; 
+  top: 41px;
+  left: 0;
+  width: 100%;
+  background: white;
+  color: var(--gray-03);
+  list-style-type: none;
+  padding: 0;
+  border-left: 1px solid var(--gray-05);
+  border-right: 1px solid var(--gray-05);
+  border-bottom: 1px solid var(--gray-05);
+  border-radius: 6px;
+  overflow: hidden;
+  max-height: 0;
+  transition: .3s ease-in;
+}
+
+.selectBox.active .optionList {
+  max-height: 250px;
+}
+
+.selectBox .optionItem {
+  padding: 13px 15px 13px;
+  transition: .1s;
+}
+
+.selectBox .optionItem:hover {
+  background: var(--gray-06);
+}
+
+.selectBox .optionItem:last-child {
+  border-bottom: 0 none;
+}
+
+.selectBox .optionList::-webkit-scrollbar {width: 6px;}
+.selectBox .optionList::-webkit-scrollbar-track {background: transparent; }
+.selectBox .optionList::-webkit-scrollbar-thumb {background: #303030; border-radius: 45px;}
+.selectBox .optionList::-webkit-scrollbar-thumb:hover {background: #303030;}
