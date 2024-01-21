@@ -19,15 +19,32 @@
     <div class="container">
       <div class="personal-inform">
         <p class="text-light">First Name</p>
-        <input type="text" oninput="writeData(this.value)" id="first-name">
+        <div class="div-input">
+          <input type="text" oninput="writeData(this.value, 0)">
+          <img src="./img/icon_check.svg" class="check-icon">
+        </div>
         <p class="text-light">Last Name</p>
-        <input type="text" oninput="writeData(this.value)" id="last-name">
+        <div class="div-input">
+          <input type="text" oninput="writeData(this.value, 1)">
+          <img src="./img/icon_check.svg" class="check-icon">
+        </div>
         <p class="text-light">Email</p>
-        <input type="text" oninput="writeData(this.value)" id="email">
+        <div class="div-input">
+          <input type="text" oninput="checkEmail(this.value)">
+          <img src="./img/icon_check.svg" class="check-icon">
+          <img src="./img/icon_warning.svg" id="warning-icon">
+        </div>
+        <p id="warning-message">Please enter your email address</p>
         <p class="text-light">Password</p>
-        <input type="text" oninput="writeData(this.value)" id="password">
+        <div class="div-input">
+          <input type="password" oninput="writeData(this.value, 3)" id="password">
+          <img src="./img/icon_check.svg" class="check-icon">
+        </div>
         <p class="text-light">Check the password</p>
-        <input type="text" oninput="writeData(this.value)" id="check-password">
+        <div class="div-input">
+          <input type="password" oninput="checkPassword(this.value)" id="check-password">
+          <img src="./img/icon_check.svg" class="check-icon">
+        </div>
         <p class="text-light" id="text-explan">This information is not publicly displayed.</p>
       </div>
       <div class="company-inform">
@@ -57,25 +74,6 @@
       </div>
     </div>
   </div>
-  <script>
-    function changeCompanySelect() {
-      const selectElement = document.getElementById('companies');
-      const otherInput = document.getElementById('otherInput');
-
-      otherInput.style.display = (selectElement.value === 'others') ? 'block' : 'none';
-
-    }
-
-    function writeData(value) {
-      const focusElement = document.activeElement;
-
-      if (value.trim() !== '') {
-        focusElement.style.borderBottom = '1px solid #9F57FB';
-      } else {
-        focusElement.style.borderBottom = '1px solid #ccc';
-      }
-    }
-  </script>
+  <script src="./js/join.js"></script>
 </body>
-
 </html>

@@ -21,6 +21,7 @@
   --gray-05: #D3D3D3;
   --gray-06: #E5E5EA;
   --white: #fff;
+  --red: #C36C64;
   --main-font: 'Pretendard-Regular';
   --header-height: 50px;
   --header-img-width: 45px;
@@ -79,10 +80,26 @@ header {
   margin: 0px 0px 73px 0px;
 }
 
-.personal-inform > input {
+.div-input {
   width: 100%;
-  border-width: 0 0 1px;
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  border: none;
+  border-bottom: 1px solid #868686;
+}
+
+.div-input > input {
+  width: 100%;
+  border: none;
   outline: none;
+  padding-bottom: 2px;
+  margin-right: 5px;
+}
+
+.div-input > img {
+  display: none;
+  padding-bottom: 5px;
 }
 
 .text-light {
@@ -168,4 +185,14 @@ option {
 
 #otherInput {
   display: none;
+}
+
+#warning-icon {
+  display: none;
+}
+
+#warning-message {
+  display: none;
+  margin-top: 5px;
+  color: var(--red);
 }
