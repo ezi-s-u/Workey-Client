@@ -57,23 +57,21 @@ header>.search-box>#search {
     border: none;
 }
 /* 글자 안 보이게 */
-input[type=date]::-webkit-datetime-edit-text {
-    -webkit-appearance: none;
-    display: none;
-}
-input[type=date]::-webkit-datetime-edit-month-field{
-    -webkit-appearance: none;
-    display: none;
-}
-input[type=date]::-webkit-datetime-edit-day-field {
-    -webkit-appearance: none;
-    display: none;
-}
+input[type=date]::-webkit-datetime-edit-text,
+input[type=date]::-webkit-datetime-edit-month-field,
+input[type=date]::-webkit-datetime-edit-day-field,
 input[type=date]::-webkit-datetime-edit-year-field {
     -webkit-appearance: none;
     display: none;
 }
-출처: https://baegofda.tistory.com/106 [오물오물 개발일기:티스토리]
+input[type=date]::-webkit-clear-button,
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+input[type='date']::-webkit-calendar-picker-indicator {
+    background: transparent;
+}
 
 /* 달 변경 */
 .month-change-box {
