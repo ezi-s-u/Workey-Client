@@ -72,10 +72,21 @@ p {
   margin: 43px 0px 73px 0px;
 }
 
-.inform > input {
+.div-input {
   width: 100%;
-  border-width: 0 0 1px;
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  border: none;
+  border-bottom: 1px solid #868686;
+}
+
+.div-input > input {
+  width: 100%;
+  border: none;
   outline: none;
+  padding-bottom: 1px;
+  margin-right: 5px;
 }
 
 .text-light {
