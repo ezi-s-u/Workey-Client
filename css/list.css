@@ -1,0 +1,80 @@
+header {
+    padding: 0 1.7em 0 1.7em;
+    /* text-align: center; */
+}
+
+.search-box {
+    position: relative;
+    width: 80%;
+    height: 65%;
+    margin: auto;
+    /* background-color: aqua; */
+}
+header > .search-box > input {
+    /* position: relative; */
+    width: 85%;
+    height: 100%;
+    margin: auto;
+    padding: 0 40px 0 10px;
+    border-radius: 0.3em;
+    border: none;
+    background-color: var(--purple-11);
+}
+/* 달력 버튼 */
+header > .search-box > #search {
+    background: url("../img/icon_search.svg") no-repeat;
+    position: absolute;
+    right: 10px;
+    width: 10%;
+    height: 80%;
+    top: 3px;
+    right: -28px;
+    /* background-color: brown; */
+}
+.calender-box {
+    position: relative;
+    width: 20%;
+    display: flex;
+    /* background-color: yellowgreen; */
+    right: -20px;
+}
+.calender-box > input[type='button'] {
+    background: url("../img/icon_calender_white.svg") no-repeat;
+    background-size: 30px;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    border: none;
+}
+
+/* 달 변경 */
+.month-change-box {
+    width: 60%;
+    height: 30px;
+    display : flex;
+    justify-content: space-between;
+    /* background-color: aqua; */
+    margin: auto;
+    font-size: var(--question-font-size);
+}
+#pre-btn {
+    background: url("../img/icon_arrow_left.svg") no-repeat;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+    border: none;
+}
+#next-btn {
+    background: url("../img/icon_arrow_right.svg") no-repeat;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+    border: none;
+}
+#currentMonth {
+    font-size: var(--question-font-size);
+    font-weight: var(--bold-weight);
+    top: -10px;
+    margin: auto;
+}
