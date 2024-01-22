@@ -4,15 +4,6 @@ const divInput = [...document.getElementsByClassName('div-input')];
 const warningIcon = document.getElementById('warning-icon')
 const warningMessage = document.getElementById('warning-message')
 
-// other 나라 input 나타내기
-function changeCompanySelect(item) {
-  // const selectElement = document.getElementById('companies');
-  const otherInput = document.getElementById('otherInput');
-
-  otherInput.style.display = (item === 'Others') ? 'block' : 'none';
-
-}
-
 // First Name, Last Name, Password
 function writeData(value, index) {
   if (value.trim() !== '') {
@@ -62,25 +53,44 @@ function checkPassword(value) {
   }
 }
 
-// SELECT 커스텀
+// other 나라 input 나타내기
+function changeCompanySelect(item) {
+  const otherInput = document.getElementById('otherInput');
 
-const label = document.querySelector('.label');
+  otherInput.style.display = (item === 'Others') ? 'block' : 'none';
+
+}
+
+// SELECT 커스텀
+const labels = document.querySelectorAll('.label'); // 0 = company, 1 = payday
+
 const options = document.querySelectorAll('.optionItem');
 // 클릭한 옵션의 텍스트를 라벨 안에 넣음
-const handleSelect = function(item) {
-  label.innerHTML = item.textContent;
-  label.parentNode.classList.remove('active');
-  if(item.textContent) changeCompanySelect(item.textContent);
-}
-// 옵션 클릭시 클릭한 옵션을 넘김
-options.forEach(function(option){
-  option.addEventListener('click', function(){handleSelect(option)})
-})
-// 라벨을 클릭시 옵션 목록이 열림/닫힘
-label.addEventListener('click', function(){
-  if(label.parentNode.classList.contains('active')) {
+const handleSelect = function(item, i) {
+  labels.forEach(function(label){
+    if(i < 8) {
+      labels[0].innerHTML = item.textContent;
+      changeCompanySelect(item.textContent);
+    } else {
+      labels[1].innerHTML = item.textContent;
+    }
     label.parentNode.classList.remove('active');
-  } else {
-    label.parentNode.classList.add('active');
-  }
-});
+  })
+}
+
+// 옵션 클릭시 클릭한 옵션을 넘김
+for (let i = 0; i < options.length; i++) {
+  options[i].addEventListener('click', function() {
+    handleSelect(options[i], i);
+  });
+}
+
+labels.forEach(function(label){
+  label.addEventListener('click', function(){
+    if(label.parentNode.classList.contains('active')) {
+      label.parentNode.classList.remove('active');
+    } else {
+      label.parentNode.classList.add('active');
+    }
+  });
+})

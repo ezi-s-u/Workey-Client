@@ -269,10 +269,11 @@ option {
   overflow: hidden;
   max-height: 0;
   transition: .3s ease-in;
+  z-index: 10;
 }
 
 .selectBox.active .optionList {
-  max-height: 250px;
+  max-height: 200px;
   overflow-y: auto;
   border: 1px solid var(--gray-05);
 }
