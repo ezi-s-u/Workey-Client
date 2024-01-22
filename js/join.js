@@ -5,11 +5,11 @@ const warningIcon = document.getElementById('warning-icon')
 const warningMessage = document.getElementById('warning-message')
 
 // other 나라 input 나타내기
-function changeCompanySelect() {
-  const selectElement = document.getElementById('companies');
+function changeCompanySelect(item) {
+  // const selectElement = document.getElementById('companies');
   const otherInput = document.getElementById('otherInput');
 
-  otherInput.style.display = (selectElement.value === 'others') ? 'block' : 'none';
+  otherInput.style.display = (item === 'Others') ? 'block' : 'none';
 
 }
 
@@ -50,15 +50,6 @@ function checkEmail(value) {
   }
 }
 
-// function regexEmail(str){                                                 
-//   var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-//   if(!reg_email.test(str)) {                            
-//     return false;         
-//   }else {                       
-//     return true;         
-//   }                            
-// }
-
 // Check Password
 function checkPassword(value) {
   const password = document.getElementById('password');
@@ -79,6 +70,7 @@ const options = document.querySelectorAll('.optionItem');
 const handleSelect = function(item) {
   label.innerHTML = item.textContent;
   label.parentNode.classList.remove('active');
+  if(item.textContent) changeCompanySelect(item.textContent);
 }
 // 옵션 클릭시 클릭한 옵션을 넘김
 options.forEach(function(option){
