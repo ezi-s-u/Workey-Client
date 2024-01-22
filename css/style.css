@@ -38,8 +38,10 @@
 
     --regular-font-size: 1.2em;
     --question-font-size: 1.05em;
+    --medium-font-size: 0.94em;
+    --small-font-size: 0.75em;
 
-    --light-weight: 400;
+    --light-weight: 300;
     --regular-weight: 600;
     --bold-weight: 900;
 }

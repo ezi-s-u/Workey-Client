@@ -3,6 +3,10 @@ header {
     /* text-align: center; */
 }
 
+.container {
+    margin: 2em;
+}
+
 .search-box {
     position: relative;
     width: 80%;
@@ -10,7 +14,8 @@ header {
     margin: auto;
     /* background-color: aqua; */
 }
-header > .search-box > input {
+
+header>.search-box>input {
     /* position: relative; */
     width: 85%;
     height: 100%;
@@ -20,8 +25,9 @@ header > .search-box > input {
     border: none;
     background-color: var(--purple-11);
 }
+
 /* 달력 버튼 */
-header > .search-box > #search {
+header>.search-box>#search {
     background: url("../img/icon_search.svg") no-repeat;
     position: absolute;
     right: 10px;
@@ -31,6 +37,7 @@ header > .search-box > #search {
     right: -28px;
     /* background-color: brown; */
 }
+
 .calender-box {
     position: relative;
     width: 20%;
@@ -38,7 +45,8 @@ header > .search-box > #search {
     /* background-color: yellowgreen; */
     right: -20px;
 }
-.calender-box > input[type='button'] {
+
+.calender-box>input[type='button'] {
     background: url("../img/icon_calender_white.svg") no-repeat;
     background-size: 30px;
     padding: 0;
@@ -52,12 +60,13 @@ header > .search-box > #search {
 .month-change-box {
     width: 60%;
     height: 30px;
-    display : flex;
+    display: flex;
     justify-content: space-between;
     /* background-color: aqua; */
-    margin: auto;
+    margin: 1em auto;
     font-size: var(--question-font-size);
 }
+
 #pre-btn {
     background: url("../img/icon_arrow_left.svg") no-repeat;
     background-size: 30px;
@@ -65,6 +74,7 @@ header > .search-box > #search {
     height: 30px;
     border: none;
 }
+
 #next-btn {
     background: url("../img/icon_arrow_right.svg") no-repeat;
     background-size: 30px;
@@ -72,9 +82,109 @@ header > .search-box > #search {
     height: 30px;
     border: none;
 }
+
 #currentMonth {
     font-size: var(--question-font-size);
     font-weight: var(--bold-weight);
     top: -10px;
     margin: auto;
+}
+
+/* 작성한 글 목록 */
+.diary-list-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 2em 0;
+    /* background-color: aqua; */
+}
+
+.diary-box {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--purple-06);
+    padding: 1em 1.6em;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+}
+
+.diary-box > img {
+    position: absolute;
+    left: 6px;
+    top: 6px;
+}
+
+/* 제목, 회사, 날짜 텍스트 */
+.text-box {
+    position: relative;
+    width: 82%;
+    /* left: 1%; */
+    /* background-color: yellowgreen; */
+}
+
+.title {
+    display: inline-block;
+    width: 95%;
+    margin-bottom: 5px;
+    font-size: var(--medium-font-size);
+    font-weight: var(--regular-weight);
+    /* background-color: azure; */
+}
+
+hr {
+    margin: 0.5em 0;
+    width: 96%;
+}
+
+.bottom-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date,
+.company {
+    font-size: var(--small-font-size);
+    font-weight: var(--light-weight);
+    /* 텍스트 중앙 정렬 */
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+}
+
+.company {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    border-radius: 0.3em;
+    background-color: var(--purple-03);
+    color: white;
+}
+
+.date {
+    position: relative;
+    padding-right: 10px;
+    /* background-color: blue; */
+}
+
+/* 표정 이미지 */
+.img-box {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    top: 0;
+    right: 20px;
+    /* background-color: violet; */
+}
+
+.img-box>img {
+    position: relative;
+    /* display: block; */
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    padding: 0.5em;
+    border-radius: 100em;
+    background-color: var(--purple-01);
+
 }
