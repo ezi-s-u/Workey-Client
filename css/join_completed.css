@@ -18,9 +18,10 @@
   --gray-02: #383838;
   --gray-03: #767676;
   --gray-04: #B1B1B1;
-  --gray-05: #D3D3D3;
+  --gray-05: #D9D9D9;
   --gray-06: #E5E5EA;
   --white: #fff;
+  --red: #C36C64;
   --main-font: 'Pretendard-Regular';
   --header-height: 50px;
   --header-img-width: 45px;
@@ -32,85 +33,74 @@
   font-family: var(--main-font);
 }
 
-p {
-  font-size: 12px;
+html, body {
+  height: 100%;
 }
 
-.wrapper {
+/*.wrapper {
   position: relative;
-  width: 100vw;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   overflow-x: hidden;
 }
 
 .container {
   position: relative;
   width: 100vw;
+  margin: 0em 3em 3em 3em;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--purple-05);
+}*/
+
+.wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: fit-content;
   margin: 3em;
   display: flex;
   flex-direction: column;
-}
-
-.go-back > button {
-  background-color:transparent;
-  border: none;
-  font-size: 13px;
-  font-weight: bold;
-  color: var(--purple-03);
-  margin-bottom: 30px;
-  text-align: left;
-}
-
-.top {
-  display: flex;
-  flex-direction: row;
   justify-content: center;
-  margin-bottom: 40px;
+  align-items: center;
+  background-color: var(--purple-05);
+  border-radius: 20px;
+  padding: 20px;
 }
 
-.inform {
-  margin: 43px 0px 73px 0px;
+img {
+  width: 30%;
+  height: 40%;
+  margin: 16px 0 36px 0;
 }
 
-.div-input {
-  width: 100%;
-  height: 25px;
-  display: flex;
-  flex-direction: row;
-  border: none;
-  border-bottom: 1px solid #868686;
-}
-
-.div-input > input {
-  width: 100%;
-  border: none;
-  outline: none;
-  padding-bottom: 1px;
-  margin-right: 5px;
+h4 {
+  text-align: center;
 }
 
 .text-light {
+  font-size: 12px;
   margin: 20px 0px 2px 0px;
   color: #868686;
 }
 
-#loginButton {
+button {
   width: 100%;
   height: 40px;
   border: none;
   border-radius: 5px;
   background-color: var(--purple-01);
   color: white;
-}
-
-a {
-  font-size: 12px;
-  color: var(--purple-01);
-  font-weight: bold;
-}
-
-.bottom {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px  ;
+  margin-top: 50px;
 }
