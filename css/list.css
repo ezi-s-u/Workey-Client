@@ -47,3 +47,34 @@ header > .search-box > #search {
     margin: auto;
     border: none;
 }
+
+/* 달 변경 */
+.month-change-box {
+    width: 60%;
+    height: 30px;
+    display : flex;
+    justify-content: space-between;
+    /* background-color: aqua; */
+    margin: auto;
+    font-size: var(--question-font-size);
+}
+#pre-btn {
+    background: url("../img/icon_arrow_left.svg") no-repeat;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+    border: none;
+}
+#next-btn {
+    background: url("../img/icon_arrow_right.svg") no-repeat;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+    border: none;
+}
+#currentMonth {
+    font-size: var(--question-font-size);
+    font-weight: var(--bold-weight);
+    top: -10px;
+    margin: auto;
+}
