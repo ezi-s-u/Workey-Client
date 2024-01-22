@@ -102,10 +102,22 @@ input[type='radio'] {
     border-radius: 5em;
     background-color: var(--purple-06);
 }
+/* 선택된 라디오 버튼에 대한 체크표시 */
+input[type="radio"]:checked::before {
+    content: url('../img/icon_self_check.svg');
+    display: inline-block;
+    width: 30px; /* 체크 이미지의 너비 */
+    height: 30px; /* 체크 이미지의 높이 */
+    position: relative;
+    left: 5px;
+    top: -5px; /* 이미지를 라디오 버튼 위로 올리는 값 */
+    margin-right: 5px; /* 이미지와 텍스트 간의 간격 조절 */
+}
 
-input[type="radio"]:checked {
-    box-shadow: 0 0 0 1px var(--purple-10);
-    background-color: var(--purple-09);
+/* 선택되지 않은 라디오 버튼에 대한 스타일 (이미지를 숨김) */
+input[type="radio"]::before {
+    content: '';
+    display: none;
 }
 
 .input-box {
