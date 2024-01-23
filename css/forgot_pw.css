@@ -47,7 +47,6 @@
   --bold-weight: 900;
 }
 
-
 .top {
   padding-bottom: 50px;
 }
@@ -82,4 +81,9 @@
 .div-input > img {
   display: none;
   padding-bottom: 5px;
+}
+
+.logo {
+  width: 85.45px;
+  height: 53px;
 }
