@@ -16,42 +16,52 @@
         <!-- <img src="./img/logo_white_mypage.svg" class="header-img" alt="마이페이지"> -->
     </header>
     <div class="wrapper">
+        <div class="background-box"></div>
         <div class="container">
-            <div class="top-purple">
-
-            </div>
-            <div class="middle-white">
-
-            </div>
             <div class="payday-box">
-                <img src=".//img/main_illustration.svg" alt="메인 일러스트">
+                <div class="payday-img">
+                    <img src="./img/main-d-day-illustration.svg" alt="메인 일러스트">
+                </div>
                 <div class="d-day-box">
-                    <span class="title-payday">Days until payday</span><br>
-                    <span class="d-day">D-1</span><br>
-                    <span class="lefted-payday">I’ve worked hard up to 
+                    <span id="payday-title-txt">Days until payday</span><br>
+                    <span id="d-day-txt">D-1</span><br>
+                    <span id="lefted-payday-txt">I’ve worked hard up to
                         <span id="percent">99</span>%
                         so far!</span>
                 </div>
             </div>
             <div class="running-time-box">
                 <div class="sentence">
-                    <div class="sentenct-img">
+                    <div class="sentence-img">
                         <img src="./img/icon_saying.svg" alt="말풍선">
                     </div>
                     <div class="sentence-comment">
                         <span id="comment">Hustling until it's time to punch out!</span>
                     </div>
                 </div>
-                <div class="real-time-box">
-                    <img src="./img/icon_record.svg" alt="레코딩 아이콘">
-                    <span id="real-time">Real-time</span>
+                <!--  -->
+                <div class="record-box">
+                    <input type="checkbox" id="switch">
+                    <label for="switch" class="switch_label">
+                        <span class="onf_btn"></span>
+                    </label>
+                    <span id="current-state">Real-time</span>
                 </div>
+                <!--  -->
+                <!-- <div class="record-box">
+                    <img src="./img/icon_record.svg" alt="레코딩 아이콘">
+                    <span id="current-state">Real-time</span>
+                </div> -->
+                <!--  -->
                 <div class="working-time-box">
                     <div class="illustration-state">
                         <img src="./img/running_illustration.svg" alt="일하는 중">
                     </div>
                     <div class="running-time-bar">
                         <!-- 일한 시간에 따른 상태바 설정 필요 -->
+                        <div class="progress-bar">
+                            <div class="working-time-bar"></div>
+                        </div>
                         <div class="working-time">
                             <span id="start-time">9:00 AM</span>
                             <span id="end-time">6:00 PM</span>
@@ -59,22 +69,67 @@
                     </div>
                 </div>
             </div>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <hr>
-            <br><br>
         </div>
     </div>
+    <nav id="nav">
+        <ul id="nav-ul">
+            <li class="nav-li"><a class="nav-a" href="./index.html">
+                    <div class="nav-div color-nav" id="color-home">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_color_home.svg" alt="선택된 홈버튼">
+                        </div>
+                        <div class="nav-p color-p">
+                            Home
+                        </div>
+                    </div>
+                </a></li>
+            <li class="nav-li"><a class="nav-a" href="./diary.html">
+                    <div class="nav-div">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_diary.svg" alt="다이어리버튼">
+                        </div>
+                        <div class="nav-p">
+                            Diary
+                        </div>
+                    </div>
+                </a></li>
+            <li class="nav-li"><a class="nav-a" href="./list.html">
+                    <div class="nav-div">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_list.svg" alt="리스트버튼">
+                        </div>
+                        <div class="nav-p">
+                            List
+                        </div>
+                    </div>
+                </a></li>
+            <li class="nav-li"><a class="nav-a" href="./ranking.html">
+                    <div class="nav-div">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_ranking.svg" alt="랭킹버튼">
+                        </div>
+                        <div class="nav-p">
+                            Ranking
+                        </div>
+                    </div>
+                </a></li>
+            <li class="nav-li"><a class="nav-a" href="./mypage.html">
+                    <div class="nav-div">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_mypage.svg" alt="마이페이지버튼">
+                        </div>
+                        <div class="nav-p">
+                            Mypage
+                        </div>
+                    </div>
+                </a></li>
+    </nav>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </html>

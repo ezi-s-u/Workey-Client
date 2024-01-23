@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workey</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/list.css">
+    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="search-box">
+            <input type="button" id="search">
+            <input type="text">
+        </div>
+        <div class="calender-box">
+            <input type="date">
+        </div>
+    </header>
+    <div class="wrapper">
+        <div class="container">
+            <div class="month-change-box">
+                <input type="button" onclick="previousMonth()" id="pre-btn" />
+                <span id="currentMonth">January</span>
+                <input type="button" onclick="nextMonth()" id="next-btn" />
+            </div>
+            <div class="diary-list-box">
+                <div class="diary-box">
+                    <img src="./img/icon_filled_star_list.svg" id="important" alt="즐겨찾기">
+                    <div class="text-box">
+                        <span class="title">How was your boss today? How was your boss today?</span>
+                        <hr>
+                        <div class="bottom-box">
+                            <span class="company">Naver</span>
+                            <span class="date">January 1st, 2024</span>
+                        </div>
+                    </div>
+                    <div class="img-box">
+                        <img src="./img/state_good.svg" alt="">
+                        <!-- 점수에 따른 이미지 삽입 필요 -->
+                    </div>
+                </div>
+                <div class="diary-box">
+                    <div class="text-box">
+                        <span class="title">How was your boss today?</span>
+                        <hr>
+                        <div class="bottom-box">
+                            <span class="company">Naver</span>
+                            <span class="date">January 1st, 2024</span>
+                        </div>
+                    </div>
+                    <div class="img-box">
+                        <img src="./img/state_good.svg" alt="">
+                        <!-- 점수에 따른 이미지 삽입 필요 -->
+                    </div>
+                </div>
+                <div class="diary-box">
+                    <img src="./img/icon_filled_star_list.svg" id="important" alt="즐겨찾기">
+                    <div class="text-box">
+                        <span class="title">How was your boss today? How was your boss today?</span>
+                        <hr>
+                        <div class="bottom-box">
+                            <span class="company">Naver</span>
+                            <span class="date">January 1st, 2024</span>
+                        </div>
+                    </div>
+                    <div class="img-box">
+                        <img src="./img/state_good.svg" alt="">
+                        <!-- 점수에 따른 이미지 삽입 필요 -->
+                    </div>
+                </div>
+                <div class="diary-box">
+                    <div class="text-box">
+                        <span class="title">How was your boss today?</span>
+                        <hr>
+                        <div class="bottom-box">
+                            <span class="company">Naver</span>
+                            <span class="date">January 1st, 2024</span>
+                        </div>
+                    </div>
+                    <div class="img-box">
+                        <img src="./img/state_good.svg" alt="">
+                        <!-- 점수에 따른 이미지 삽입 필요 -->
+                    </div>
+                </div>
+                <div class="diary-box">
+                    <img src="./img/icon_filled_star_list.svg" id="important" alt="즐겨찾기">
+                    <div class="text-box">
+                        <span class="title">How was your boss today? How was your boss today?</span>
+                        <hr>
+                        <div class="bottom-box">
+                            <span class="company">Naver</span>
+                            <span class="date">January 1st, 2024</span>
+                        </div>
+                    </div>
+                    <div class="img-box">
+                        <img src="./img/state_good.svg" alt="">
+                        <!-- 점수에 따른 이미지 삽입 필요 -->
+                    </div>
+                </div>
+                <div class="diary-box">
+                    <div class="text-box">
+                        <span class="title">How was your boss today?</span>
+                        <hr>
+                        <div class="bottom-box">
+                            <span class="company">Naver</span>
+                            <span class="date">January 1st, 2024</span>
+                        </div>
+                    </div>
+                    <div class="img-box">
+                        <img src="./img/state_good.svg" alt="">
+                        <!-- 점수에 따른 이미지 삽입 필요 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav id="nav">
+        <ul id="nav-ul">
+            <li class="nav-li"><a class="nav-a" href="./index.html">
+                    <div class="nav-div" id="color-home">
+
+                        <div class="nav-img" id="home-img">
+                            <img src="./img/nav_home.svg" alt="홈버튼">
+                        </div>
+                        <div class="nav-p">
+                            Home
+                        </div>
+                    </div>
+                </a></li>
+            <li class="nav-li"><a class="nav-a" href="./diary.html">
+                    <div class="nav-div">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_diary.svg" alt="다이어리">
+                        </div>
+                        <div class="nav-p">
+                            Diary
+                        </div>
+                    </div>
+                </a></li>
+            <li class="nav-li"><a class="nav-a" href="./list.html">
+                    <div class="nav-div">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_color_list.svg" alt="선택된 리스트버튼">
+                        </div>
+                        <div class="nav-p color-p">
+                            List
+                        </div>
+                    </div>
+                </a></li>
+            <li class="nav-li"><a class="nav-a" href="./ranking.html">
+                    <div class="nav-div">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_ranking.svg" alt="랭킹버튼">
+                        </div>
+                        <div class="nav-p">
+                            Ranking
+                        </div>
+                    </div>
+                </a></li>
+            <li class="nav-li"><a class="nav-a" href="./mypage.html">
+                    <div class="nav-div">
+
+                        <div class="nav-img">
+                            <img src="./img/nav_mypage.svg" alt="마이페이지버튼">
+                        </div>
+                        <div class="nav-p">
+                            Mypage
+                        </div>
+                    </div>
+                </a></li>
+    </nav>
+    <script src="./js/list.js"></script>
+</body>
+
+</html>
