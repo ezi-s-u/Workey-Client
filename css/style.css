@@ -173,5 +173,5 @@ header>#header-date {
 }
 
 input:focus {
-    outline-color: var(--main-color);
+    outline: none;
 }
