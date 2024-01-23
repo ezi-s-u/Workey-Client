@@ -73,8 +73,9 @@
 }
 
 .picture {
-  width: 40%;
-  height: 15%;
+  width: 102px;
+  height: 64px;
+  margin-bottom: 15px;
 }
 
 .text {
