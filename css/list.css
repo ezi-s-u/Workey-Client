@@ -46,14 +46,31 @@ header>.search-box>#search {
     right: -20px;
 }
 
-.calender-box>input[type='button'] {
+.calender-box>input[type='date'] {
     background: url("../img/icon_calender_white.svg") no-repeat;
     background-size: 30px;
     padding: 0;
     width: 30px;
     height: 30px;
+    left: 100px;
     margin: auto;
     border: none;
+}
+/* 글자 안 보이게 */
+input[type=date]::-webkit-datetime-edit-text,
+input[type=date]::-webkit-datetime-edit-month-field,
+input[type=date]::-webkit-datetime-edit-day-field,
+input[type=date]::-webkit-datetime-edit-year-field {
+    -webkit-appearance: none;
+    display: none;
+}
+input[type=date]::-webkit-clear-button,
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+input[type='date']::-webkit-calendar-picker-indicator {
+    background: transparent;
 }
 
 /* 달 변경 */

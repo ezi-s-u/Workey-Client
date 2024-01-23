@@ -1,0 +1,151 @@
+header>span {
+    margin: auto;
+    color: white;
+}
+
+.container {
+    margin: 0;
+}
+
+button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+/* 랭킹 헤더 */
+.ranking-header-box {
+    position: relative;
+    width: 100%;
+    height: var(--nav-height);
+    padding: 0 1em;
+    /* background-color: yellow; */
+}
+
+.ranking-header-box>img,
+.ranking-header-box>span {
+    position: absolute;
+    width: 5%;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.ranking-header-box>span {
+    display: inline-block;
+    padding-left: 30px;
+    font-size: var(--rank-font-size);
+    font-weight: var(--bold-weight);
+}
+
+/* ranking */
+.ranking-list-box {
+    position: relative;
+    width: 100%;
+    font-weight: bold;
+    /* height: 100px; */
+}
+
+.rank-box {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rank-box>.company-info-box {
+    position: relative;
+    display: flex;
+    width: 56vw;
+    height: 90px;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: aqua; */
+    padding: 0 12vw;
+}
+
+.rank-box>.top-box {
+    position: relative;
+    display: flex;
+    width: 20vw;
+    height: 90px;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: yellowgreen; */
+    /* padding: 0 3em; */
+}
+
+.rank,
+.company-img,
+.company-name,
+.top3 {
+    width: 35px;
+    /* background-color: bisque; */
+}
+
+.rank {
+    text-align: left;
+}
+.company-img {
+    position: relative;
+    width: 60px;
+    left: 5px;
+}
+
+.company-name {
+    position: relative;
+    width: 200px;
+    text-align: center;
+    right: -5vw;
+}
+
+.top3 {
+    position: relative;
+    left: -10px;
+}
+
+/* 드롭다운 */
+button {
+    display: flex;
+    align-items: center;
+    /* background: white; */
+    /* border: 1px solid grey; */
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+}
+.dropdown {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 17%;
+    -webkit-border-radius: 0px 0px 2em 2em;
+    -moz-border-radius: 0px 0px 2em 2em;
+    border-radius: 0px 0px 2em 2em;
+    background-color: var(--purple-06);
+    /* background-color: aqua; */
+}
+.rank-box:hover {
+    background: var(--purple-06);
+}
+
+/* 드롭다운 안 요소 */
+.score-box {
+    /* position: relative; */
+    position: absolute;
+    width: 100px;
+    text-align: center;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    /* background-color: yellow; */
+}
+.score-box > img {
+    width: 50px;
+    height: 50px;
+    padding: 0.5em;
+    border-radius: 100em;
+    background-color: var(--purple-01);
+    margin-bottom: 0.5em;
+}
+.score-box > .number {
+    font-size: var(--rank-font-size);
+}
