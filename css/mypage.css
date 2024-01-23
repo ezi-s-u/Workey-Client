@@ -54,23 +54,27 @@ button {
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 0.5em 4em 1.7em 4em;
+    padding: 0.5em 4em 0 4em;
     /* background-color: antiquewhite; */
     border: 1px solid var(--gray-07);
     border-width: 0 0 1px 0;
     font-size: var(--medium-font-size);
 }
 
-.records-box,
-.company-box {
+.user-info-box > .records-box,
+.user-info-box > .company-box {
     position: relative;
     /* background-color: aqua; */
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 30px;
+    font-size: 13px;
 }
 
 .profile-img {
     width: 25px;
+    height: 25px;
+    margin-top: 5px;
 }
 
 .records-box>img,
@@ -105,10 +109,12 @@ button {
     position: relative;
     width: 100%;
     height: 60px;
-    background-color: aqua;
+    /* background-color: aqua; */
+    background-color:white;
     display: flex;
     align-items: center;
     justify-content: center;
+    outline: none;
 }
 
 .info-editing-box>.profile-img,
@@ -125,7 +131,8 @@ button {
 /* 드롭다운 */
 .dropdown {
     display: none;
-    position: relative;
+    position: absolute;
+    top: 342.2px;
     width: 100%;
     /* top: 1px; */
     -webkit-border-radius: 0px 0px 2em 2em;
@@ -138,16 +145,172 @@ button {
 /* 드롭다운 안 요소 */
 .dropdown-box {
     position: relative;
+    padding: 25px 40px 25px 40px;
 }
+
 .working-time-box {
     position: relative;
     display: flex;
-    height: 100%;
+    flex-direction: row;
     justify-content: space-between;
-    padding: 0 5em;
-    background-color: cadetblue;
+    height: 100%;
+    margin-bottom: 50px;
+}
+
+.dropdown-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #383838;
+    margin-bottom: 15px;
+}
+
+.start-box,
+.end-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.change-time-box > input {
+    height: 40px;
+    border: 0;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
 }
 
 .company-box {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.payday-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#backgroundFlower {
+    margin-top: 10px;
+}
+
+.logoutBtn {
+    width: 100%;
+    background: transparent;
+    padding: 20px 0 20px 0;
+    margin: 10px 0 70px;
+}
+
+.other-input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+    box-sizing: border-box;
+    outline: none;
+    margin: 10px 0 20px 0;
+}
+
+#otherInput {
+    display: none;
+}
+
+/* SELECT 커스텀 */
+.selectBox-box {
+    height: 41px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.selectBox * {
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.selectBox {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    /* border: 1px solid #D9D9D9; */
+    background: url('../img/icon_select.svg') calc(100% - 7px) center no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.selectBox img {
+    width: 20%;
+    height: 60%;
+}
+
+.selectBox:after {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 35px;
+    text-align: center;
+    z-index: 10;
+}
+
+.selectBox .label {
+    left: 50%;
+    color: var(--gray-03);
+    width: 100%;
+    height: inherit;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    border: 0 none;
+    outline: 0 none;
+    padding-right: 46px;
+    background: transparent;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.selectBox .optionList {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background: white;
+    color: var(--gray-03);
+    list-style-type: none;
+    padding: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    max-height: 0;
+    transition: .3s ease-in;
+    z-index: 10;
+}
+
+.selectBox.active .optionList {
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 20;
+}
+
+.selectBox .optionItem {
+    padding: 13px 15px 13px;
+    transition: .1s;
+}
+
+.selectBox .optionItem:hover {
+    background: var(--gray-06);
+}
+
+.selectBox .optionItem:last-child {
+    border-bottom: 0 none;
 }

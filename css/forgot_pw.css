@@ -70,13 +70,6 @@
   border-bottom: 1px solid #868686;
 }
 
-.div-input > input {
-  width: 100%;
-  border: none;
-  outline: none;
-  padding-bottom: 1px;
-  margin-right: 5px;
-}
 
 .div-input > img {
   display: none;

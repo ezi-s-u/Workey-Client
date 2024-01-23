@@ -13,7 +13,7 @@
 <body>
     <header>
         <span class="title">My Page</span>
-        <img src="./img/logo_white.svg" class="header-img" alt="마이페이지">
+        <img src="./img/logo_white.png" class="header-img" alt="마이페이지">
         <!-- <img src="./img/logo_white_mypage.svg" class="header-img" alt="마이페이지"> -->
     </header>
     <div class="wrapper">
@@ -45,6 +45,8 @@
                 <span id="editing-text">Edit member information</span>
                 <img src="./img/icon_arrow_down_thick.svg" class="profile-img" alt="">
             </button>
+            <img src="./img/background_flowers.svg" id="backgroundFlower">
+            <button onclick="location.href='./login.html'" class="logoutBtn"><img src="./img/icon_logout.svg"></button>
             <div class="dropdown">
                 <div class="dropdown-box">
 
@@ -52,26 +54,81 @@
                         <div class="start-box">
                             <span class="dropdown-title">Start working</span>
                             <div class="change-time-box">
-                                <input type="time">
+                                <input type="time" class="input-time">
                             </div>
                         </div>
                         <div class="end-box">
                             <span class="dropdown-title">End working</span>
                             <div class="change-time-box">
-                                <input type="time">
-
+                                <input type="time" class="input-time">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="company-box">
-                    <!-- 여기 -->
-                </div>
-                <div class="payday-box">
-
-                </div>
-                <div class="logout-box">
-
+                    <div class="company-box">
+                        <span class="dropdown-title">Company : </span>
+                        <div class="selectBox-box">
+                            <div class="selectBox">
+                                <img src="./img/icon_company.svg">
+                                <button class="label">Google</button>
+                                <ul class="optionList">
+                                    <li class="optionItem">Google</li>
+                                    <li class="optionItem">Tesla</li>
+                                    <li class="optionItem">Apple</li>
+                                    <li class="optionItem">Amazon</li>
+                                    <li class="optionItem">Meta</li>
+                                    <li class="optionItem">Microsoft</li>
+                                    <li class="optionItem">LG</li>
+                                    <li class="optionItem">Others</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <input type="text" id="otherInput" class="other-input" placeholder="Please write here your company">
+                    </div>
+                    <div class="payday-box" id="payday-box">
+                        <span class="dropdown-title">Until Payday : </span>
+                        <div class="selectBox-box">
+                            <div class="selectBox">
+                                <img src="./img/icon_calender.svg">
+                                <button class="label">1</button>
+                                <ul class="optionList">
+                                    <li class="optionItem">1</li>
+                                    <li class="optionItem">2</li>
+                                    <li class="optionItem">3</li>
+                                    <li class="optionItem">4</li>
+                                    <li class="optionItem">5</li>
+                                    <li class="optionItem">6</li>
+                                    <li class="optionItem">7</li>
+                                    <li class="optionItem">8</li>
+                                    <li class="optionItem">9</li>
+                                    <li class="optionItem">10</li>
+                                    <li class="optionItem">11</li>
+                                    <li class="optionItem">12</li>
+                                    <li class="optionItem">13</li>
+                                    <li class="optionItem">14</li>
+                                    <li class="optionItem">15</li>
+                                    <li class="optionItem">16</li>
+                                    <li class="optionItem">17</li>
+                                    <li class="optionItem">18</li>
+                                    <li class="optionItem">19</li>
+                                    <li class="optionItem">20</li>
+                                    <li class="optionItem">21</li>
+                                    <li class="optionItem">22</li>
+                                    <li class="optionItem">23</li>
+                                    <li class="optionItem">24</li>
+                                    <li class="optionItem">25</li>
+                                    <li class="optionItem">26</li>
+                                    <li class="optionItem">27</li>
+                                    <li class="optionItem">28</li>
+                                    <li class="optionItem">29</li>
+                                    <li class="optionItem">30</li>
+                                    <li class="optionItem">31</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="logout-box">
+                        
+                    </div>
                 </div>
             </div>
         </div>

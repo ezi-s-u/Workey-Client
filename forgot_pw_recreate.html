@@ -21,11 +21,12 @@
       <div class="inform" id="recreate">
         <p class="text-light">Password</p>
         <div class="div-input">
-          <input type="password" oninput="writeData(this.value)" id="password">
+          <input type="password" class="input-text" id="password" oninput="writePw(this.value)">
+          <input type="button" class="visible-btn" onclick="passwordVisible()">
         </div>
         <p class="text-light">Check the password</p>
         <div class="div-input">
-          <input type="password" oninput="checkPassword(this.value)" id="check-password">
+          <input type="password" class="input-text" oninput="checkPassword(this.value)" id="check-password">
           <img src="./img/icon_check.svg" id="check-icon">
         </div>
       </div>
