@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workey</title>
+  <link href="./css/login.css" rel="stylesheet">
+  <link href="./css/forgot_pw.css" rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="go-back">
+        <button type="button">Go back</button>
+      </div>
+      <div class="top">
+        <img src="./img/logo_normal.svg">
+      </div>
+      <h4>Create New Password</h4>
+      <div class="inform" id="recreate">
+        <p class="text-light">Password</p>
+        <div class="div-input">
+          <input type="password" oninput="writeData(this.value)" id="password">
+        </div>
+        <p class="text-light">Check the password</p>
+        <div class="div-input">
+          <input type="password" oninput="checkPassword(this.value)" id="check-password">
+          <img src="./img/icon_check.svg" id="check-icon">
+        </div>
+      </div>
+      <button type="submit" id="loginButton">Okay</button>
+    </div>
+  </div>
+  <script src="./js/forgot_pw.js"></script>
+</body>
+</html>
