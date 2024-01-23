@@ -6,25 +6,47 @@
 }
 
 :root {
-  --purple-01: #9F57FB;
+  --purple-01: #813CEE;
   --purple-02: #C18FFF;
-  --purple-03: #D5B4FF;
+  --purple-03: #A579EB;
   --purple-04: #E2CCFF;
   --purple-05: #EFE2FB;
-  --yellow-01: #FFEC90;
+  --purple-06: #F6EDFF;
+  --purple-07: #8C50EB;
+  --purple-08: #7224EC;
+  --purple-09: #4404A8;
+  --purple-10: #BFA6E7;
+  --purple-11: #F6EDFF;
+  --yellow-01: #FFF0AC;
   --yellow-02: #FFF6CC;
   --black: #000000;
   --gray-01: #272727;
   --gray-02: #383838;
-  --gray-03: #767676;
-  --gray-04: #B1B1B1;
-  --gray-05: #D3D3D3;
-  --gray-06: #E5E5EA;
+  --gray-03: #666666;
+  --gray-04: #767676;
+  --gray-05: #B1B1B1;
+  --gray-06: #D3D3D3;
+  --gray-07: #E5E5EA;
+  --gray-08: #868686;
+  --record-color: #D75A56;
   --white: #fff;
   --main-font: 'Pretendard-Regular';
+
   --header-height: 50px;
   --header-img-width: 45px;
+  --nav-height: 60px;
+
+  --regular-font-size: 1.2em;
+  --question-font-size: 1.05em;
+  --medium-font-size: 0.94em;
+  --small-font-size: 0.75em;
+  --rank-font-size: 1em;
+
+  --light-weight: 300;
+  --regular-weight: 600;
+  --bold-weight: 900;
 }
+
 
 * {
   margin: 0;
