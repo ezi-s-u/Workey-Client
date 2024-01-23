@@ -8,6 +8,7 @@
   <title>Workey</title>
   <link href="./css/join.css" rel="stylesheet">
 </head>
+
 <body>
   <header>
     <div class="go-back">
@@ -116,18 +117,20 @@
       </div>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="./js/join.js"></script>
   <script>
     function signUp() {
-      let firstName = document.getElementById('firstName').value;
-      let lastName = document.getElementById('lastName').value;
-      let email = document.getElementById('email').value;
-      let password = document.getElementById('password').value;
-      let checkPassword = document.getElementById('check-password').value;
-      let company = document.getElementById('company').textContent;
-      let startTime = document.getElementById('startTime').value;
-      let endTime = document.getElementById('endTime').value;
-      let payday = document.getElementById('payday').textContent;
+      let firstName = $('#firstName').val();
+      let lastName = $('#lastName').val();
+      let email = $('#email').val();
+      let password = $('#password').val();
+      let checkPassword = $('#check-password').val();
+      let company = $('#company').text();
+      let startTime = $('#startTime').val();
+      let endTime = $('#endTime').val();
+      let payday = $('#payday').text();
 
       console.log(firstName);
       console.log(lastName);
@@ -140,7 +143,7 @@
       console.log(payday);
 
       // 공백 확인
-      if ( firstName === '' ||
+      if (firstName === '' ||
         lastName === '' ||
         email === '' ||
         password === '' ||
@@ -150,13 +153,37 @@
       ) {
         console.log("입력 필요한 것 있음");
       } else {
-        console.log("공백없음");
-        location.href = `./join_completed.html`;
+        let param = {
+          "firstName": firstName,
+          "lastName": lastName,
+          "email": email,
+          "password": password,
+          "startTime": startTime,
+          "endTime": endTime,
+          "company": 1,
+          "payday": payday,
+          "createdAt": new Date(),
+          "updatedAt": new Date()
+        };
+
+        $.support.cors = true;
+        $.ajax({
+          type: 'post',           // 타입 (get, post, put 등등)
+          url: `http://localhost:3000/users/join`,           // 요청할 서버url
+          async: true,            // 비동기화 여부 (default : true)
+          dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
+          data: JSON.stringify(param),
+          contentType: "application/json",
+          success: async function (data) { // 결과 성공 콜백함수
+            let userId = data.userId;
+            console.log("회원가입 성공");
+            // location.href = `./index.html?user_id=${userId}`;
+            location.href = `./join_completed.html`;
+          }
+        });
       }
-
-
     }
-    // location.href = `./index.html?user_id=${id}`;
   </script>
 </body>
+
 </html>
