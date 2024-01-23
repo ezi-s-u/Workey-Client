@@ -4,7 +4,7 @@ function sleep(ms) {
 }
 
 async function slide(dropdown) {
-    for (let i = 100; i < 500; i++) {
+    for (let i = 350; i < 400; i++) {
         dropdown.style.height = `${i}px`;
         await sleep(1);
     }
