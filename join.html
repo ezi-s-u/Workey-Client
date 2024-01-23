@@ -20,17 +20,17 @@
       <div class="personal-inform">
         <p class="text-light">First Name</p>
         <div class="div-input">
-          <input type="text" oninput="writeData(this.value, 0)">
+          <input type="text" id="firstName" oninput="writeData(this.value, 0)">
           <img src="./img/icon_check.svg" class="check-icon">
         </div>
         <p class="text-light">Last Name</p>
         <div class="div-input">
-          <input type="text" oninput="writeData(this.value, 1)">
+          <input type="text" id="lastName" oninput="writeData(this.value, 1)">
           <img src="./img/icon_check.svg" class="check-icon">
         </div>
         <p class="text-light">Email</p>
         <div class="div-input">
-          <input type="text" oninput="checkEmail(this.value)">
+          <input type="text" id="email" oninput="checkEmail(this.value)">
           <img src="./img/icon_check.svg" class="check-icon">
           <img src="./img/icon_warning.svg" id="warning-icon">
         </div>
@@ -51,7 +51,7 @@
         <p class="text-thick">Company : </p>
         <div class="selectBox">
           <img src="./img/icon_company.svg">
-          <button class="label">Google</button>
+          <button class="label" id="company">Google</button>
           <ul class="optionList">
             <li class="optionItem">Google</li>
             <li class="optionItem">Tesla</li>
@@ -67,17 +67,17 @@
         <p class="text-thick">Start Time : </p>
         <div class="container-element">
           <img src="./img/icon_start_time.svg">
-          <input type="time">
+          <input type="time" id="startTime">
         </div>
         <p class="text-thick">End Time : </p>
         <div class="container-element">
           <img src="./img/icon_end_time.svg">
-          <input type="time">
+          <input type="time" id="endTime">
         </div>
         <p class="text-thick">Your Payday : </p>
         <div class="selectBox">
           <img src="./img/icon_calender.svg">
-          <button class="label">1</button>
+          <button class="label" id="payday">1</button>
           <ul class="optionList">
             <li class="optionItem">1</li>
             <li class="optionItem">2</li>
@@ -112,10 +112,51 @@
             <li class="optionItem">31</li>
           </ul>
         </div>
-        <button type="submit">Sign up</button>
+        <button type="submit" onclick="signUp()">Sign up</button>
       </div>
     </div>
   </div>
   <script src="./js/join.js"></script>
+  <script>
+    function signUp() {
+      let firstName = document.getElementById('firstName').value;
+      let lastName = document.getElementById('lastName').value;
+      let email = document.getElementById('email').value;
+      let password = document.getElementById('password').value;
+      let checkPassword = document.getElementById('check-password').value;
+      let company = document.getElementById('company').textContent;
+      let startTime = document.getElementById('startTime').value;
+      let endTime = document.getElementById('endTime').value;
+      let payday = document.getElementById('payday').textContent;
+
+      console.log(firstName);
+      console.log(lastName);
+      console.log(email);
+      console.log(password);
+      console.log(checkPassword);
+      console.log(company);
+      console.log(startTime);
+      console.log(endTime);
+      console.log(payday);
+
+      // 공백 확인
+      if ( firstName === '' ||
+        lastName === '' ||
+        email === '' ||
+        password === '' ||
+        checkPassword === '' ||
+        startTime === '' ||
+        endTime === ''
+      ) {
+        console.log("입력 필요한 것 있음");
+      } else {
+        console.log("공백없음");
+        location.href = `./join_completed.html`;
+      }
+
+
+    }
+    // location.href = `./index.html?user_id=${id}`;
+  </script>
 </body>
 </html>
