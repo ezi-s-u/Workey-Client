@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,17 +18,9 @@
         <img src="./img/logo_normal.png" class="logo">
       </div>
       <div class="inform">
-        <p class="text-light">First Name</p>
-        <div class="div-input">
-          <input type="text" class="input-text">
-        </div>
-        <p class="text-light">Last Name</p>
-        <div class="div-input">
-          <input type="text" class="input-text">
-        </div>
         <p class="text-light">Email</p>
         <div class="div-input">
-          <input type="text" class="input-text">
+          <input type="text" id="email" class="input-text">
         </div>
         <p class="text-light">Password</p>
         <div class="div-input">
@@ -35,12 +28,16 @@
           <input type="button" class="visible-btn" onclick="passwordVisible()">
         </div>
       </div>
-      <button type="submit" id="loginButton" onclick="location.href='./index.html'">Login In</button>
+      <!-- <button type="submit" id="loginButton" onclick="location.href='./index.html'">Login In</button> -->
+      <button type="submit" id="loginButton" onclick="login()">Login In</button>
       <div class="bottom">
         <a href="./forgot_pw.html" class="find-password">Forgot your password?</a>
       </div>
     </div>
   </div>
+  <!-- cookies cdn -->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="./js/login.js"></script>
 </body>
 </html>
