@@ -7,6 +7,11 @@ header>span {
     margin: 0;
 }
 
+button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
 /* 랭킹 헤더 */
 .ranking-header-box {
     position: relative;
@@ -23,6 +28,7 @@ header>span {
     top: 50%;
     transform: translate(0, -50%);
 }
+
 .ranking-header-box>span {
     display: inline-block;
     padding-left: 30px;
@@ -37,12 +43,14 @@ header>span {
     font-weight: bold;
     /* height: 100px; */
 }
+
 .rank-box {
     position: relative;
     display: flex;
     justify-content: space-between;
 }
-.rank-box > .company-info-box {
+
+.rank-box>.company-info-box {
     position: relative;
     display: flex;
     width: 56vw;
@@ -52,7 +60,8 @@ header>span {
     /* background-color: aqua; */
     padding: 0 12vw;
 }
-.rank-box> .top-box {
+
+.rank-box>.top-box {
     position: relative;
     display: flex;
     width: 20vw;
@@ -70,18 +79,73 @@ header>span {
     width: 35px;
     /* background-color: bisque; */
 }
+
+.rank {
+    text-align: left;
+}
 .company-img {
     position: relative;
     width: 60px;
     left: 5px;
 }
+
 .company-name {
     position: relative;
     width: 200px;
     text-align: center;
     right: -5vw;
 }
+
 .top3 {
     position: relative;
-    left: 5px;
+    left: -10px;
+}
+
+/* 드롭다운 */
+button {
+    display: flex;
+    align-items: center;
+    /* background: white; */
+    /* border: 1px solid grey; */
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+}
+.dropdown {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 17%;
+    -webkit-border-radius: 0px 0px 2em 2em;
+    -moz-border-radius: 0px 0px 2em 2em;
+    border-radius: 0px 0px 2em 2em;
+    background-color: var(--purple-06);
+    /* background-color: aqua; */
+}
+.rank-box:hover {
+    background: var(--purple-06);
+}
+
+/* 드롭다운 안 요소 */
+.score-box {
+    /* position: relative; */
+    position: absolute;
+    width: 100px;
+    text-align: center;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    /* background-color: yellow; */
+}
+.score-box > img {
+    width: 50px;
+    height: 50px;
+    padding: 0.5em;
+    border-radius: 100em;
+    background-color: var(--purple-01);
+    margin-bottom: 0.5em;
+}
+.score-box > .number {
+    font-size: var(--rank-font-size);
 }
