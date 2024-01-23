@@ -62,9 +62,9 @@ html, body {
 }
 
 img {
-  width: 30%;
-  height: 40%;
-  margin: 16px 0 36px 0;
+  width: 70%;
+  height: 80%;
+  margin-bottom: 5px;
 }
 
 h4 {
@@ -85,4 +85,15 @@ button {
   background-color: var(--purple-01);
   color: white;
   margin-top: 50px;
+}
+
+.logo-circle {
+  width: 63px;
+  height: 63px;
+  background-image: url('../img/logo_circle.svg');
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0 36px 0;
 }
