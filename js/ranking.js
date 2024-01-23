@@ -1,6 +1,7 @@
 function createDropdown() {
   var newDiv = document.createElement('div');
   newDiv.classList.add('dropdown');
+  // newDiv.style.height = '17%';
 
   var scoreBox = document.createElement('div');
   scoreBox.classList.add('score-box');
@@ -26,27 +27,31 @@ function createDropdown() {
   return newDiv;
 }
 
-const rank = document.getElementsByClassName('rank-box');
-console.log(rank);
+// 드롭다운 이벤트
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
+async function slide(dropdown) {
+  // if (subToggle) {
+    for (let i = 13; i < 17; i++) {
+      dropdown.style.height = `${i}%`;
+      await sleep(1);
+    }
+}
+
+const rank = document.getElementsByClassName('rank-box');
 
 function showDropdown(button) {
   const dropdown = document.getElementsByClassName('dropdown');
-  console.log(dropdown);
-  Array.from(rank).forEach(function(e, i) {
-    if ( e === button ) {
+  Array.from(rank).forEach(function (e, i) {
+    if (e === button) {
       Array.from(dropdown)[i].style.display = 'block';
+      slide(Array.from(dropdown)[i]);
+      // Array.from(dropdown)[i].style.transitionTimingFunction = 'ease-out';
+
     } else {
       Array.from(dropdown)[i].style.display = '';
     }
   });
-  
-  // button.addEventListener('blur', () => {
-  //   const dropdown = document.querySelector('.dropdown');
-    
-  //   // 0.2초 뒤에 실행
-  //   // setTimeout(() => {
-  //     dropdown.style.display = '';
-  //   // }, 100);
-  // });
 }
