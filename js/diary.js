@@ -64,24 +64,11 @@ function addSelfCheckScore() {
     sum += Number($(":input:radio[name=q4]:checked").val());
     createDiary();
 }
-function calculateSelfCheckScore(sum) {
-    if (sum >= 80) {
-        selfCheckResult = "Good";
-        state = true;
-    } else if (sum >= 46) {
-        selfCheckResult = "Soso";
-    } else {
-        selfCheckResult = "Bad";
-    }
-    console.log(selfCheckResult);
-}
 
 let companyId = 2;
 function createDiary() {
 
     const req = {
-        "userId": userId,
-        "quesId": quesId,
         "answer": $("#answer").val(),
         "star": isStar,
         "score": sum,
@@ -90,12 +77,12 @@ function createDiary() {
     }
 
     console.log(req);
-    axios.post(`http://localhost:3000/diaries`, req)
+    axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
         .then((result) => {
             console.log(result);
             // Cookies.set("user_id", result.data.id);
             // Cookies.get("user_id")
-            // location.href = "../index.html";
+            location.href = "../list.html";
             return true;
         }).catch((err) => {
 
