@@ -24,7 +24,7 @@
                 </div>
                 <div class="d-day-box">
                     <span id="payday-title-txt">Days until payday</span><br>
-                    <span id="d-day-txt">D-1</span><br>
+                    <span id="d-day-txt">D-<span id="until-payday">1</span></span><br>
                     <span id="lefted-payday-txt">I’ve worked hard up to
                         <span id="percent">99</span>%
                         so far!</span>
@@ -133,40 +133,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
 <script src="/js/index.js"></script>
-<script>
-    // window.location.href='./index.html/';
-    const url = new URL(window.location.href);
-    const urlParams = url.searchParams;// URLSearchParams 객체
-
-    let userId, startTime, endTime, payday;
-
-
-    user_id = urlParams.get('user_id');
-
-    $.support.cors = true;
-    $.ajax({
-        type: 'get',
-        url: `http://localhost:3000/main/${user_id}`,
-        async: true,
-        dataType: 'json',
-        data: {},
-        success: function (result) { // 결과 성공 콜백함수
-            console.log(result);
-            // result.result.forEach((result) => {
-            //     // var div = document.getElementById("paper");
-            //     // div.remove();
-            //     deleteDivList();
-            //     var title = result.title;
-            //     // console.log(typeof title);
-            //     if (title.includes(input)) {
-            //         // console.log(title);
-            //         search(result.id);
-            //     }
-            // });
-        }
-    });
-
-</script>
-
 </html>
