@@ -18,135 +18,8 @@
                 <img src="./img/icon-trophy.svg" alt="트로피">
                 <span>Ranking</span>
             </div>
-            <div class="ranking-list-box">
-                <button class="rank-box" onclick="showDropdown(this)">
-                    <div class="company-info-box">
-                        <span class="rank">1</span>
-                        <img src="./img/company/google.svg" class="company-img" alt="">
-                        <span class="company-name">Google</span>
-                    </div>
-                    <div class="top-box">
-                        <img src="./img/icon_crown.svg" class="top3" alt="top 3">
-                    </div>
-                </button>
-                <div class="dropdown">
-                    <div class="score-box">
-                        <img src="./img/state_good.svg" alt="이미지 설명"><br>
-                        <span class="number">3,500</span>
-                    </div>
-                </div>
-                <button class="rank-box" onclick="showDropdown(this)">
-                    <div class="company-info-box">
-                        <span class="rank">2</span>
-                        <img src="./img/company/amazon.svg" class="company-img" alt="">
-                        <span class="company-name">Amazon</span>
-                    </div>
-                    <div class="top-box">
-                        <img src="./img/icon_crown.svg" class="top3" alt="top 3">
-                    </div>
-                </button>
-                <div class="dropdown">
-                    <div class="score-box">
-                        <img src="./img/state_good.svg" alt="이미지 설명"><br>
-                        <span class="number">3,500</span>
-                    </div>
-                </div>
-                <button class="rank-box" onclick="showDropdown(this)">
-                    <div class="company-info-box">
-                        <span class="rank">3</span>
-                        <img src="./img/company/apple.svg" class="company-img" alt="">
-                        <span class="company-name">Apple</span>
-                    </div>
-                    <div class="top-box">
-                        <img src="./img/icon_crown.svg" class="top3" alt="top 3">
-                    </div>
-                </button>
-                <div class="dropdown">
-                    <div class="score-box">
-                        <img src="./img/state_good.svg" alt="이미지 설명"><br>
-                        <span class="number">3,500</span>
-                    </div>
-                </div>
-                <button class="rank-box" onclick="showDropdown(this)">
-                    <div class="company-info-box">
-                        <span class="rank">4</span>
-                        <img src="./img/company/meta.svg" class="company-img" alt="">
-                        <span class="company-name">Meta</span>
-                    </div>
-                    <div class="top-box">
-                        <!-- <img src="./img/icon_crown.svg" class="top3" alt="top 3"> -->
-                    </div>
-                </button>
-                <div class="dropdown">
-                    <div class="score-box">
-                        <img src="./img/state_good.svg" alt="이미지 설명"><br>
-                        <span class="number">3,500</span>
-                    </div>
-                </div>
-                <button class="rank-box" onclick="showDropdown(this)">
-                    <div class="company-info-box">
-                        <span class="rank">5</span>
-                        <img src="./img/company/microsoft.svg" class="company-img" alt="">
-                        <span class="company-name">Microsoft</span>
-                    </div>
-                    <div class="top-box">
-                        <!-- <img src="./img/icon_crown.svg" class="top3" alt="top 3"> -->
-                    </div>
-                </button>
-                <div class="dropdown">
-                    <div class="score-box">
-                        <img src="./img/state_good.svg" alt="이미지 설명"><br>
-                        <span class="number">3,500</span>
-                    </div>
-                </div>
-                <button class="rank-box" onclick="showDropdown(this)">
-                    <div class="company-info-box">
-                        <span class="rank">6</span>
-                        <img src="./img/company/basic-img.svg" class="company-img" alt="">
-                        <span class="company-name">Chami</span>
-                    </div>
-                    <div class="top-box">
-                        <!-- <img src="./img/icon_crown.svg" class="top3" alt="top 3"> -->
-                    </div>
-                </button>
-                <div class="dropdown">
-                    <div class="score-box">
-                        <img src="./img/state_good.svg" alt="이미지 설명"><br>
-                        <span class="number">3,500</span>
-                    </div>
-                </div>
-                <button class="rank-box" onclick="showDropdown(this)">
-                    <div class="company-info-box">
-                        <span class="rank">7</span>
-                        <img src="./img/company/lg.svg" class="company-img" alt="">
-                        <span class="company-name">LG</span>
-                    </div>
-                    <div class="top-box">
-                        <!-- <img src="./img/icon_crown.svg" class="top3" alt="top 3"> -->
-                    </div>
-                </button>
-                <div class="dropdown">
-                    <div class="score-box">
-                        <img src="./img/state_good.svg" alt="이미지 설명"><br>
-                        <span class="number">3,500</span>
-                    </div>
-                </div>
-                <button class="rank-box" onclick="showDropdown(this)">
-                    <div class="company-info-box">
-                        <span class="rank">8</span>
-                        <img src="./img/company/tesla.svg" class="company-img" alt="">
-                        <span class="company-name">Tesla</span>
-                    </div>
-                    <div class="top-box">
-                        <!-- <img src="./img/icon_crown.svg" class="top3" alt="top 3"> -->
-                    </div>
-                </button>
-                <div class="dropdown">
-                    <div class="score-box">
-                        <img src="./img/state_good.svg" alt="이미지 설명"><br>
-                        <span class="number">3,500</span>
-                    </div>
-                </div>
+            <div id="ranking-list-box">
+                <!-- 랭킹 리스트 생성-->
             </div>
         </div>
     </div>
@@ -209,5 +82,10 @@
                 </a></li>
     </nav>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="./js/ranking.js"></script>
+
 </html>
