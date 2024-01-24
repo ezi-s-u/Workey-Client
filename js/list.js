@@ -70,16 +70,17 @@ async function getDateFormat(d) {
     else return d + "th";
 }
 
-async function setDiaryHtml(id, quesId, company, date, isStar, score) {
+let score;
+async function setDiaryHtml(id, quesId, company, date, isStar) {
     console.log(score);
     try {
-        $(".diary-list-box").append(await getDiaryHtml(id, quesId, company, date, isStar, score));// html - 덮어씌우기, append - 추가하기
+        $(".diary-list-box").append(await getDiaryHtml(id, quesId, company, date, isStar));// html - 덮어씌우기, append - 추가하기
     } catch (err) {
         console.log("getHtml함수 불러오기 실패");
     }
 }
 
-async function getDiaryHtml(id, quesId, companyId, date, isStar, score) {
+async function getDiaryHtml(id, quesId, companyId, date, isStar) {
     try {
 
         let starImg = '';
@@ -148,7 +149,9 @@ async function showDiaries() {
         .then(async (result) => {
             console.log(result);
             await result.data.forEach(async (element) => {
-                setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.state, element.score);
+                score = element.score;
+                console.log(score);
+                setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.state);
             });
         }).catch((err) => {
             console.log("다이어리 리스트 보여주기 실패");
