@@ -45,9 +45,6 @@ function getUserInform() {
       // 작업 시간 계산
       var workingTime = endTimestamp - startTimestamp;
 
-      // 작업 시간을 초로 변환
-      // var workingTimeInSeconds = workingTime / 1000;
-
       // 작업 시간 동안 매 초마다 바의 너비를 조절하는 함수
       function increaseProgressBar() {
         var currentTime = new Date().getTime();
@@ -66,14 +63,12 @@ function getUserInform() {
           clearInterval(progressInterval);
           document.getElementById("working-time-bar").style.width = '100%';
           document.getElementById("running-illust").style.marginLeft = '85%';
-          // 이미지를 현재 각도에서 8도 회전합니다.
-          rotation = (rotation === 8) ? -8 : 8;
 
           // 이미지의 각도를 변경합니다.
           document.getElementById("running-illust").style.transform = 'rotate(' + 0 + 'deg)';
         }
 
-        console.log(document.getElementById("working-time-bar").style.width);
+        // console.log(document.getElementById("working-time-bar").style.width);
       }
 
       // 1초마다 increaseProgressBar 함수를 호출
