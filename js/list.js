@@ -1,5 +1,7 @@
 // 월 변경 함수 
 let currentMonthIndex = 0;  // 현재 월의 인덱스
+// let companyId = Cookies.get("company_id");
+// console.log(companyId);
 
 // 월을 변경하는 함수
 async function changeMonth() {
@@ -52,7 +54,6 @@ async function getStateImgSrc(score) {
     } else {
         imgSrc = "./img/state_bad.svg";
     }
-    console.log(imgSrc);
     return imgSrc;
 }
 
@@ -71,10 +72,9 @@ async function getDateFormat(d) {
 }
 
 let score;
-async function setDiaryHtml(id, quesId, company, date, isStar) {
-    console.log(score);
+async function setDiaryHtml(id, quesId, companyId, date, isStar) {
     try {
-        $(".diary-list-box").append(await getDiaryHtml(id, quesId, company, date, isStar));// html - 덮어씌우기, append - 추가하기
+        $(".diary-list-box").append(await getDiaryHtml(id, quesId, companyId, date, isStar));// html - 덮어씌우기, append - 추가하기
     } catch (err) {
         console.log("getHtml함수 불러오기 실패");
     }
@@ -90,7 +90,6 @@ async function getDiaryHtml(id, quesId, companyId, date, isStar) {
         }
         let question = await getQuestion(quesId);// 질문 가져오기
         let company = await getCompany(companyId);// 회사 가져오기 
-        console.log(company);
 
         let year = date.slice(0, 4);
         let month = date.slice(5, 7);
@@ -120,7 +119,6 @@ async function getDiaryHtml(id, quesId, companyId, date, isStar) {
 }
 
 // api
-let userId = Cookies.get("user_id");
 async function getQuestion(quesId) {
     let question = '';
 
@@ -139,26 +137,27 @@ async function getCompany(companyId) {
         .then(async (result) => {
             company = result.data.name;
         }).catch(async (err) => {
-            console.log("다이어리 리스트 보여주기 실패");
+            console.log("회사 이름 가져오기 실패");
         });
+
     return company;
 }
 
+showDiaries();
 async function showDiaries() {
+    let userId = Cookies.get("user_id");
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
             console.log(result);
             await result.data.forEach(async (element) => {
                 score = element.score;
-                console.log(score);
-                setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.state);
+                setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star);
             });
         }).catch((err) => {
             console.log("다이어리 리스트 보여주기 실패");
         });
     return true;
 }
-showDiaries();
 
 // 검색
 async function doKeyDown(event) {
@@ -176,6 +175,8 @@ async function doKeyDown(event) {
 
 // 해당 키워드가 포함되어있는지를 확인
 async function findIncludedWord(input) {
+    let userId = Cookies.get("user_id");
+
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
             console.log("result");
@@ -195,7 +196,7 @@ async function findIncludedWord(input) {
 
 // 제목으로 검색하기
 async function search(id) {
-    console.log("검색");
+    let userId = Cookies.get("user_id");
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
             console.log("들어감");
@@ -203,7 +204,7 @@ async function search(id) {
                 if (id === element.id) {
                     deleteDivList();
                     let question = await getQuestion(element.quesId);
-                    await setDiaryHtml(element.id, question, "Google", element.createdAt, element.star, element.state, element.score);
+                    await setDiaryHtml(element.id, question, element.companyId, element.createdAt, element.star);
                 }
             })
 

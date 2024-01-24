@@ -198,6 +198,7 @@ function editMemberInfo() {
         
             axios.patch(`http://localhost:3000/users/mypage/${user_id}`, dataPatch)
             .then((result) => {
+                Cookies.set("company_id", companyId);
                 console.log("회원 정보 수정되었습니다.");
             }).catch((err) => {
                 console.error("회원 정보 수정에 실패했습니다.");
@@ -206,4 +207,11 @@ function editMemberInfo() {
         }).catch((err) => {
             console.error(err)
         });
+}
+
+function logout() {
+    document.cookie = "user_id" + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+    document.cookie = "company_id" + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+    document.cookie = "diary_id" + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+    location.href='./login.html'
 }
