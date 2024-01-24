@@ -71,15 +71,15 @@ async function getDateFormat(d) {
 }
 
 async function setDiaryHtml(id, quesId, company, date, isStar, score) {
+    console.log(score);
     try {
-        // let question = await getQuestion(element.quesId);
         $(".diary-list-box").append(await getDiaryHtml(id, quesId, company, date, isStar, score));// html - 덮어씌우기, append - 추가하기
     } catch (err) {
         console.log("getHtml함수 불러오기 실패");
     }
 }
 
-async function getDiaryHtml(id, quesId, company, date, isStar, score) {
+async function getDiaryHtml(id, quesId, companyId, date, isStar, score) {
     try {
 
         let starImg = '';
@@ -87,7 +87,9 @@ async function getDiaryHtml(id, quesId, company, date, isStar, score) {
         if (isStar) {
             starImg = `<img src="./img/icon_filled_star_list.svg" class="important" alt="즐겨찾기">`;
         }
-        let question = await getQuestion(quesId);
+        let question = await getQuestion(quesId);// 질문 가져오기
+        let company = await getCompany(companyId);// 회사 가져오기 
+        console.log(company);
 
         let year = date.slice(0, 4);
         let month = date.slice(5, 7);
@@ -110,7 +112,8 @@ async function getDiaryHtml(id, quesId, company, date, isStar, score) {
         <!-- 점수에 따른 이미지 삽입 필요 -->
         </div>
         </div>`;
-    } catch(err) {
+    } catch (err) {
+        console.log(err);
         console.log("다이어리 html 삽입 실패");
     }
 }
@@ -128,15 +131,24 @@ async function getQuestion(quesId) {
         });
     return question;
 }
+// 회사 이름 가져오기 
+async function getCompany(companyId) {
+    let company;
+    await axios.get(`http://localhost:3000/companies/${companyId}`)
+        .then(async (result) => {
+            company = result.data.name;
+        }).catch(async (err) => {
+            console.log("다이어리 리스트 보여주기 실패");
+        });
+    return company;
+}
 
 async function showDiaries() {
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
             console.log(result);
             await result.data.forEach(async (element) => {
-                // quesId = element.quesId;
-                // let question = await getQuestion(element.quesId);
-                setDiaryHtml(element.id, element.quesId, "Google", element.createdAt, element.star, element.state, element.score);
+                setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.state, element.score);
             });
         }).catch((err) => {
             console.log("다이어리 리스트 보여주기 실패");
@@ -144,7 +156,6 @@ async function showDiaries() {
     return true;
 }
 showDiaries();
-
 
 // 검색
 async function doKeyDown(event) {
