@@ -12,6 +12,7 @@ function login() {
   axios.post(`http://localhost:3000/users/login`, req)
     .then((result) => {
       Cookies.set("user_id", result.data.id);
+      Cookies.set("company_id", result.data.company);
       // Cookies.get("user_id")
       location.href = "../index.html";
     }).catch((err) => {

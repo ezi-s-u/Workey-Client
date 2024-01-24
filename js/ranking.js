@@ -55,3 +55,62 @@ function showDropdown(button) {
     }
   });
 }
+
+getRanking()
+
+function getRanking() {
+  const company_id = Cookies.get('company_id');
+
+  axios.get(`http://localhost:3000/companies`)
+  .then((result) => {
+    console.log(result.data);
+
+    const dataArray = result.data;
+
+    // 받아온 데이터를 처리하고 화면에 추가
+    for (var i = 0; i < dataArray.length; i++) {
+      console.log(dataArray[0].name);
+      // 새로운 버튼과 드롭다운 영역을 생성
+      var button = document.createElement('button');
+      button.className = 'rank-box';
+      button.onclick = function () {
+        showDropdown(this);
+      };
+
+      var dropdown = document.createElement('div');
+      dropdown.className = 'dropdown';
+
+      // 버튼 내부의 HTML 구조를 설정
+      button.innerHTML = `
+        <div class="company-info-box">
+            <span class="rank">${i + 1}</span>
+            <img src="./img/company/${dataArray[i].image}" class="company-img" alt="">
+            <span class="company-name">${dataArray[i].name}</span>
+        </div>
+      `;
+
+      // 첫 세 개의 요소에만 top-box 추가
+      if (i < 3) {
+        button.innerHTML += `
+          <div class="top-box">
+              <img src="./img/icon_crown.svg" class="top3" alt="top 3">
+          </div>`;
+      }
+
+      // 드롭다운 내부의 HTML 구조를 설정
+      dropdown.innerHTML = `
+        <div class="score-box">
+            <img src="./img/state_good.svg" alt="이미지 설명"><br>
+            <span class="number">${dataArray[i].total_good_state_count}</span>
+        </div>
+      `;
+
+      // 버튼과 드롭다운을 화면에 추가
+      document.getElementById('ranking-list-box').appendChild(button);
+      document.getElementById('ranking-list-box').appendChild(dropdown);
+    }
+
+  }).catch((err) => {
+    console.error(err)
+  });
+}
