@@ -22,7 +22,7 @@
                 <div class="img-box">
                     <img src="./img/illustration_profile.svg" alt="">
                 </div>
-                <div class="user-name">SeoYeon Moon</div>
+                <div class="user-name"><span id="first-name">SeoYeon</span><span id="last-name">Moon</span></div>
             </div>
             <div class="user-info-box">
                 <div class="records-box">
@@ -54,13 +54,13 @@
                         <div class="start-box">
                             <span class="dropdown-title">Start working</span>
                             <div class="change-time-box">
-                                <input type="time" class="input-time">
+                                <input type="time" class="input-time" id="input-start-time">
                             </div>
                         </div>
                         <div class="end-box">
                             <span class="dropdown-title">End working</span>
                             <div class="change-time-box">
-                                <input type="time" class="input-time">
+                                <input type="time" class="input-time" id="input-end-time">
                             </div>
                         </div>
                     </div>
@@ -69,15 +69,9 @@
                         <div class="selectBox-box">
                             <div class="selectBox">
                                 <img src="./img/icon_company.svg">
-                                <button class="label">Google</button>
-                                <ul class="optionList">
-                                    <li class="optionItem">Google</li>
-                                    <li class="optionItem">Tesla</li>
-                                    <li class="optionItem">Apple</li>
-                                    <li class="optionItem">Amazon</li>
-                                    <li class="optionItem">Meta</li>
-                                    <li class="optionItem">Microsoft</li>
-                                    <li class="optionItem">LG</li>
+                                <button class="label" id="drop-company-name">Google</button>
+                                <ul class="optionList" id="option-list">
+                                    <!-- 회사 리스트 li -->
                                     <li class="optionItem">Others</li>
                                 </ul>
                             </div>
@@ -89,7 +83,7 @@
                         <div class="selectBox-box">
                             <div class="selectBox">
                                 <img src="./img/icon_calender.svg">
-                                <button class="label">1</button>
+                                <button class="label" id="drop-payday">1</button>
                                 <ul class="optionList">
                                     <li class="optionItem">1</li>
                                     <li class="optionItem">2</li>
@@ -126,9 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="logout-box">
-                        
-                    </div>
+                    <button type="submit" id="editButton" onclick="editMemberInfo()">Edit</button>
                 </div>
             </div>
         </div>
@@ -191,6 +183,10 @@
                     </a></li>
         </nav>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="./js/mypage.js"></script>
 
 </html>
