@@ -65,27 +65,62 @@ function addSelfCheckScore() {
     createDiary();
 }
 
-let companyId = 2;
-function createDiary() {
+async function createDiary() {
 
     const req = {
         "answer": $("#answer").val(),
         "star": isStar,
         "score": sum,
         "state": state,
-        "companyId": companyId
+        "companyId": Cookies.get("company_id")
     }
 
     console.log(req);
-    axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
-        .then((result) => {
-            console.log(result);
-            // Cookies.set("user_id", result.data.id);
-            // Cookies.get("user_id")
+    await axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
+        .then(async (result) => {
+            if (result.data.data.state) {
+                console.log(result);
+                await saveGoodCount(result.data.data.companyId);
+            }
+            // saveGoodCount(result.)
             location.href = "../list.html";
             return true;
         }).catch((err) => {
 
         });
-    
+
+}
+
+async function saveGoodCount(companyId) {
+    console.log(companyId);
+    await axios.patch(`http://localhost:3000/companies/${companyId}`)
+        .then(async (result) => {
+            console.log(result);
+        }).catch((err) => {
+            console.log(err);
+        });
+}
+
+// let diaryId;
+async function showDiary(diaryId) {
+    await axios.get(`http://localhost:3000/diaries/${diaryId}`)
+        .then(async (result) => {
+            Cookies.set("diary_id", diaryId);
+            location.href= '../diary-reading.html';
+        }).catch((err) => {
+            console.log(err);
+            console.log("다이어리 실패");
+        });
+}
+
+async function getQuestion(quesId) {
+    let question = '';
+
+    await axios.get(`http://localhost:3000/questions/${quesId}`)
+        .then(async (result) => {
+            question = result.data;
+        }).catch((err) => {
+            console.log("문제 불러오기 실패");
+        });
+    return question;
 }
