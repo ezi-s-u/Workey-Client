@@ -204,6 +204,7 @@ async function search(id) {
                 if (id === element.id) {
                     deleteDivList();
                     let question = await getQuestion(element.quesId);
+                    // id, quesId, companyId, date, isStar
                     await setDiaryHtml(element.id, question, element.companyId, element.createdAt, element.star);
                 }
             })
