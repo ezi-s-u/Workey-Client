@@ -184,7 +184,6 @@ async function findIncludedWord(input) {
             await result.data.forEach(async (element) => {
                 let question = await getQuestion(element.quesId);
                 if (question.includes(input)) {
-                    console.log(question);
                     await search(element.id);
                 }
                 return true;
@@ -203,9 +202,7 @@ async function search(id) {
             await result.data.forEach(async (element) => {
                 if (id === element.id) {
                     deleteDivList();
-                    let question = await getQuestion(element.quesId);
-                    // id, quesId, companyId, date, isStar
-                    await setDiaryHtml(element.id, question, element.companyId, element.createdAt, element.star);
+                    await setDiaryHtml(element.id,  element.quesId, element.companyId, element.createdAt, element.star);
                 }
             })
 
