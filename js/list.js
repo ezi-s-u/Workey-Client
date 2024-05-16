@@ -1,16 +1,16 @@
-// 월 변경 함수 
-let currentMonthIndex = 0;  // 현재 월의 인덱스
-// let companyId = Cookies.get("company_id");
-// console.log(companyId);
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+let today = new Date();// 현날짜
+let currentMonth = ('0' + (today.getMonth() + 1)).slice(-2);// 현재 달
+let currentMonthIndex = Number(currentMonth)-1;// 현재 달 인덱스
+let currentMonthElement = $("#currentMonth");// 현재 달 세팅할 html
+currentMonthElement.text(months[currentMonthIndex]);// 현재 달
 
 // 월을 변경하는 함수
 async function changeMonth() {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const currentMonthElement = $("#currentMonth");
-    if (months[currentMonthIndex] !== "January")
-        await deleteList();
-    else
-        await showDiaries();
+
+    currentMonthElement.text(months[currentMonthIndex]);
+    await deleteList();
+    await showDiaries();
     // 현재 월 표시 업데이트
     currentMonthElement.text(months[currentMonthIndex]);
 }
@@ -59,9 +59,8 @@ async function getStateImgSrc(score) {
 
 // 날짜 포맷 세팅
 async function getMonthName(m) {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let currentMonth = Number(m);
-    return months[currentMonth % 12 - 1];
+    let month = Number(m);
+    return months[month % 12 - 1];
 }
 
 async function getDateFormat(d) {
@@ -148,10 +147,14 @@ async function showDiaries() {
     let userId = Cookies.get("user_id");
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
-            console.log(result);
+            // var year = today.getFullYear();
             await result.data.forEach(async (element) => {
-                score = element.score;
-                setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star);
+                // 작성된 달의 인덱스 구하기
+                let index = Number(element.createdAt.substring(5,7))-1;
+                // 같은 달끼리만 보여주기
+                if ( months[index] === (months[currentMonthIndex]) ) {
+                    setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star);
+                }
             });
         }).catch((err) => {
             console.log("다이어리 리스트 보여주기 실패");
@@ -179,11 +182,10 @@ async function findIncludedWord(input) {
 
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
-            console.log("result");
-            console.log(result.data);
             await result.data.forEach(async (element) => {
+                let index = Number(element.createdAt.substring(5,7))-1;
                 let question = await getQuestion(element.quesId);
-                if (question.includes(input)) {
+                if (question.includes(input) && months[index] === (months[currentMonthIndex])) {// 월별로 필터링
                     await search(element.id);
                 }
                 return true;
