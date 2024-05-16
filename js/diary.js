@@ -1,14 +1,6 @@
 let firstName;
 let userId = Cookies.get("user_id");
 
-// const req = {
-//     "answer": "너무너무 행복했어요",
-// 	"star": true,
-// 	"score": 10,
-// 	"state" : false,
-// 	"companyId": 2
-// }
-
 // user firtname 불러오기 
 $.support.cors = true;
 $.ajax({
