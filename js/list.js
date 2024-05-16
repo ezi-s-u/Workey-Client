@@ -182,11 +182,10 @@ async function findIncludedWord(input) {
 
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
-            console.log("result");
-            console.log(result.data);
             await result.data.forEach(async (element) => {
+                let index = Number(element.createdAt.substring(5,7))-1;
                 let question = await getQuestion(element.quesId);
-                if (question.includes(input)) {
+                if (question.includes(input) && months[index] === (months[currentMonthIndex])) {// 월별로 필터링
                     await search(element.id);
                 }
                 return true;
