@@ -1,38 +1,67 @@
 let firstName;
 let userId = Cookies.get("user_id");
+let diaryId;
 
-// user firtname 불러오기 
-$.support.cors = true;
+// 이미 답했다면 답한 diary를 불러오자
 $.ajax({
     type: 'get',           // 타입 (get, post, put 등등)
-    url: 'http://localhost:3000/users',           // 요청할 서버url
+    url: `http://localhost:3000/diaries/list/${userId}`,           // 요청할 서버url
     async: true,            // 비동기화 여부 (default : true)
     dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
     data: {},
     success: function (result) { // 결과 성공 콜백함수
-        result.forEach((result) => {
-            if (result.id == userId) {
-                $("#first-name").text(result.firstName);
-            }
-        });
+        let lastDiaryDate = result[result.length - 1].createdAt.substring(0, 10);
+        const date = new Date();
+        let yourDate = date.toISOString().split('T')[0];
+        // 오늘 일기 작성 전이라면
+        if (lastDiaryDate !== yourDate) {
+            getUserFirstName();
+            getTodayQuestion();
+        } else {
+            Cookies.set("diary_id", result[result.length-1].id);
+            diaryId = Cookies.get("diary_id");
+            getUserFirstName();
+            getDiaryData();
+        }
     }
 });
+
+// user firtname 불러오기 
+$.support.cors = true;
+function getUserFirstName() {
+    $.ajax({
+        type: 'get',           // 타입 (get, post, put 등등)
+        url: 'http://localhost:3000/users',           // 요청할 서버url
+        async: true,            // 비동기화 여부 (default : true)
+        dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
+        data: {},
+        success: function (result) { // 결과 성공 콜백함수
+            result.forEach((result) => {
+                if (result.id == userId) {
+                    $("#first-name").text(result.firstName);
+                }
+            });
+        }
+    });
+}
 
 // 오늘의 질문 가져오기
 let quesId;
 $.support.cors = true;
-$.ajax({
-    type: 'get',           // 타입 (get, post, put 등등)
-    url: `http://localhost:3000/questions`,           // 요청할 서버url
-    async: true,            // 비동기화 여부 (default : true)
-    dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
-    data: {},
-    success: function (result) { // 결과 성공 콜백함수
-        quesId = result.data.id;
-        let question = result.data.question;
-        $("#question").text(question);
-    }
-});
+function getTodayQuestion() {
+    $.ajax({
+        type: 'get',           // 타입 (get, post, put 등등)
+        url: `http://localhost:3000/questions`,           // 요청할 서버url
+        async: true,            // 비동기화 여부 (default : true)
+        dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
+        data: {},
+        success: function (result) { // 결과 성공 콜백함수
+            quesId = result.data.id;
+            let question = result.data.question;
+            $("#question").text(question);
+        }
+    });
+}
 
 // 즐겨찾기 클릭 이벤트 
 let isStar = false;
@@ -98,21 +127,20 @@ async function showDiary(diaryId) {
     await axios.get(`http://localhost:3000/diaries/${diaryId}`)
         .then(async (result) => {
             Cookies.set("diary_id", diaryId);
-            location.href= '../diary-reading.html';
+            location.href = '../diary.html';
         }).catch((err) => {
             console.log(err);
             console.log("다이어리 실패");
         });
 }
 
-async function getQuestion(quesId) {
-    let question = '';
-
-    await axios.get(`http://localhost:3000/questions/${quesId}`)
+function getDiaryData() {
+    axios.get(`http://localhost:3000/diaries/${diaryId}`)
         .then(async (result) => {
-            question = result.data;
+            console.log(result);
+            $("#answer").text(result.data.answer);
+
         }).catch((err) => {
             console.log("문제 불러오기 실패");
         });
-    return question;
 }
