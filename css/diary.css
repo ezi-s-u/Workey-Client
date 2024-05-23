@@ -168,4 +168,5 @@ input[type="radio"]::before {
     height: 50px;
     color: white;
     font-size: medium;
+    border: none;
 }
