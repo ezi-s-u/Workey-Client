@@ -249,5 +249,5 @@ header {
     height: 10px;
     width: 0%;
     background-color: rgb(153, 0, 255);
-    border: 1px purple solid;
+    /* border: 1px purple solid; */
 }
