@@ -98,6 +98,7 @@ async function getStateImgSrc(score) {
     }
 }
 
+// post new diary
 async function createDiary() {
     console.log("createDiary");
     let sum = await getSelfCheckScoreSum();// 총합
