@@ -65,29 +65,51 @@ function getTodayQuestion(id) {
 }
 
 // 즐겨찾기 클릭 이벤트 
-let isStar = false;
+let isClicked = false;
 let originalBackgroundURL = 'url(../img/icon_star_writing.svg)';
 let newBackgroundURL = 'url(../img/icon_filled_star_writing.svg)';
-function clickStar(obj) {
-    if (!isStar) {
+function isStarClicked(obj) {
+    if (!isClicked) {
         obj.style.background = newBackgroundURL;
-        isStar = true;
+        isClicked = true;
     } else {
         obj.style.background = originalBackgroundURL;
-        isStar = false;
+        isClicked = false;
     }
 }
 
-let selfCheckResult = "", state = false, sum = 0;
-function addSelfCheckScore() {
+function getSelfCheckScoreSum() {
+    let sum = 0;
     sum += Number($(":input:radio[name=q1]:checked").val());
     sum += Number($(":input:radio[name=q2]:checked").val());
     sum += Number($(":input:radio[name=q3]:checked").val());
     sum += Number($(":input:radio[name=q4]:checked").val());
-    createDiary();
+    return sum;
+}
+
+async function getStateImgSrc(score) {
+    console.log("sum score: "+score);
+    if (score >= 80) {
+        return "./img/state_good.svg";
+    } else if (score >= 46) {
+        return "./img/state_normal.svg";
+    } else {
+        return "./img/state_bad.svg";
+    }
 }
 
 async function createDiary() {
+    console.log("createDiary");
+    let sum = await getSelfCheckScoreSum();// 총합
+    console.log(sum);
+    let imgSrc = await getStateImgSrc(sum);
+    console.log(imgSrc);
+    let state = false;
+    if ( imgSrc === "./img/state_good.svg" )
+        state = true;
+    console.log(state);
+    let isStar = isClicked;
+    console.log(isStar);
 
     const req = {
         "answer": $("#answer").val(),
@@ -105,7 +127,7 @@ async function createDiary() {
                 await saveGoodCount(result.data.data.companyId);
             }
             // saveGoodCount(result.)
-            location.href = "../list.html";
+            // location.href = "../list.html";
             return true;
         }).catch((err) => {
 
