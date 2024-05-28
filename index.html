@@ -39,21 +39,15 @@
                 </div>
                 <!--  -->
                 <div class="record-box">
-                    <input type="checkbox" id="switch">
+                    <input type="checkbox" id="switch" onclick="isClicked(this)">
                     <label for="switch" class="switch_label">
-                        <span class="onf_btn"></span>
+                        <span id="onf_btn"></span>
                     </label>
                     <span id="current-state">Real-time</span>
                 </div>
-                <!--  -->
-                <!-- <div class="record-box">
-                    <img src="./img/icon_record.svg" alt="레코딩 아이콘">
-                    <span id="current-state">Real-time</span>
-                </div> -->
-                <!--  -->
                 <div class="working-time-box">
                     <div class="illustration-state">
-                        <img src="./img/running_illustration.svg" alt="일하는 중" id="running-illust">
+                        <img src="./img/running_illustration.svg" alt="일하는 중" id="illust">
                     </div>
                     <div class="running-time-bar">
                         <!-- 일한 시간에 따른 상태바 설정 필요 -->

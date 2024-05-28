@@ -1,3 +1,4 @@
+let user_id = Cookies.get("user_id");
 getUserInform()
 var progressInterval
 var rotation = 8;
@@ -8,7 +9,7 @@ function getUserInform() {
   const spanStartTime = $('#start-time');
   const spanEndTime = $('#end-time');
 
-  const user_id = Cookies.get("user_id");
+  user_id = Cookies.get("user_id");
   axios.get(`http://localhost:3000/main/${user_id}`)
     .then((result) => {
       const startTime = result.data.startTime
@@ -55,19 +56,19 @@ function getUserInform() {
         if (elapsedTime <= workingTime) {
           var progress = (elapsedTime / workingTime) * 100;
           document.getElementById("working-time-bar").style.width = progress + "%";
-          document.getElementById("running-illust").style.marginLeft = (progress) + 'px';
+          document.getElementById("illust").style.marginLeft = (progress) + 'px';
           // 이미지를 현재 각도에서 8도 회전합니다.
           rotation = (rotation === 8) ? -8 : 8;
 
           // 이미지의 각도를 변경합니다.
-          document.getElementById("running-illust").style.transform = 'rotate(' + rotation + 'deg)';
+          document.getElementById("illust").style.transform = 'rotate(' + rotation + 'deg)';
         } else {
           clearInterval(progressInterval);
           document.getElementById("working-time-bar").style.width = '100%';
-          document.getElementById("running-illust").style.marginLeft = '0px';
+          document.getElementById("illust").style.marginLeft = '0px';
 
           // 이미지의 각도를 변경합니다.
-          document.getElementById("running-illust").style.transform = 'rotate(' + 0 + 'deg)';
+          document.getElementById("illust").style.transform = 'rotate(' + 0 + 'deg)';
         }
 
         // console.log(document.getElementById("working-time-bar").style.width);
@@ -85,15 +86,44 @@ function convertTimeFormat(inputTime) {
   // 입력된 문자열을 Date 객체로 변환
   var inputDate = new Date('1970-01-01T' + inputTime);
 
-    // 12시간 형식으로 변환
-    var hours = inputDate.getHours();
-    var minutes = inputDate.getMinutes();
-    var ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // 0시일 경우 12로 표시
+  // 12시간 형식으로 변환
+  var hours = inputDate.getHours();
+  var minutes = inputDate.getMinutes();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 0시일 경우 12로 표시
 
-    // 시간과 분을 문자열로 조합
-    var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + ampm;
+  // 시간과 분을 문자열로 조합
+  var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + ampm;
 
-    return formattedTime;
+  return formattedTime;
+}
+
+// Rest-time, Real-time checkbox
+let illust = document.getElementById("illust");// 사진
+let state = document.getElementById("current-state");// rest or real
+let timebar = document.getElementById("working-time-bar");
+let comment = document.getElementById("comment");
+function isClicked(element) {
+  if (element.checked) {
+    // Rest-time이라고 텍스트 띄우기
+    state.textContent = "Rest-time";
+    // running_illustration.svg 숨기기
+    illust.src = "./img/stopping_illustration.svg";// 멈춘 이미지로 변경
+    illust.style.margin = "auto";// 가운데 정렬
+    // 상태바 색 그라데이션으로 다 채우기
+    timebar.style.backgroundImage = "linear-gradient(to left, var(--purple-02) 20%, var(--purple-08) 60%)";
+    // 말풍선 코멘트 변경
+    comment.textContent = "The quality of life is rising!";
+  } else {
+    state.textContent = "Real-time";
+    // running_illustration.svg 현재에 표시
+    illust.src = "./img/running_illustration.svg";
+    timebar.style.backgroundImage = "none";// 상태바 색 원위치
+    // 말풍선 코멘트 변경
+    comment.textContent = "Hustling until it's time to punch out!";
+    /**
+     *여기서 캐릭터 위치 조정하면 됩니다! 
+     */
+  }
 }

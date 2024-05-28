@@ -136,9 +136,9 @@ header {
     position: relative;
     float: right;
     height: auto;
-    /* background-color: white; */
+    background-color: white;
     /* border: solid 0.1em var(--gray-06); */
-    box-shadow: 1px 2px 3px #00000020;
+    box-shadow: 1px 1px 1px #00000020;
     border-radius: 0.8em;
     padding: 0.4em 0.5em 0.4em 0.5em;
     margin-bottom: 30px;
@@ -177,7 +177,7 @@ header {
     background: #efefef;
 }
 
-.onf_btn {
+#onf_btn {
     position: absolute;
     top: 2px;
     left: 2px;
@@ -200,9 +200,9 @@ header {
 }
 
 /* move */
-#switch:checked+.switch_label .onf_btn {
+#switch:checked+.switch_label #onf_btn {
     left: 13px;
-    background: #fff;
+    background: white;
     box-shadow: 1px 2px 3px #00000020;
 }
 
@@ -223,7 +223,7 @@ header {
     flex-direction: row;
 }
 
-#running-illust {
+#illust {
     position: relative;
     width: 50px;
     transform: translateX(-10px);
@@ -246,7 +246,7 @@ header {
 
 #working-time-bar {
     position: relative;
-    height: 10px;
+    height: 11px;
     width: 0%;
     background-color: rgb(153, 0, 255);
     /* border: 1px purple solid; */
