@@ -32,8 +32,6 @@ function changeCompanySelect(item) {
 
 }
 
-getMyPageData()
-
 let startTime;
 let endTime;
 
@@ -46,7 +44,10 @@ const inputEndTime = document.getElementById('input-end-time');
 const dropCompany = document.getElementById('drop-company-name');
 const dropPayday = document.getElementById('drop-payday');
 
-function getMyPageData() {
+const spanCompanyName = document.getElementById('company-name');
+
+
+document.addEventListener('DOMContentLoaded', () => {
     const user_id = Cookies.get('user_id');
     const company_id = Cookies.get('company_id');
 
@@ -76,7 +77,6 @@ function getMyPageData() {
 
                 companyName = result.data.name
                 console.log(companyName)
-                const spanCompanyName = document.getElementById('company-name');
                 spanCompanyName.innerHTML = companyName;
                 dropCompany.innerHTML = companyName;
 
@@ -158,7 +158,7 @@ function getMyPageData() {
         }).catch((err) => {
             console.error(err)
         });
-}
+})
 
 function editMemberInfo() {
     const user_id = Cookies.get('user_id');
@@ -199,6 +199,10 @@ function editMemberInfo() {
             axios.patch(`http://localhost:3000/users/mypage/${user_id}`, dataPatch)
             .then((result) => {
                 Cookies.set("company_id", companyId);
+                const selectedCompany = data.find(company => company.id === companyId);
+
+                spanCompanyName.innerHTML = selectedCompany.name;
+
                 console.log("회원 정보 수정되었습니다.");
             }).catch((err) => {
                 console.error("회원 정보 수정에 실패했습니다.");
