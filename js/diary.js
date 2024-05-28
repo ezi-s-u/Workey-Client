@@ -100,17 +100,12 @@ async function getStateImgSrc(score) {
 
 // post new diary
 async function createDiary() {
-    console.log("createDiary");
     let sum = await getSelfCheckScoreSum();// 총합
-    console.log(sum);
     let imgSrc = await getStateImgSrc(sum);
-    console.log(imgSrc);
     let state = false;
     if ( imgSrc === "./img/state_good.svg" )
         state = true;
-    console.log(state);
     let isStar = isClicked;
-    console.log(isStar);
 
     const req = {
         "answer": $("#answer").val(),
@@ -120,25 +115,23 @@ async function createDiary() {
         "companyId": Cookies.get("company_id")
     }
 
-    console.log(req);
     await axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
         .then(async (result) => {
             if (result.data.data.state) {
-                console.log(result);
                 await saveGoodCount(result.data.data.companyId);
             }
-            // saveGoodCount(result.)
-            // location.href = "../list.html";
+            location.href = "../list.html";
             return true;
         }).catch((err) => {
-
+            console.log(err);
         });
 
 }
 
 async function saveGoodCount(companyId) {
-    console.log(companyId);
-    await axios.patch(`http://localhost:3000/companies/${companyId}`)
+    let req = {};
+
+    await axios.patch(`http://localhost:3000/companies/${companyId}`, req)
         .then(async (result) => {
             console.log(result);
         }).catch((err) => {
@@ -146,7 +139,7 @@ async function saveGoodCount(companyId) {
         });
 }
 
-// let diaryId;
+// using list.js
 async function showDiary(diaryId) {
     await axios.get(`http://localhost:3000/diaries/${diaryId}`)
         .then(async (result) => {
