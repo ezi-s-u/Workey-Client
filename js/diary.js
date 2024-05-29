@@ -134,7 +134,7 @@ async function createDiary() {
             }
             let id = result.data.data.id;
             await saveSelfCheckValue(id);// self check test result 각각의 값 저장
-            // location.href = "../list.html";
+            location.href = "../list.html";
 
         }).catch((err) => {
             console.log(err);
