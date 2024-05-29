@@ -154,7 +154,7 @@ async function saveSelfCheckValue(id) {
             //console.log("st_answer1: " + result.data.st_answer1);
 
         }).catch((err) => {
-            console.log("self test result 값 저장 실패: "+err);
+            console.log("self test result 값 저장 실패: " + err);
         })
 }
 
@@ -166,21 +166,17 @@ async function getSelfCheckValue(id) {
             await setSelfCheckValueHtml(result.data.st_answer2, "q2");
             await setSelfCheckValueHtml(result.data.st_answer3, "q3");
             await setSelfCheckValueHtml(result.data.st_answer4, "q4");
-            // 값을 5로 나눈 몫-1이 element의 인덱스가 된다.
-            // 해당 element를 checked로 변경
-            // 필요한 것: 선택된 값(5로 나눌 값), elementName
         }).catch((err) => {
             console.log(err);
-        })  
+        })
 }
 
 // 가져온 self-check 값 저장된 위치에 넣기
 async function setSelfCheckValueHtml(value, name) {
     let question = document.getElementsByName(name);
-    let index = question.length-(value/5);
+    let index = question.length - (value / 5);
     //console.log(question[index].checked);
     question[index].checked = true;
-    console.log(question[index].checked);
 }
 
 async function saveGoodCount(companyId) {
@@ -200,10 +196,9 @@ async function getDiaryData() {
         .then(async (result) => {
             await setTodayQuestion(result.data.quesId);
             $("#answer").text(result.data.answer+" ");
-            isStarClicked(!result.data.star);
             await getSelfCheckValue(result.data.id);
-            console.log("가져옴!");
+            await isStarClicked(!result.data.star);
         }).catch((err) => {
-            console.log("문제 불러오기 실패");
+            console.log("문제 불러오기 실패"+err);
         });
 }
