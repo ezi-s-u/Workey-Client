@@ -19,16 +19,20 @@ if (urlParams.get('id') !== null) {
         dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
         data: {},
         success: async function (result) { // 결과 성공 콜백함수
-            let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
             let yourDate = String(today).substring(8, 10);
-
-            // 오늘 일기 작성 전이라면
-            if (lastDiaryDate !== yourDate) {
+            if (result.length === 0) {// 가장 처음 작성하는 글이라면
                 await setUserFirstName();
                 await setTodayQuestion(yourDate);
             } else {
-                diaryId = result[result.length-1].id;
-                getDiaryData();
+                let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
+                // 오늘 일기 작성 전이라면
+                if (lastDiaryDate !== yourDate) {
+                    await setUserFirstName();
+                    await setTodayQuestion(yourDate);
+                } else {// 오늘 일기를 작성한 뒤라면
+                    diaryId = result[result.length - 1].id;
+                    getDiaryData();
+                }
             }
         }
     });
