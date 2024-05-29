@@ -1,10 +1,11 @@
-let user_id = Cookies.get("user_id");
+let user_id
 // getUserInform()
 var progressInterval
 var rotation = 8;
 
 let character = document.getElementById("illust") // 캐릭터
 let timeBar = document.getElementById("working-time-bar") // 바
+let comment = document.getElementById("comment"); // 말풍선 말
 // let barWidth = workingTimeBar.clientWidth; // 바 길이
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,13 +67,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // 이미지의 각도를 변경합니다.
           character.style.transform = 'rotate(' + rotation + 'deg)';
+
+          // 말풍선
+          comment.textContent = "Hustling until it's time to punch out!";
         } else {
           clearInterval(progressInterval);
           timeBar.style.width = '100%';
-          character.style.marginLeft = '0px';
+          character.style.marginLeft = '40%';
 
           // 이미지의 각도를 변경합니다.
           character.style.transform = 'rotate(' + 0 + 'deg)';
+          character.src = "./img/running_illustration_done.svg";
+
+          // 말풍선
+          comment.textContent = "You did an amazing job today!";
         }
 
       }
@@ -107,7 +115,6 @@ function convertTimeFormat(inputTime) {
 
 // Rest-time, Real-time checkbox
 let state = document.getElementById("current-state");// rest or real
-let comment = document.getElementById("comment");
 function isClicked(element) {
   if (element.checked) {
     // Rest-time이라고 텍스트 띄우기
