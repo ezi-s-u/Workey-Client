@@ -91,9 +91,13 @@ async function getDiaryHtml(id, quesId, companyId, date, isStar) {
         let question = await getQuestion(quesId);// 질문 가져오기
         let company = await getCompany(companyId);// 회사 가져오기 
 
-        let year = date.slice(0, 4);
-        let month = date.slice(5, 7);
-        month = await getMonthName(month);
+        let d = new Date(toString(date))
+
+        // let year = date.slice(0, 4);
+        // let month = date.slice(5, 7);
+        month = await getMonthName(d.getMonth());
+        console.log(d.getMonth())
+        console.log(date)
         let day = await getDateFormat(quesId);
         let dateFormat = month + " " + day + ", " + year;
 
@@ -219,4 +223,22 @@ function deleteDivList() {
         if (div[i]) // div태그가 있는지 확인
             div[i].remove();
     }
+}
+
+//
+let selectDate = document.getElementById("select-date");
+selectDate.addEventListener("change", showDiaryByDate());
+
+async function showDiaryByDate() {
+    const selectedDate = selectDate.value;
+    console.log(selectDate)
+    
+    await axios.get(`http://localhost:3000/diaries/date/detail?date=${selectedDate}`)
+        .then(async (result) => {
+            await setDiaryHtml(result.id, result.quesId, result.companyId, result.createdAt, result.star);
+    }).catch((err) => {
+        console.log("err : " + err)
+        console.log("해당 날짜의 다이어리 불러오기 실패")
+    })
+
 }
