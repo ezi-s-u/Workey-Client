@@ -19,19 +19,17 @@ if (urlParams.get('id') !== null) {
         dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
         data: {},
         success: async function (result) { // 결과 성공 콜백함수
-            // let lastDiaryDate = result[result.length - 1].createdAt.substring(0, 10);
+            let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
             let yourDate = String(today).substring(8, 10);
-            // 오늘 일기 작성 전이라면
-            // if (lastDiaryDate !== yourDate) {
-            await setUserFirstName();
-            await setTodayQuestion(yourDate);
 
-            // } else {
-            //     Cookies.set("diary_id", result[result.length-1].id);
-            //     diaryId = Cookies.get("diary_id");
-            //     setUserFirstName();
-            //     getDiaryData();
-            // }
+            // 오늘 일기 작성 전이라면
+            if (lastDiaryDate !== yourDate) {
+                await setUserFirstName();
+                await setTodayQuestion(yourDate);
+            } else {
+                diaryId = result[result.length-1].id;
+                getDiaryData();
+            }
         }
     });
 }
@@ -195,10 +193,10 @@ async function getDiaryData() {
     axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             await setTodayQuestion(result.data.quesId);
-            $("#answer").text(result.data.answer+" ");
+            $("#answer").text(result.data.answer + " ");
             await getSelfCheckValue(result.data.id);
             await isStarClicked(!result.data.star);
         }).catch((err) => {
-            console.log("문제 불러오기 실패"+err);
+            console.log("문제 불러오기 실패" + err);
         });
 }
