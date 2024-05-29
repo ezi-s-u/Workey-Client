@@ -3,7 +3,7 @@ getUserInform()
 var progressInterval
 var rotation = 8;
 
-function getUserInform() {
+document.addEventListener('DOMContentLoaded', () => {
   const spanPayday = $('#until-payday');
 
   const spanStartTime = $('#start-time');
@@ -13,7 +13,7 @@ function getUserInform() {
   axios.get(`http://localhost:3000/main/${user_id}`)
     .then((result) => {
       const startTime = result.data.startTime
-      console.log(parseInt(startTime))
+      // console.log(parseInt(startTime))
       const endTime = result.data.endTime
       const payday = new Date(result.data.payday)
 
@@ -29,59 +29,72 @@ function getUserInform() {
       // ajax innerHTML
       spanPayday.html(untilPayday);
 
-      /* 하루 일한 시간 계산 */
-      console.log(startTime + " " + endTime)
 
-      var convertedStartTime = convertTimeFormat(startTime);
-      var convertedEndTime = convertTimeFormat(endTime);
-      // console.log(convertedStartTime+ " " + convertedEndTime);
-
-      spanStartTime.html(convertedStartTime)
-      spanEndTime.html(convertedEndTime)
+      spanStartTime.html(convertTimeFormat(startTime)) // 화면에 출근 시간 출력
+      spanEndTime.html(convertTimeFormat(endTime)) // 화면에 출근 시간 출력
+      
 
       /* 애니메이션 */
       var startTimestamp = new Date().setHours(parseInt(startTime), 0, 0, 0);
       var endTimestamp = new Date().setHours(parseInt(endTime), 0, 0, 0);
 
-      // 작업 시간 계산
+      let workingTimeBar = document.getElementById("working-time-bar") // 바
+      let barWidth = workingTimeBar.clientWidth; // 바 길이
+      console.log(barWidth)
 
-      // 작업 시간 동안 매 초마다 바의 너비를 조절하는 함수
+      let runningCharacter = document.getElementById("running-illust") // 캐릭터
+
+      // 바의 너비를 조절하는 함수
       function increaseProgressBar() {
-        var currentTime = new Date().setHours(new Date().getTime(), 0, 0, 0);
-        var elapsedTime = currentTime - startTimestamp;
+        // let now = new Date();
 
-        var workingTime = endTimestamp - startTimestamp;
+        // 현재 일하고 있는 시간인지
+        function isWorkingTime() {
+          const now = new Date();
+          return now >= startTimestamp && now <= endTimestamp;
+        }
 
 
-        if (elapsedTime <= workingTime) {
-          var progress = (elapsedTime / workingTime) * 100;
-          document.getElementById("working-time-bar").style.width = progress + "%";
-          document.getElementById("illust").style.marginLeft = (progress) + 'px';
+        if (isWorkingTime()) {
+          var currentTime = new Date() // 현재 시간
+          let totalMinutes = (endTimestamp - startTimestamp);
+          let elapsedTime = (currentTime - startTimestamp);
+          let progress = (elapsedTime / totalMinutes) * 100;
+
+          workingTimeBar.style.width = `${progress}%`
+          console.log("width : " + workingTimeBar.style.width)
+
+          // workingTimeBar.style.width = `${progress+0.02}%`
+          runningCharacter.style.marginLeft = `${progress-11}%`
+
+
           // 이미지를 현재 각도에서 8도 회전합니다.
           rotation = (rotation === 8) ? -8 : 8;
 
           // 이미지의 각도를 변경합니다.
-          document.getElementById("illust").style.transform = 'rotate(' + rotation + 'deg)';
+          runningCharacter.style.transform = 'rotate(' + rotation + 'deg)';
         } else {
           clearInterval(progressInterval);
-          document.getElementById("working-time-bar").style.width = '100%';
-          document.getElementById("illust").style.marginLeft = '0px';
+          workingTimeBar.style.width = '100%';
+          runningCharacter.style.marginLeft = '0px';
 
           // 이미지의 각도를 변경합니다.
-          document.getElementById("illust").style.transform = 'rotate(' + 0 + 'deg)';
+          runningCharacter.style.transform = 'rotate(' + 0 + 'deg)';
         }
 
-        // console.log(document.getElementById("working-time-bar").style.width);
       }
 
-      // 1초마다 increaseProgressBar 함수를 호출
+      increaseProgressBar() // 페이지 로드 시 첫 번째 실행
+
+      // 1초마다 increaseProgressBar 함수 호출
       progressInterval = setInterval(increaseProgressBar, 1000);
 
     }).catch((err) => {
       console.error(err);
     });
-}
+})
 
+// '12:00 AM' 형태로 반환하는 함수
 function convertTimeFormat(inputTime) {
   // 입력된 문자열을 Date 객체로 변환
   var inputDate = new Date('1970-01-01T' + inputTime);
@@ -96,7 +109,7 @@ function convertTimeFormat(inputTime) {
   // 시간과 분을 문자열로 조합
   var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + ampm;
 
-  return formattedTime;
+    return formattedTime;
 }
 
 // Rest-time, Real-time checkbox
@@ -126,4 +139,10 @@ function isClicked(element) {
      *여기서 캐릭터 위치 조정하면 됩니다! 
      */
   }
+}
+
+function extractNumbers(input) {
+  // 정규 표현식을 사용하여 숫자와 점(.)을 찾음
+  const matches = input.match(/[0-9.]+/g);
+  return matches ? parseFloat(matches.join('')) : 0;
 }
