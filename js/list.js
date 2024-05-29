@@ -89,11 +89,11 @@ async function getDiaryHtml(id, quesId, companyId, date, isStar, score) {
         let question = await getQuestion(quesId);// 질문 가져오기
         let company = await getCompany(companyId);// 회사 가져오기 
 
-        let dateFormat = await getTodayDate(date);// 작성된 날짜 포맷 가져오기
+        let dateFormat = await getTodayDate(String(date));// 작성된 날짜 포맷 가져오기
 
         return `<div class="diary-box">
         ${starImg}
-        <div class="text-box" onclick="showDiary(${id})">
+        <div class="text-box" onclick="location.href = '../diary.html?id=${id}';">
         <span class="title">${question}</span>
         <hr>
         <div class="bottom-box">
@@ -140,8 +140,9 @@ async function getCompany(companyId) {
 async function getTodayDate(date) {
     let year = date.slice(0, 4);
     let month = date.slice(5, 7);
+    let day = date.slice(8,10);
     month = await getMonthName(month);
-    let day = await getDateFormat(quesId);
+    day = await getDateFormat(day);
     return month + " " + day + ", " + year;
 }
 
@@ -150,13 +151,13 @@ async function showDiaries() {
     let userId = Cookies.get("user_id");
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
-            // var year = today.getFullYear();
             await result.data.forEach(async (element) => {
                 // 작성된 달의 인덱스 구하기
                 let index = Number(element.createdAt.substring(5, 7)) - 1;
                 // 같은 달끼리만 보여주기
+                console.log("date: "+element.createdAt);
                 if (months[index] === (months[currentMonthIndex])) {
-                    setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.score);
+                    await setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.score);
                 }
             });
         }).catch((err) => {
@@ -203,11 +204,10 @@ async function search(id) {
     let userId = Cookies.get("user_id");
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
-            console.log("들어감");
             await result.data.forEach(async (element) => {
                 if (id === element.id) {
                     deleteDivList();
-                    await setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star);
+                    await setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.score);
                 }
             })
 
