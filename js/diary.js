@@ -5,9 +5,8 @@ let diaryId;
 // 쿼리스트링값 저장
 const url = new URL(window.location.href);
 const urlParams = url.searchParams;
-console.log(urlParams.get('id'));
 
-// 쿼리스트링이 없다면
+// 하나의 diary에 접속했을 경우
 if (urlParams.get('id') !== null) {
     diaryId = urlParams.get('id');
     getDiaryData();
@@ -15,20 +14,18 @@ if (urlParams.get('id') !== null) {
     // 이미 답했다면 답한 diary를 불러오자
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
-        url: `http://localhost:3000/diaries/list/${userId}`,           // 요청할 서버url
+        url: `http://localhost:3000/diaries/${userId}`,           // 요청할 서버url
         async: true,            // 비동기화 여부 (default : true)
         dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
         data: {},
         success: async function (result) { // 결과 성공 콜백함수
             // let lastDiaryDate = result[result.length - 1].createdAt.substring(0, 10);
-            console.log(today);
             let yourDate = String(today).substring(8, 10);
-            console.log("yourDate: "+yourDate);
             // 오늘 일기 작성 전이라면
             // if (lastDiaryDate !== yourDate) {
             await setUserFirstName();
             await setTodayQuestion(yourDate);
-            
+
             // } else {
             //     Cookies.set("diary_id", result[result.length-1].id);
             //     diaryId = Cookies.get("diary_id");
@@ -76,14 +73,12 @@ async function setTodayQuestion(id) {
 
 // 즐겨찾기 클릭 이벤트 
 let isClicked = false;
-let originalBackgroundURL = 'url(../img/icon_star_writing.svg)';
-let newBackgroundURL = 'url(../img/icon_filled_star_writing.svg)';
-async function isStarClicked(obj) {
-    if (!isClicked) {
-        obj.style.background = newBackgroundURL;
+async function isStarClicked(star = isClicked) {
+    if (!star) {
+        document.getElementsByClassName("important")[0].src = "./img/icon_filled_star_writing.svg";
         isClicked = true;
     } else {
-        obj.style.background = originalBackgroundURL;
+        document.getElementsByClassName("important")[0].src = "./img/icon_star_writing.svg";
         isClicked = false;
     }
 }
@@ -98,7 +93,6 @@ async function getSelfCheckScoreSum() {
 }
 
 async function getStateImgSrc(score) {
-    console.log("sum score: " + score);
     if (score >= 80) {
         return "./img/state_good.svg";
     } else if (score >= 46) {
@@ -110,6 +104,9 @@ async function getStateImgSrc(score) {
 
 // post new diary
 async function createDiary() {
+    let answer = $("#answer").val();
+    if (answer === '')
+        answer = ' ';
     let sum = await getSelfCheckScoreSum();// 총합
     let imgSrc = await getStateImgSrc(sum);
     let state = false;
@@ -118,7 +115,7 @@ async function createDiary() {
     let isStar = isClicked;
 
     const req = {
-        "answer": $("#answer").val(),
+        "answer": answer,
         "star": isStar,
         "score": sum,
         "state": state,
@@ -127,18 +124,63 @@ async function createDiary() {
 
     let dateFormat = await getTodayDate(String(today));
     let quesId = dateFormat.substring(10, 12);
-    
+
     axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
         .then(async (result) => {
             if (result.data.data.state) {
                 await saveGoodCount(result.data.data.companyId);
             }
+            let id = result.data.data.id;
+            await saveSelfCheckValue(id);// self check test result 각각의 값 저장
             // location.href = "../list.html";
-            return true;
+
         }).catch((err) => {
             console.log(err);
         });
 
+}
+
+async function saveSelfCheckValue(id) {
+    diaryId = id;
+    let req = {
+        "st_answer1": Number($(":input:radio[name=q1]:checked").val()),
+        "st_answer2": Number($(":input:radio[name=q2]:checked").val()),
+        "st_answer3": Number($(":input:radio[name=q3]:checked").val()),
+        "st_answer4": Number($(":input:radio[name=q4]:checked").val())
+    };
+
+    await axios.post(`http://localhost:3000/self-test-results/${diaryId}`, req)
+        .then(async (result) => {
+            //console.log("st_answer1: " + result.data.st_answer1);
+
+        }).catch((err) => {
+            console.log("self test result 값 저장 실패: "+err);
+        })
+}
+
+async function getSelfCheckValue(id) {
+    diaryId = id;
+    axios.get(`http://localhost:3000/self-test-results/${diaryId}`)
+        .then(async (result) => {
+            await setSelfCheckValueHtml(result.data.st_answer1, "q1");
+            await setSelfCheckValueHtml(result.data.st_answer2, "q2");
+            await setSelfCheckValueHtml(result.data.st_answer3, "q3");
+            await setSelfCheckValueHtml(result.data.st_answer4, "q4");
+            // 값을 5로 나눈 몫-1이 element의 인덱스가 된다.
+            // 해당 element를 checked로 변경
+            // 필요한 것: 선택된 값(5로 나눌 값), elementName
+        }).catch((err) => {
+            console.log(err);
+        })  
+}
+
+// 가져온 self-check 값 저장된 위치에 넣기
+async function setSelfCheckValueHtml(value, name) {
+    let question = document.getElementsByName(name);
+    let index = question.length-(value/5);
+    //console.log(question[index].checked);
+    question[index].checked = true;
+    console.log(question[index].checked);
 }
 
 async function saveGoodCount(companyId) {
@@ -154,15 +196,13 @@ async function saveGoodCount(companyId) {
 
 async function getDiaryData() {
     await setUserFirstName();
-    axios.get(`http://localhost:3000/diaries/${diaryId}`)
+    axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
-            console.log("quesId: " + result.data.quesId);
             await setTodayQuestion(result.data.quesId);
-            // document.getElementById("question").textContent = question;
-            // console.log($("p#question.title").text());
-            console.log(question);
-            console.log(result);
-            $("#answer").text(result.data.answer);
+            $("#answer").text(result.data.answer+" ");
+            isStarClicked(!result.data.star);
+            await getSelfCheckValue(result.data.id);
+            console.log("가져옴!");
         }).catch((err) => {
             console.log("문제 불러오기 실패");
         });

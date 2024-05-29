@@ -149,13 +149,13 @@ async function getTodayDate(date) {
 showDiaries();
 async function showDiaries() {
     let userId = Cookies.get("user_id");
-    await axios.get(`http://localhost:3000/diaries/list/${userId}`)
+    await axios.get(`http://localhost:3000/diaries/${userId}`)
         .then(async (result) => {
             await result.data.forEach(async (element) => {
                 // 작성된 달의 인덱스 구하기
                 let index = Number(element.createdAt.substring(5, 7)) - 1;
                 // 같은 달끼리만 보여주기
-                console.log("date: "+element.createdAt);
+                //console.log("date: "+element.createdAt);
                 if (months[index] === (months[currentMonthIndex])) {
                     await setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.score);
                 }
@@ -184,7 +184,7 @@ async function doKeyDown(event) {
 async function findIncludedWord(input) {
     let userId = Cookies.get("user_id");
 
-    await axios.get(`http://localhost:3000/diaries/list/${userId}`)
+    await axios.get(`http://localhost:3000/diaries/${userId}`)
         .then(async (result) => {
             await result.data.forEach(async (element) => {
                 let index = Number(element.createdAt.substring(5, 7)) - 1;
@@ -202,7 +202,7 @@ async function findIncludedWord(input) {
 // 제목으로 검색하기
 async function search(id) {
     let userId = Cookies.get("user_id");
-    await axios.get(`http://localhost:3000/diaries/list/${userId}`)
+    await axios.get(`http://localhost:3000/diaries/${userId}`)
         .then(async (result) => {
             await result.data.forEach(async (element) => {
                 if (id === element.id) {
