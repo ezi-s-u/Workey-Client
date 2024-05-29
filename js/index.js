@@ -1,7 +1,11 @@
 let user_id = Cookies.get("user_id");
-getUserInform()
+// getUserInform()
 var progressInterval
 var rotation = 8;
+
+let character = document.getElementById("illust") // 캐릭터
+let timeBar = document.getElementById("working-time-bar") // 바
+// let barWidth = workingTimeBar.clientWidth; // 바 길이
 
 document.addEventListener('DOMContentLoaded', () => {
   const spanPayday = $('#until-payday');
@@ -29,20 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // ajax innerHTML
       spanPayday.html(untilPayday);
 
-
       spanStartTime.html(convertTimeFormat(startTime)) // 화면에 출근 시간 출력
       spanEndTime.html(convertTimeFormat(endTime)) // 화면에 출근 시간 출력
       
-
       /* 애니메이션 */
       var startTimestamp = new Date().setHours(parseInt(startTime), 0, 0, 0);
       var endTimestamp = new Date().setHours(parseInt(endTime), 0, 0, 0);
-
-      let workingTimeBar = document.getElementById("working-time-bar") // 바
-      let barWidth = workingTimeBar.clientWidth; // 바 길이
-      console.log(barWidth)
-
-      let runningCharacter = document.getElementById("running-illust") // 캐릭터
 
       // 바의 너비를 조절하는 함수
       function increaseProgressBar() {
@@ -61,25 +57,22 @@ document.addEventListener('DOMContentLoaded', () => {
           let elapsedTime = (currentTime - startTimestamp);
           let progress = (elapsedTime / totalMinutes) * 100;
 
-          workingTimeBar.style.width = `${progress}%`
-          console.log("width : " + workingTimeBar.style.width)
+          timeBar.style.width = `${progress}%` // 바 길이 증가
 
-          // workingTimeBar.style.width = `${progress+0.02}%`
-          runningCharacter.style.marginLeft = `${progress-11}%`
-
+          character.style.marginLeft = `${progress-13}%` // 캐릭터 위치 이동
 
           // 이미지를 현재 각도에서 8도 회전합니다.
           rotation = (rotation === 8) ? -8 : 8;
 
           // 이미지의 각도를 변경합니다.
-          runningCharacter.style.transform = 'rotate(' + rotation + 'deg)';
+          character.style.transform = 'rotate(' + rotation + 'deg)';
         } else {
           clearInterval(progressInterval);
-          workingTimeBar.style.width = '100%';
-          runningCharacter.style.marginLeft = '0px';
+          timeBar.style.width = '100%';
+          character.style.marginLeft = '0px';
 
           // 이미지의 각도를 변경합니다.
-          runningCharacter.style.transform = 'rotate(' + 0 + 'deg)';
+          character.style.transform = 'rotate(' + 0 + 'deg)';
         }
 
       }
@@ -113,26 +106,24 @@ function convertTimeFormat(inputTime) {
 }
 
 // Rest-time, Real-time checkbox
-let illust = document.getElementById("illust");// 사진
 let state = document.getElementById("current-state");// rest or real
-let timebar = document.getElementById("working-time-bar");
 let comment = document.getElementById("comment");
 function isClicked(element) {
   if (element.checked) {
     // Rest-time이라고 텍스트 띄우기
     state.textContent = "Rest-time";
     // running_illustration.svg 숨기기
-    illust.src = "./img/stopping_illustration.svg";// 멈춘 이미지로 변경
-    illust.style.margin = "auto";// 가운데 정렬
+    character.src = "./img/stopping_illustration.svg";// 멈춘 이미지로 변경
+    character.style.margin = "auto";// 가운데 정렬
     // 상태바 색 그라데이션으로 다 채우기
-    timebar.style.backgroundImage = "linear-gradient(to left, var(--purple-02) 20%, var(--purple-08) 60%)";
+    timeBar.style.backgroundImage = "linear-gradient(to left, var(--purple-02) 20%, var(--purple-08) 60%)";
     // 말풍선 코멘트 변경
     comment.textContent = "The quality of life is rising!";
   } else {
     state.textContent = "Real-time";
     // running_illustration.svg 현재에 표시
-    illust.src = "./img/running_illustration.svg";
-    timebar.style.backgroundImage = "none";// 상태바 색 원위치
+    character.src = "./img/running_illustration.svg";
+    timeBar.style.backgroundImage = "none";// 상태바 색 원위치
     // 말풍선 코멘트 변경
     comment.textContent = "Hustling until it's time to punch out!";
     /**
