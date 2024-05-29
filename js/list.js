@@ -1,16 +1,16 @@
-// 월 변경 함수 
-let currentMonthIndex = 0;  // 현재 월의 인덱스
-// let companyId = Cookies.get("company_id");
-// console.log(companyId);
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+let today = new Date();// 현날짜
+let currentMonth = ('0' + (today.getMonth() + 1)).slice(-2);// 현재 달
+let currentMonthIndex = Number(currentMonth) - 1;// 현재 달 인덱스
+let currentMonthElement = $("#currentMonth");// 현재 달 세팅할 html
+currentMonthElement.text(months[currentMonthIndex]);// 현재 달
 
 // 월을 변경하는 함수
 async function changeMonth() {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const currentMonthElement = $("#currentMonth");
-    if (months[currentMonthIndex] !== "January")
-        await deleteList();
-    else
-        await showDiaries();
+
+    currentMonthElement.text(months[currentMonthIndex]);
+    await deleteList();
+    await showDiaries();
     // 현재 월 표시 업데이트
     currentMonthElement.text(months[currentMonthIndex]);
 }
@@ -44,24 +44,23 @@ function deleteList() {
     }
 }
 
-async function getStateImgSrc(score) {
-    let imgSrc;
-    console.log(score);
-    if (score >= 80) {
-        imgSrc = "./img/state_good.svg";
-    } else if (score >= 46) {
-        imgSrc = "./img/state_normal.svg";
-    } else {
-        imgSrc = "./img/state_bad.svg";
-    }
-    return imgSrc;
-}
+// async function getStateImgSrc(score) {
+//     let imgSrc;
+//     console.log(score);
+//     if (score >= 80) {
+//         imgSrc = "./img/state_good.svg";
+//     } else if (score >= 46) {
+//         imgSrc = "./img/state_normal.svg";
+//     } else {
+//         imgSrc = "./img/state_bad.svg";
+//     }
+//     return imgSrc;
+// }
 
 // 날짜 포맷 세팅
 async function getMonthName(m) {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let currentMonth = Number(m);
-    return months[currentMonth % 12 - 1];
+    let month = Number(m);
+    return months[month % 12 - 1];
 }
 
 async function getDateFormat(d) {
@@ -71,16 +70,15 @@ async function getDateFormat(d) {
     else return d + "th";
 }
 
-let score;
-async function setDiaryHtml(id, quesId, companyId, date, isStar) {
+async function setDiaryHtml(id, quesId, companyId, date, isStar, score) {
     try {
-        $(".diary-list-box").append(await getDiaryHtml(id, quesId, companyId, date, isStar));// html - 덮어씌우기, append - 추가하기
+        $(".diary-list-box").append(await getDiaryHtml(id, quesId, companyId, date, isStar, score));// html - 덮어씌우기, append - 추가하기
     } catch (err) {
         console.log("getHtml함수 불러오기 실패");
     }
 }
 
-async function getDiaryHtml(id, quesId, companyId, date, isStar) {
+async function getDiaryHtml(id, quesId, companyId, date, isStar, score) {
     try {
 
         let starImg = '';
@@ -91,15 +89,7 @@ async function getDiaryHtml(id, quesId, companyId, date, isStar) {
         let question = await getQuestion(quesId);// 질문 가져오기
         let company = await getCompany(companyId);// 회사 가져오기 
 
-        let d = new Date(toString(date))
-
-        // let year = date.slice(0, 4);
-        // let month = date.slice(5, 7);
-        month = await getMonthName(d.getMonth());
-        console.log(d.getMonth())
-        console.log(date)
-        let day = await getDateFormat(quesId);
-        let dateFormat = month + " " + day + ", " + year;
+        let dateFormat = await getTodayDate(date);// 작성된 날짜 포맷 가져오기
 
         return `<div class="diary-box">
         ${starImg}
@@ -113,7 +103,6 @@ async function getDiaryHtml(id, quesId, companyId, date, isStar) {
         </div>
         <div class="img-box">
         <img src=${imgSrc} alt="">
-        <!-- 점수에 따른 이미지 삽입 필요 -->
         </div>
         </div>`;
     } catch (err) {
@@ -147,15 +136,28 @@ async function getCompany(companyId) {
     return company;
 }
 
+// 오늘 날짜 포맷 반환
+async function getTodayDate(date) {
+    let year = date.slice(0, 4);
+    let month = date.slice(5, 7);
+    month = await getMonthName(month);
+    let day = await getDateFormat(quesId);
+    return month + " " + day + ", " + year;
+}
+
 showDiaries();
 async function showDiaries() {
     let userId = Cookies.get("user_id");
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
-            console.log(result);
+            // var year = today.getFullYear();
             await result.data.forEach(async (element) => {
-                score = element.score;
-                setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star);
+                // 작성된 달의 인덱스 구하기
+                let index = Number(element.createdAt.substring(5, 7)) - 1;
+                // 같은 달끼리만 보여주기
+                if (months[index] === (months[currentMonthIndex])) {
+                    setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star, element.score);
+                }
             });
         }).catch((err) => {
             console.log("다이어리 리스트 보여주기 실패");
@@ -183,11 +185,10 @@ async function findIncludedWord(input) {
 
     await axios.get(`http://localhost:3000/diaries/list/${userId}`)
         .then(async (result) => {
-            console.log("result");
-            console.log(result.data);
             await result.data.forEach(async (element) => {
+                let index = Number(element.createdAt.substring(5, 7)) - 1;
                 let question = await getQuestion(element.quesId);
-                if (question.includes(input)) {
+                if (question.includes(input) && months[index] === (months[currentMonthIndex])) {// 월별로 필터링
                     await search(element.id);
                 }
                 return true;
@@ -206,7 +207,7 @@ async function search(id) {
             await result.data.forEach(async (element) => {
                 if (id === element.id) {
                     deleteDivList();
-                    await setDiaryHtml(element.id,  element.quesId, element.companyId, element.createdAt, element.star);
+                    await setDiaryHtml(element.id, element.quesId, element.companyId, element.createdAt, element.star);
                 }
             })
 
