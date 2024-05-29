@@ -23,12 +23,12 @@ if (urlParams.get('id') !== null) {
             // let lastDiaryDate = result[result.length - 1].createdAt.substring(0, 10);
             console.log(today);
             let yourDate = String(today).substring(8, 10);
-            console.log("yourDate: "+yourDate);
+            console.log("yourDate: " + yourDate);
             // 오늘 일기 작성 전이라면
             // if (lastDiaryDate !== yourDate) {
             await setUserFirstName();
             await setTodayQuestion(yourDate);
-            
+
             // } else {
             //     Cookies.set("diary_id", result[result.length-1].id);
             //     diaryId = Cookies.get("diary_id");
@@ -76,15 +76,14 @@ async function setTodayQuestion(id) {
 
 // 즐겨찾기 클릭 이벤트 
 let isClicked = false;
-let originalBackgroundURL = 'url(../img/icon_star_writing.svg)';
-let newBackgroundURL = 'url(../img/icon_filled_star_writing.svg)';
-async function isStarClicked(obj) {
-    if (!isClicked) {
-        obj.style.background = newBackgroundURL;
-        isClicked = true;
-    } else {
-        obj.style.background = originalBackgroundURL;
+async function isStarClicked() {
+    console.log("눌러짐");
+    if (isClicked) {
+        document.getElementsByClassName("important")[0].src = "./img/icon_star_writing.svg";
         isClicked = false;
+    } else {
+        document.getElementsByClassName("important")[0].src = "./img/icon_filled_star_writing.svg";
+        isClicked = true;
     }
 }
 
@@ -127,7 +126,7 @@ async function createDiary() {
 
     let dateFormat = await getTodayDate(String(today));
     let quesId = dateFormat.substring(10, 12);
-    
+
     axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
         .then(async (result) => {
             if (result.data.data.state) {
@@ -158,11 +157,11 @@ async function getDiaryData() {
         .then(async (result) => {
             console.log("quesId: " + result.data.quesId);
             await setTodayQuestion(result.data.quesId);
-            // document.getElementById("question").textContent = question;
-            // console.log($("p#question.title").text());
-            console.log(question);
-            console.log(result);
             $("#answer").text(result.data.answer);
+            let starImg = '';
+            if (result.data.star) {
+                starImg = `<img src="./img/icon_filled_star_list.svg" class="important" alt="즐겨찾기">`;
+            }
         }).catch((err) => {
             console.log("문제 불러오기 실패");
         });
