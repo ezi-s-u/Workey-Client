@@ -141,6 +141,8 @@ async function getTodayDate(date) {
     let year = date.slice(0, 4);
     let month = date.slice(5, 7);
     let day = date.slice(8,10);
+    if ( day.indexOf("0") === 0 )// 한 자릿수의 날일 경우 앞의 0을 제거함.
+        day = date.slice(9,10);
     month = await getMonthName(month);
     day = await getDateFormat(day);
     return month + " " + day + ", " + year;
