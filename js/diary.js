@@ -125,7 +125,21 @@ async function createDiary() {
     }
 
     let dateFormat = await getTodayDate(String(today));
-    let quesId = dateFormat.substring(10, 12);
+    let day = dateFormat.substring(10, 12);
+    let quesId;
+    let pattern = /[0-9]/g;// 숫자 판별 정규표현식
+    if ( day[1].match(pattern) === null )// 한 자릿수의 일일 경우 뒷 부분 제거
+        quesId = dateFormat.substring(10,11);
+    else 
+        quesId = dateFormat.substring(10, 12);// 두 자릿수의 일일 경우 전부 포함 
+
+    console.log("answer: "+answer);
+    console.log("sum: "+sum);
+    console.log("imgSrc: "+imgSrc);
+    console.log("state: "+state);
+    console.log("isStar: "+isStar);
+    console.log("quesId: "+quesId);
+    console.log("userId: "+userId);
 
     axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
         .then(async (result) => {

@@ -1,5 +1,6 @@
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let today = new Date();// 현날짜
+console.log("today: "+today);
 let currentMonth = ('0' + (today.getMonth() + 1)).slice(-2);// 현재 달
 let currentMonthIndex = Number(currentMonth) - 1;// 현재 달 인덱스
 let currentMonthElement = $("#currentMonth");// 현재 달 세팅할 html
@@ -143,6 +144,9 @@ async function getTodayDate(date) {
     let day = date.slice(8,10);
     month = await getMonthName(month);
     day = await getDateFormat(Number(day));
+    console.log("year: "+year);
+    console.log("month: "+month);
+    console.log("day: "+day);
     return month + " " + day + ", " + year;
 }
 
