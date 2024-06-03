@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 글 목록 가져오기 => 글 개수
-    axios.get(`http://localhost:3000/diaries/list/${user_id}`)
+    axios.get(`http://localhost:3000/diaries/${user_id}`)
     .then((result) => {
         const spanRecordCount = document.getElementById('record-count');
         spanRecordCount.innerHTML = result.data.length;
@@ -171,7 +171,7 @@ function editMemberInfo() {
         .then((result) => {
             const optionList = document.getElementById('option-list');
             const data = result.data;
-            console.log(result.data);
+            console.log("company get api: "+result.data);
 
             // 데이터 순회하면서 각 항목에 대한 <li> 엘리먼트 생성 및 추가
             data.forEach(item => {
@@ -197,7 +197,7 @@ function editMemberInfo() {
             }
         
             axios.patch(`http://localhost:3000/users/mypage/${user_id}`, dataPatch)
-            .then((result) => {
+            .then(async (result) => {
                 Cookies.set("company_id", companyId);
                 const selectedCompany = data.find(company => company.id === companyId);
 
