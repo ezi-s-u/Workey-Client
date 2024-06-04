@@ -68,7 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
         inputStartTime.value = startTime;
         inputEndTime.value = endTime;
 
-        dropPayday.innerHTML = new Date(result.data.dataValues.payday).getDate();
+        let index = 8;// payday의 인덱스
+        let payday = result.data.dataValues.payday.substring(index,index+2);
+        console.log("payday: "+result.data.dataValues.payday);
+        payday = Number(payday)+1;
+        console.log("payday: "+payday);
+        dropPayday.innerHTML = new Date(payday).getDate();
 
         // 회사 가져오기 => 회사 이름
         axios.get(`http://localhost:3000/companies/${company}`)

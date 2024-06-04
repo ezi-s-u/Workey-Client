@@ -144,7 +144,8 @@
       // console.log(newCompanyName);
       // console.log(`${startTime}:00`);
       // console.log(`${endTime}:00`);
-      // console.log(payday);
+      console.log(payday);
+      console.log(new Date());
 
       if(company === 'Others') {
         try {
@@ -200,20 +201,6 @@
         };
 
         $.support.cors = true;
-        // $.ajax({
-        //   type: 'post',           // 타입 (get, post, put 등등)
-        //   url: `http://localhost:3000/users/join`,           // 요청할 서버url
-        //   async: true,            // 비동기화 여부 (default : true)
-        //   dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
-        //   data: JSON.stringify(param),
-        //   contentType: "application/json",
-        //   success: async function (data) { // 결과 성공 콜백함수
-        //     let userId = data.userId;
-        //     console.log("회원가입 성공");
-        //     // location.href = `./index.html?user_id=${userId}`;
-        //     location.href = `./join_completed.html`;
-        //   }
-        // });
         
         await axios.post('http://localhost:3000/users/join', param, {
           headers: {
@@ -223,7 +210,7 @@
           let userId = response.data.userId;
           console.log("회원가입 성공");
           // location.href = `./index.html?user_id=${userId}`;
-          location.href = './join_completed.html';
+          //location.href = './join_completed.html';
         }).catch(function (error) {
           console.error("회원가입 실패:", error);
         });

@@ -106,6 +106,7 @@ async function getStateImgSrc(score) {
 
 // post new diary
 async function createDiary() {
+    $("#answer").removeAttr("readonly");
     let answer = $("#answer").val();
     if (answer === '')
         answer = ' ';
@@ -212,6 +213,8 @@ async function getDiaryData() {
         .then(async (result) => {
             await setTodayQuestion(result.data.quesId);
             $("#answer").text(result.data.answer + " ");
+            $("#answer").attr("readonly", true);
+
             await getSelfCheckValue(result.data.id);
             await isStarClicked(!result.data.star);
         }).catch((err) => {
