@@ -7,10 +7,13 @@ const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 
 // 하나의 diary에 접속했을 경우
+console.log(urlParams.get("id"));
 if (urlParams.get('id') !== null) {
     diaryId = urlParams.get('id');
+    turnOnLock();
     getDiaryData();
 } else {
+    turnOffLock();
     // 이미 답했다면 답한 diary를 불러오자
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
@@ -107,14 +110,7 @@ async function getStateImgSrc(score) {
 // post new diary
 async function createDiary() {
     // 비활성화 해제 
-    $('#answer').prop('disabled', false);
-    $("#answer").attr("disabled", true);
-    $('#answer').css('caret-color', '');
-    $("#important").attr("disabled", true);
-    $("input:radio[name=q1]").attr("disabled", true);
-    $("input:radio[name=q2]").attr("disabled", true);
-    $("input:radio[name=q3]").attr("disabled", true);
-    $("input:radio[name=q4]").attr("disabled", true);
+    await turnOffLock();
 
     let answer = $("#answer").val();
     if (answer === '')
@@ -185,6 +181,7 @@ async function saveSelfCheckValue(id) {
 }
 
 async function getSelfCheckValue(id) {
+    await turnOnLock();
     diaryId = id;
     axios.get(`http://localhost:3000/self-test-results/${diaryId}`)
         .then(async (result) => {
@@ -223,18 +220,70 @@ async function getDiaryData() {
             await setTodayQuestion(result.data.quesId);
             $("#answer").text(result.data.answer + " ");
 
-            // 비활성화 
-            $("#answer").attr("disabled", true);
-            $('#answer').css('caret-color', 'transparent');
-            $("#important").attr("disabled", true);
-            $("input:radio[name=q1]").attr("disabled", true);
-            $("input:radio[name=q2]").attr("disabled", true);
-            $("input:radio[name=q3]").attr("disabled", true);
-            $("input:radio[name=q4]").attr("disabled", true);
 
             await getSelfCheckValue(result.data.id);
             await isStarClicked(!result.data.star);
         }).catch((err) => {
             console.log("문제 불러오기 실패" + err);
         });
+}
+
+// 비활성화
+function turnOffLock() {
+    $("#answer").attr("disabled", false);
+    //$('#answer').css('caret-color', '');
+    $("#important").attr("disabled", false);
+    $("input:radio[name=q1]").attr("disabled", false);
+    $("input:radio[name=q2]").attr("disabled", false);
+    $("input:radio[name=q3]").attr("disabled", false);
+    $("input:radio[name=q4]").attr("disabled", false);
+
+    let sendBtn = $("#send-btn");
+    sendBtn.text("Send");
+    sendBtn.off('click').on('click', createDiary);// diary생성일 경우 send수행 
+}
+
+function turnOnLock() {
+    $("#answer").attr("disabled", true);
+    $('#answer').css('caret-color', 'transparent');
+    $("#important").attr("disabled", true);
+    $("input:radio[name=q1]").attr("disabled", true);
+    $("input:radio[name=q2]").attr("disabled", true);
+    $("input:radio[name=q3]").attr("disabled", true);
+    $("input:radio[name=q4]").attr("disabled", true);
+
+    let sendBtn = $("#send-btn");
+    sendBtn.text("Edit");
+    sendBtn.prop('disabled', true); // 버튼 비활성화
+    sendBtn.off('click').on('click', updateDiary);// diary보기일 경우 edit수행
+}
+
+async function updateDiary() {
+    turnOffLock();// 수정 비활성화 해제
+
+    let answer = $("#answer").val();
+    if (answer === '')
+        answer = ' ';
+    let sum = await getSelfCheckScoreSum();// 총합
+    let imgSrc = await getStateImgSrc(sum);
+    let state = false;
+    if (imgSrc === "./img/state_good.svg")
+        state = true;
+    let isStar = isClicked;
+
+    const req = {
+        "answer": answer,
+        "star": isStar,
+        "score": sum,
+        "state": state,
+        "companyId": Cookies.get("company_id")
+    }
+
+    axios.patch(`http://localhost:3000/diaries/${userId}/${diaryId}`, req)
+        .then(async (result) => {
+            console.log("수정됨");
+        }).catch((err) => {
+            console.log("수정되지 않음: " + err);
+        });
+
 }
