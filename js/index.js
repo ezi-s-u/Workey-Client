@@ -20,11 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const startTime = result.data.startTime
       // console.log(parseInt(startTime))
       const endTime = result.data.endTime
-      const payday = new Date(result.data.payday)
+      const payday = result.data.payday
+      console.log(payday)
+      console.log(typeof payday)
 
       /* 월급날 계산 */
       const todayDate = moment();
-      const paydayDate = moment().year(todayDate.year()).month(todayDate.month()).date(payday.getDate());
+      const paydayDate = moment().year(todayDate.year()).month(todayDate.month()).date(payday);
       // 만약 현재 날짜가 이미 월급날이 지났다면 다음 달의 월급날로 설정
       if (todayDate.isAfter(paydayDate)) {
         paydayDate.add(1, 'months');
