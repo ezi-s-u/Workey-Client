@@ -106,6 +106,16 @@ async function getStateImgSrc(score) {
 
 // post new diary
 async function createDiary() {
+    // 비활성화 해제 
+    $('#answer').prop('disabled', false);
+    $("#answer").attr("disabled", true);
+    $('#answer').css('caret-color', '');
+    $("#important").attr("disabled", true);
+    $("input:radio[name=q1]").attr("disabled", true);
+    $("input:radio[name=q2]").attr("disabled", true);
+    $("input:radio[name=q3]").attr("disabled", true);
+    $("input:radio[name=q4]").attr("disabled", true);
+
     let answer = $("#answer").val();
     if (answer === '')
         answer = ' ';
@@ -128,18 +138,18 @@ async function createDiary() {
     let day = dateFormat.substring(10, 12);
     let quesId;
     let pattern = /[0-9]/g;// 숫자 판별 정규표현식
-    if ( day[1].match(pattern) === null )// 한 자릿수의 일일 경우 뒷 부분 제거
-        quesId = dateFormat.substring(10,11);
-    else 
+    if (day[1].match(pattern) === null)// 한 자릿수의 일일 경우 뒷 부분 제거
+        quesId = dateFormat.substring(10, 11);
+    else
         quesId = dateFormat.substring(10, 12);// 두 자릿수의 일일 경우 전부 포함 
 
-    console.log("answer: "+answer);
-    console.log("sum: "+sum);
-    console.log("imgSrc: "+imgSrc);
-    console.log("state: "+state);
-    console.log("isStar: "+isStar);
-    console.log("quesId: "+quesId);
-    console.log("userId: "+userId);
+    console.log("answer: " + answer);
+    console.log("sum: " + sum);
+    console.log("imgSrc: " + imgSrc);
+    console.log("state: " + state);
+    console.log("isStar: " + isStar);
+    console.log("quesId: " + quesId);
+    console.log("userId: " + userId);
 
     axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
         .then(async (result) => {
@@ -212,6 +222,16 @@ async function getDiaryData() {
         .then(async (result) => {
             await setTodayQuestion(result.data.quesId);
             $("#answer").text(result.data.answer + " ");
+
+            // 비활성화 
+            $("#answer").attr("disabled", true);
+            $('#answer').css('caret-color', 'transparent');
+            $("#important").attr("disabled", true);
+            $("input:radio[name=q1]").attr("disabled", true);
+            $("input:radio[name=q2]").attr("disabled", true);
+            $("input:radio[name=q3]").attr("disabled", true);
+            $("input:radio[name=q4]").attr("disabled", true);
+
             await getSelfCheckValue(result.data.id);
             await isStarClicked(!result.data.star);
         }).catch((err) => {
