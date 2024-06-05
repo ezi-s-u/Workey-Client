@@ -69,11 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
         inputEndTime.value = endTime;
 
         let index = 8;// payday의 인덱스
-        let payday = result.data.dataValues.payday.substring(index,index+2);
-        console.log("payday: "+result.data.dataValues.payday);
-        payday = Number(payday)+1;
+        let payday = result.data.dataValues.payday;
         console.log("payday: "+payday);
-        dropPayday.innerHTML = new Date(payday).getDate();
+        dropPayday.innerHTML = payday;
+        console.log("payday: "+payday);
 
         // 회사 가져오기 => 회사 이름
         axios.get(`http://localhost:3000/companies/${company}`)
@@ -193,7 +192,7 @@ function editMemberInfo() {
                     console.log(companyId)
                 }
             });
-
+            console.log(dropPayday.innerHTML);
             let dataPatch = {
                 "startTime" : inputStartTime.value,
                 "endTime" : inputEndTime.value,
