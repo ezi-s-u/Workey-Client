@@ -59,7 +59,8 @@ if (urlParams.get('id') !== null) {
                 } else {// 오늘 일기를 작성한 뒤라면
                     await setEditPageBtn();
                     diaryId = result[result.length - 1].id;
-                    getDiaryData();
+                    await turnOnLock();
+                    await getDiaryData();
                 }
             }
         }
@@ -69,6 +70,7 @@ if (urlParams.get('id') !== null) {
 // user firtname 불러오기 
 $.support.cors = true;
 async function setUserFirstName() {
+    console.log("setUserFirstName()");
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
         url: 'http://localhost:3000/users',           // 요청할 서버url
@@ -88,6 +90,7 @@ async function setUserFirstName() {
 // 오늘의 질문 가져오기
 $.support.cors = true;
 async function setTodayQuestion(id) {
+    console.log("setTodayQuestion()");
     let quesId = id;
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
@@ -104,6 +107,7 @@ async function setTodayQuestion(id) {
 // 즐겨찾기 클릭 이벤트 
 let isClicked = false;
 async function isStarClicked(star = isClicked) {
+    console.log("isStarClicked()");
     if (!star) {
         document.getElementsByClassName("important")[0].src = "./img/icon_filled_star_writing.svg";
         isClicked = true;
@@ -114,6 +118,7 @@ async function isStarClicked(star = isClicked) {
 }
 
 async function getSelfCheckScoreSum() {
+    console.log("getSelfCheckScoreSum()");
     let sum = 0;
     sum += Number($(":input:radio[name=q1]:checked").val());
     sum += Number($(":input:radio[name=q2]:checked").val());
@@ -123,6 +128,7 @@ async function getSelfCheckScoreSum() {
 }
 
 async function getStateImgSrc(score) {
+    console.log("getStateImgSrc()");
     if (score >= 80) {
         return "./img/state_good.svg";
     } else if (score >= 46) {
@@ -134,6 +140,7 @@ async function getStateImgSrc(score) {
 
 // post new diary
 async function createDiary() {
+    console.log("createDiary()");
     await setSendBtn();
     // 비활성화 해제 
     await turnOffLock();
@@ -189,6 +196,7 @@ async function createDiary() {
 }
 
 async function saveSelfCheckValue(id) {
+    console.log("saveSelfCheckValue()");
     diaryId = id;
     let req = {
         "st_answer1": Number($(":input:radio[name=q1]:checked").val()),
@@ -199,6 +207,7 @@ async function saveSelfCheckValue(id) {
 
     await axios.post(`http://localhost:3000/self-test-results/${diaryId}`, req)
         .then(async (result) => {
+            console.log(result);
             //console.log("st_answer1: " + result.data.st_answer1);
 
         }).catch((err) => {
@@ -207,7 +216,7 @@ async function saveSelfCheckValue(id) {
 }
 
 async function getSelfCheckValue(id) {
-    await turnOnLock();
+    console.log("getSelfCheckValue()");
     diaryId = id;
     axios.get(`http://localhost:3000/self-test-results/${diaryId}`)
         .then(async (result) => {
@@ -222,6 +231,7 @@ async function getSelfCheckValue(id) {
 
 // 가져온 self-check 값 저장된 위치에 넣기
 async function setSelfCheckValueHtml(value, name) {
+    console.log("setSelfCheckValueHtml()");
     let question = document.getElementsByName(name);
     let index = question.length - (value / 5);
     //console.log(question[index].checked);
@@ -229,6 +239,7 @@ async function setSelfCheckValueHtml(value, name) {
 }
 
 async function saveGoodCount(companyId) {
+    console.log("saveGoodCount()");
     let req = {};
 
     axios.patch(`http://localhost:3000/companies/${companyId}`, req)
@@ -240,13 +251,12 @@ async function saveGoodCount(companyId) {
 }
 
 async function getDiaryData() {
-    await setEditPageBtn();
+    console.log("getDiaryData()");
     await setUserFirstName();
     axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             await setTodayQuestion(result.data.quesId);
             $("#answer").text(result.data.answer + " ");
-
 
             await getSelfCheckValue(result.data.id);
             await isStarClicked(!result.data.star);
@@ -257,18 +267,18 @@ async function getDiaryData() {
 
 // 비활성화
 function turnOffLock() {
+    console.log("turnOffLock(): 수정가능");
     $("#answer").attr("disabled", false);
-    //$('#answer').css('caret-color', '');
+    $('#answer').css('caret-color', '');
     $("#important").attr("disabled", false);
     $("input:radio[name=q1]").attr("disabled", false);
     $("input:radio[name=q2]").attr("disabled", false);
     $("input:radio[name=q3]").attr("disabled", false);
     $("input:radio[name=q4]").attr("disabled", false);
-
-    sendBtn.text("Send");
 }
 
 function turnOnLock() {
+    console.log("turnOnLock(): 수정불가능");
     $("#answer").attr("disabled", true);
     $('#answer').css('caret-color', 'transparent');
     $("#important").attr("disabled", true);
@@ -276,18 +286,20 @@ function turnOnLock() {
     $("input:radio[name=q2]").attr("disabled", true);
     $("input:radio[name=q3]").attr("disabled", true);
     $("input:radio[name=q4]").attr("disabled", true);
-
-    sendBtn.text("Edit");
-    sendBtn.prop('disabled', true); // 버튼 비활성화
 }
 
-function goDiaryViewPage() {
-    turnOffLock();
-    setEditBtn();
+async function goDiaryEditViewPage() {
+    console.log("goDiaryEditViewPage(): 왔니?");
+    await getDiaryData();
+    let answer = $("#answer").val();
+    if (answer === ' ')
+        answer = '';
+    await turnOffLock();
+    await setEditBtn();
 }
 
 async function updateDiary() {
-
+    console.log("updateDiary()");
     let answer = $("#answer").val();
     if (answer === '')
         answer = ' ';
@@ -297,18 +309,26 @@ async function updateDiary() {
     if (imgSrc === "./img/state_good.svg")
         state = true;
     let isStar = isClicked;
+    let companyId = Cookies.get("company_id");
 
     const req = {
         "answer": answer,
         "star": isStar,
         "score": sum,
         "state": state,
-        "companyId": Cookies.get("company_id")
+        "companyId": companyId
     }
+    
+    if (state) {
+        await saveGoodCount(companyId);
+    }
+    await saveSelfCheckValue(diaryId);// self check test result 각각의 값 저장
+    //location.href = "../list.html";
 
     axios.patch(`http://localhost:3000/diaries/${userId}/${diaryId}`, req)
         .then(async (result) => {
-            console.log("수정됨");
+            console.log(result);
+            //location.href = `../diary.html?id=${diaryId}`;
         }).catch((err) => {
             console.log("수정되지 않음: " + err);
         });
