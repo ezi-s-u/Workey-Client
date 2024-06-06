@@ -213,7 +213,7 @@ header {
 }
 
 /* 일러스트 달리는 곳 */
-.illustration-state {
+#illustration-state {
     position: relative;
     width: 100%;
     margin-bottom: 5px;
@@ -248,6 +248,6 @@ header {
     position: relative;
     height: 11px;
     width: 0%;
-    background-color: rgb(153, 0, 255);
+    background-color: #813CEE;
     /* border: 1px purple solid; */
 }
