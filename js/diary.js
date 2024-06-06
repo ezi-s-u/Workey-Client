@@ -1,3 +1,25 @@
+const sendBtn = $("#send-btn");// diary 생성 버튼
+const editPageBtn = $("#edit-page-btn");// diary 수정 페이지로 이동 버튼
+const editBtn = $("#edit-btn");// diary 수정 버튼 
+
+async function setSendBtn() {
+    sendBtn.css('display', '');
+    editPageBtn.css('display', 'none');
+    editBtn.css('display', 'none');
+}
+
+async function setEditPageBtn() {
+    editPageBtn.css('display', '');
+    sendBtn.css('display', 'none');
+    editBtn.css('display', 'none');
+}
+
+async function setEditBtn() {
+    editBtn.css('display', '');
+    editPageBtn.css('display', 'none');
+    sendBtn.css('display', 'none');
+}
+
 let firstName;
 let userId = Cookies.get("user_id");
 let diaryId;
@@ -11,6 +33,7 @@ console.log(urlParams.get("id"));
 if (urlParams.get('id') !== null) {
     diaryId = urlParams.get('id');
     turnOnLock();
+    setEditPageBtn();
     getDiaryData();
 } else {
     turnOffLock();
@@ -30,9 +53,11 @@ if (urlParams.get('id') !== null) {
                 let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
                 // 오늘 일기 작성 전이라면
                 if (lastDiaryDate !== yourDate) {
+                    await setSendBtn();
                     await setUserFirstName();
                     await setTodayQuestion(yourDate);
                 } else {// 오늘 일기를 작성한 뒤라면
+                    await setEditPageBtn();
                     diaryId = result[result.length - 1].id;
                     getDiaryData();
                 }
@@ -109,6 +134,7 @@ async function getStateImgSrc(score) {
 
 // post new diary
 async function createDiary() {
+    await setSendBtn();
     // 비활성화 해제 
     await turnOffLock();
 
@@ -214,6 +240,7 @@ async function saveGoodCount(companyId) {
 }
 
 async function getDiaryData() {
+    await setEditPageBtn();
     await setUserFirstName();
     axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
@@ -238,9 +265,7 @@ function turnOffLock() {
     $("input:radio[name=q3]").attr("disabled", false);
     $("input:radio[name=q4]").attr("disabled", false);
 
-    let sendBtn = $("#send-btn");
     sendBtn.text("Send");
-    sendBtn.off('click').on('click', createDiary);// diary생성일 경우 send수행 
 }
 
 function turnOnLock() {
@@ -252,14 +277,16 @@ function turnOnLock() {
     $("input:radio[name=q3]").attr("disabled", true);
     $("input:radio[name=q4]").attr("disabled", true);
 
-    let sendBtn = $("#send-btn");
     sendBtn.text("Edit");
     sendBtn.prop('disabled', true); // 버튼 비활성화
-    sendBtn.off('click').on('click', updateDiary);// diary보기일 경우 edit수행
+}
+
+function goDiaryViewPage() {
+    turnOffLock();
+    setEditBtn();
 }
 
 async function updateDiary() {
-    turnOffLock();// 수정 비활성화 해제
 
     let answer = $("#answer").val();
     if (answer === '')
