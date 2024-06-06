@@ -160,7 +160,9 @@ input[type="radio"]::before {
     /* background-color: blueviolet; */
 }
 
-#send-btn {
+#send-btn,
+#edit-page-btn,
+#edit-btn {
     position: relative;
     margin: 1em 0 2em 0;
     background-color: var(--purple-01);

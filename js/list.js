@@ -65,9 +65,9 @@ async function getMonthName(m) {
 }
 
 async function getDateFormat(d) {
-    if (d == 1) return d + "st";
-    else if (d == 2) return d + "nd";
-    else if (d == 3) return d + "rd";
+    if (d === 1) return d + "st";
+    else if (d === 2) return d + "nd";
+    else if (d === 3) return d + "rd";
     else return d + "th";
 }
 
@@ -90,7 +90,7 @@ async function getDiaryHtml(id, quesId, companyId, date, isStar, score) {
         let question = await getQuestion(quesId);// 질문 가져오기
         let company = await getCompany(companyId);// 회사 가져오기 
 
-        let dateFormat = await getTodayDate(String(date));// 작성된 날짜 포맷 가져오기
+        let dateFormat = await getTodayDate(String(date), quesId);// 작성된 날짜 포맷 가져오기
 
         return `<div class="diary-box">
         ${starImg}
@@ -138,15 +138,12 @@ async function getCompany(companyId) {
 }
 
 // 오늘 날짜 포맷 반환
-async function getTodayDate(date) {
+async function getTodayDate(date, quesId) {
     let year = date.slice(0, 4);
     let month = date.slice(5, 7);
     let day = date.slice(8,10);
     month = await getMonthName(month);
-    day = await getDateFormat(Number(day));
-    console.log("year: "+year);
-    console.log("month: "+month);
-    console.log("day: "+day);
+    day = await getDateFormat(Number(quesId));
     return month + " " + day + ", " + year;
 }
 

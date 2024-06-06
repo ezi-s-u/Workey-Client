@@ -1,3 +1,25 @@
+const sendBtn = $("#send-btn");// diary 생성 버튼
+const editPageBtn = $("#edit-page-btn");// diary 수정 페이지로 이동 버튼
+const editBtn = $("#edit-btn");// diary 수정 버튼 
+
+async function setSendBtn() {
+    sendBtn.css('display', '');
+    editPageBtn.css('display', 'none');
+    editBtn.css('display', 'none');
+}
+
+async function setEditPageBtn() {
+    editPageBtn.css('display', '');
+    sendBtn.css('display', 'none');
+    editBtn.css('display', 'none');
+}
+
+async function setEditBtn() {
+    editBtn.css('display', '');
+    editPageBtn.css('display', 'none');
+    sendBtn.css('display', 'none');
+}
+
 let firstName;
 let userId = Cookies.get("user_id");
 let diaryId;
@@ -11,6 +33,7 @@ console.log(urlParams.get("id"));
 if (urlParams.get('id') !== null) {
     diaryId = urlParams.get('id');
     turnOnLock();
+    setEditPageBtn();
     getDiaryData();
 } else {
     turnOffLock();
@@ -30,11 +53,14 @@ if (urlParams.get('id') !== null) {
                 let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
                 // 오늘 일기 작성 전이라면
                 if (lastDiaryDate !== yourDate) {
+                    await setSendBtn();
                     await setUserFirstName();
                     await setTodayQuestion(yourDate);
                 } else {// 오늘 일기를 작성한 뒤라면
+                    await setEditPageBtn();
                     diaryId = result[result.length - 1].id;
-                    getDiaryData();
+                    await turnOnLock();
+                    await getDiaryData();
                 }
             }
         }
@@ -44,6 +70,7 @@ if (urlParams.get('id') !== null) {
 // user firtname 불러오기 
 $.support.cors = true;
 async function setUserFirstName() {
+    console.log("setUserFirstName()");
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
         url: 'http://localhost:3000/users',           // 요청할 서버url
@@ -63,6 +90,7 @@ async function setUserFirstName() {
 // 오늘의 질문 가져오기
 $.support.cors = true;
 async function setTodayQuestion(id) {
+    console.log("setTodayQuestion()");
     let quesId = id;
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
@@ -79,6 +107,7 @@ async function setTodayQuestion(id) {
 // 즐겨찾기 클릭 이벤트 
 let isClicked = false;
 async function isStarClicked(star = isClicked) {
+    console.log("isStarClicked()");
     if (!star) {
         document.getElementsByClassName("important")[0].src = "./img/icon_filled_star_writing.svg";
         isClicked = true;
@@ -89,6 +118,7 @@ async function isStarClicked(star = isClicked) {
 }
 
 async function getSelfCheckScoreSum() {
+    console.log("getSelfCheckScoreSum()");
     let sum = 0;
     sum += Number($(":input:radio[name=q1]:checked").val());
     sum += Number($(":input:radio[name=q2]:checked").val());
@@ -98,6 +128,7 @@ async function getSelfCheckScoreSum() {
 }
 
 async function getStateImgSrc(score) {
+    console.log("getStateImgSrc()");
     if (score >= 80) {
         return "./img/state_good.svg";
     } else if (score >= 46) {
@@ -109,6 +140,8 @@ async function getStateImgSrc(score) {
 
 // post new diary
 async function createDiary() {
+    console.log("createDiary()");
+    await setSendBtn();
     // 비활성화 해제 
     await turnOffLock();
 
@@ -163,6 +196,7 @@ async function createDiary() {
 }
 
 async function saveSelfCheckValue(id) {
+    console.log("saveSelfCheckValue()");
     diaryId = id;
     let req = {
         "st_answer1": Number($(":input:radio[name=q1]:checked").val()),
@@ -171,8 +205,14 @@ async function saveSelfCheckValue(id) {
         "st_answer4": Number($(":input:radio[name=q4]:checked").val())
     };
 
+    console.log("st_answer1: "+Number($(":input:radio[name=q1]:checked").val()));
+    console.log("st_answer2: "+Number($(":input:radio[name=q2]:checked").val()));
+    console.log("st_answer3: "+Number($(":input:radio[name=q3]:checked").val()));
+    console.log("st_answer4: "+Number($(":input:radio[name=q4]:checked").val()));
+
     await axios.post(`http://localhost:3000/self-test-results/${diaryId}`, req)
         .then(async (result) => {
+            console.log(result);
             //console.log("st_answer1: " + result.data.st_answer1);
 
         }).catch((err) => {
@@ -180,8 +220,31 @@ async function saveSelfCheckValue(id) {
         })
 }
 
+async function updateSelfCheckValue(id) {
+    console.log("updateSelfCheckValue()");
+    diaryId = id;
+    let req = {
+        "st_answer1": Number($(":input:radio[name=q1]:checked").val()),
+        "st_answer2": Number($(":input:radio[name=q2]:checked").val()),
+        "st_answer3": Number($(":input:radio[name=q3]:checked").val()),
+        "st_answer4": Number($(":input:radio[name=q4]:checked").val())
+    };
+
+    console.log("st_answer1: "+Number($(":input:radio[name=q1]:checked").val()));
+    console.log("st_answer2: "+Number($(":input:radio[name=q2]:checked").val()));
+    console.log("st_answer3: "+Number($(":input:radio[name=q3]:checked").val()));
+    console.log("st_answer4: "+Number($(":input:radio[name=q4]:checked").val()));
+    
+    await axios.patch(`http://localhost:3000/self-test-results/${diaryId}`, req)
+        .then(async (result) => {
+            console.log(result);
+        }).catch((err) => {
+            console.log("self test result 값 수정 실패: " + err);
+        })
+}
+
 async function getSelfCheckValue(id) {
-    await turnOnLock();
+    console.log("getSelfCheckValue()");
     diaryId = id;
     axios.get(`http://localhost:3000/self-test-results/${diaryId}`)
         .then(async (result) => {
@@ -196,6 +259,7 @@ async function getSelfCheckValue(id) {
 
 // 가져온 self-check 값 저장된 위치에 넣기
 async function setSelfCheckValueHtml(value, name) {
+    console.log("setSelfCheckValueHtml()");
     let question = document.getElementsByName(name);
     let index = question.length - (value / 5);
     //console.log(question[index].checked);
@@ -203,6 +267,7 @@ async function setSelfCheckValueHtml(value, name) {
 }
 
 async function saveGoodCount(companyId) {
+    console.log("saveGoodCount()");
     let req = {};
 
     axios.patch(`http://localhost:3000/companies/${companyId}`, req)
@@ -214,12 +279,12 @@ async function saveGoodCount(companyId) {
 }
 
 async function getDiaryData() {
+    console.log("getDiaryData()");
     await setUserFirstName();
     axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             await setTodayQuestion(result.data.quesId);
             $("#answer").text(result.data.answer + " ");
-
 
             await getSelfCheckValue(result.data.id);
             await isStarClicked(!result.data.star);
@@ -230,20 +295,18 @@ async function getDiaryData() {
 
 // 비활성화
 function turnOffLock() {
+    console.log("turnOffLock(): 수정가능");
     $("#answer").attr("disabled", false);
-    //$('#answer').css('caret-color', '');
+    $('#answer').css('caret-color', '');
     $("#important").attr("disabled", false);
     $("input:radio[name=q1]").attr("disabled", false);
     $("input:radio[name=q2]").attr("disabled", false);
     $("input:radio[name=q3]").attr("disabled", false);
     $("input:radio[name=q4]").attr("disabled", false);
-
-    let sendBtn = $("#send-btn");
-    sendBtn.text("Send");
-    sendBtn.off('click').on('click', createDiary);// diary생성일 경우 send수행 
 }
 
 function turnOnLock() {
+    console.log("turnOnLock(): 수정불가능");
     $("#answer").attr("disabled", true);
     $('#answer').css('caret-color', 'transparent');
     $("#important").attr("disabled", true);
@@ -251,16 +314,20 @@ function turnOnLock() {
     $("input:radio[name=q2]").attr("disabled", true);
     $("input:radio[name=q3]").attr("disabled", true);
     $("input:radio[name=q4]").attr("disabled", true);
+}
 
-    let sendBtn = $("#send-btn");
-    sendBtn.text("Edit");
-    sendBtn.prop('disabled', true); // 버튼 비활성화
-    sendBtn.off('click').on('click', updateDiary);// diary보기일 경우 edit수행
+async function goDiaryEditViewPage() {
+    console.log("goDiaryEditViewPage(): 왔니?");
+    await getDiaryData();
+    let answer = $("#answer").val();
+    if (answer === ' ')
+        answer = '';
+    await turnOffLock();
+    await setEditBtn();
 }
 
 async function updateDiary() {
-    turnOffLock();// 수정 비활성화 해제
-
+    console.log("updateDiary()");
     let answer = $("#answer").val();
     if (answer === '')
         answer = ' ';
@@ -270,18 +337,25 @@ async function updateDiary() {
     if (imgSrc === "./img/state_good.svg")
         state = true;
     let isStar = isClicked;
+    let companyId = Cookies.get("company_id");
 
     const req = {
         "answer": answer,
         "star": isStar,
         "score": sum,
         "state": state,
-        "companyId": Cookies.get("company_id")
+        "companyId": companyId
     }
+    //location.href = "../list.html";
 
     axios.patch(`http://localhost:3000/diaries/${userId}/${diaryId}`, req)
         .then(async (result) => {
-            console.log("수정됨");
+            if (state) {
+                await saveGoodCount(companyId);
+            }
+            await updateSelfCheckValue(diaryId);// self check test result 각각의 값 저장
+            console.log(result);
+            //location.href = `../diary.html?id=${diaryId}`;
         }).catch((err) => {
             console.log("수정되지 않음: " + err);
         });
