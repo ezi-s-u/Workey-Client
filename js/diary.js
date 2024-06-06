@@ -115,6 +115,8 @@ async function isStarClicked(star = isClicked) {
         document.getElementsByClassName("important")[0].src = "./img/icon_star_writing.svg";
         isClicked = false;
     }
+    console.log("star: "+star);
+    console.log("isClicked: "+isClicked);
 }
 
 async function getSelfCheckScoreSum() {
@@ -153,30 +155,23 @@ async function createDiary() {
     let state = false;
     if (imgSrc === "./img/state_good.svg")
         state = true;
-    let isStar = isClicked;
+    let star = isClicked;
 
     const req = {
         "answer": answer,
-        "star": isStar,
+        "star": star,
         "score": sum,
         "state": state,
         "companyId": Cookies.get("company_id")
     }
 
-    let dateFormat = await getTodayDate(String(today));
-    let day = dateFormat.substring(10, 12);
-    let quesId;
-    let pattern = /[0-9]/g;// 숫자 판별 정규표현식
-    if (day[1].match(pattern) === null)// 한 자릿수의 일일 경우 뒷 부분 제거
-        quesId = dateFormat.substring(10, 11);
-    else
-        quesId = dateFormat.substring(10, 12);// 두 자릿수의 일일 경우 전부 포함 
+    let quesId = Number(String(today).substring(8,10));
 
     console.log("answer: " + answer);
     console.log("sum: " + sum);
     console.log("imgSrc: " + imgSrc);
     console.log("state: " + state);
-    console.log("isStar: " + isStar);
+    console.log("star: " + star);
     console.log("quesId: " + quesId);
     console.log("userId: " + userId);
 
@@ -205,10 +200,10 @@ async function saveSelfCheckValue(id) {
         "st_answer4": Number($(":input:radio[name=q4]:checked").val())
     };
 
-    console.log("st_answer1: "+Number($(":input:radio[name=q1]:checked").val()));
-    console.log("st_answer2: "+Number($(":input:radio[name=q2]:checked").val()));
-    console.log("st_answer3: "+Number($(":input:radio[name=q3]:checked").val()));
-    console.log("st_answer4: "+Number($(":input:radio[name=q4]:checked").val()));
+    console.log("st_answer1: " + Number($(":input:radio[name=q1]:checked").val()));
+    console.log("st_answer2: " + Number($(":input:radio[name=q2]:checked").val()));
+    console.log("st_answer3: " + Number($(":input:radio[name=q3]:checked").val()));
+    console.log("st_answer4: " + Number($(":input:radio[name=q4]:checked").val()));
 
     await axios.post(`http://localhost:3000/self-test-results/${diaryId}`, req)
         .then(async (result) => {
@@ -230,11 +225,11 @@ async function updateSelfCheckValue(id) {
         "st_answer4": Number($(":input:radio[name=q4]:checked").val())
     };
 
-    console.log("st_answer1: "+Number($(":input:radio[name=q1]:checked").val()));
-    console.log("st_answer2: "+Number($(":input:radio[name=q2]:checked").val()));
-    console.log("st_answer3: "+Number($(":input:radio[name=q3]:checked").val()));
-    console.log("st_answer4: "+Number($(":input:radio[name=q4]:checked").val()));
-    
+    console.log("st_answer1: " + Number($(":input:radio[name=q1]:checked").val()));
+    console.log("st_answer2: " + Number($(":input:radio[name=q2]:checked").val()));
+    console.log("st_answer3: " + Number($(":input:radio[name=q3]:checked").val()));
+    console.log("st_answer4: " + Number($(":input:radio[name=q4]:checked").val()));
+
     await axios.patch(`http://localhost:3000/self-test-results/${diaryId}`, req)
         .then(async (result) => {
             console.log(result);
@@ -326,6 +321,40 @@ async function goDiaryEditViewPage() {
     await setEditBtn();
 }
 
+// 즐겨찾기 여부
+async function getStarValue() {
+    console.log("getStarValue()");
+    let isStar;
+    axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
+        .then(async (result) => {
+            isStar = result.data.star;
+            console.log("isStar: "+isStar);
+        }).catch((err) => {
+            console.log("star값 불러오기 실패" + err);
+        });
+
+    if (isStar === 1)
+        isClicked = true;
+    else
+        isClicked = false;
+
+    await goDiaryEditViewPage();
+}
+
+async function getCompanyIdValue() {
+    console.log("getCompanyIdValue()");
+    let companyId;
+    axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
+        .then(async (result) => {
+            companyId = result.data.companyId;
+            console.log("companyId: "+companyId);
+        }).catch((err) => {
+            console.log("companyId값 불러오기 실패" + err);
+        });
+
+    return companyId;
+}
+
 async function updateDiary() {
     console.log("updateDiary()");
     let answer = $("#answer").val();
@@ -336,16 +365,22 @@ async function updateDiary() {
     let state = false;
     if (imgSrc === "./img/state_good.svg")
         state = true;
-    let isStar = isClicked;
-    let companyId = Cookies.get("company_id");
+    let star = isClicked;
+    let companyId = await getCompanyIdValue();
 
     const req = {
         "answer": answer,
-        "star": isStar,
+        "star": star,
         "score": sum,
         "state": state,
         "companyId": companyId
     }
+    console.log("answer: "+answer);
+    console.log("star: "+star);
+    console.log("score: "+sum);
+    console.log("state: "+state);
+    console.log("companyId: "+companyId);
+
     //location.href = "../list.html";
 
     axios.patch(`http://localhost:3000/diaries/${userId}/${diaryId}`, req)
@@ -355,7 +390,7 @@ async function updateDiary() {
             }
             await updateSelfCheckValue(diaryId);// self check test result 각각의 값 저장
             console.log(result);
-            //location.href = `../diary.html?id=${diaryId}`;
+            location.href = `../diary.html?id=${diaryId}`;
         }).catch((err) => {
             console.log("수정되지 않음: " + err);
         });

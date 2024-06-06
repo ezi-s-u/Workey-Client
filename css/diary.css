@@ -78,7 +78,7 @@ textarea {
 }
 
 textarea:focus {
-    outline-color: none;
+    outline: none;
 }
 
 /* self check */
