@@ -205,6 +205,11 @@ async function saveSelfCheckValue(id) {
         "st_answer4": Number($(":input:radio[name=q4]:checked").val())
     };
 
+    console.log("st_answer1: "+Number($(":input:radio[name=q1]:checked").val()));
+    console.log("st_answer2: "+Number($(":input:radio[name=q2]:checked").val()));
+    console.log("st_answer3: "+Number($(":input:radio[name=q3]:checked").val()));
+    console.log("st_answer4: "+Number($(":input:radio[name=q4]:checked").val()));
+
     await axios.post(`http://localhost:3000/self-test-results/${diaryId}`, req)
         .then(async (result) => {
             console.log(result);
@@ -212,6 +217,29 @@ async function saveSelfCheckValue(id) {
 
         }).catch((err) => {
             console.log("self test result 값 저장 실패: " + err);
+        })
+}
+
+async function updateSelfCheckValue(id) {
+    console.log("updateSelfCheckValue()");
+    diaryId = id;
+    let req = {
+        "st_answer1": Number($(":input:radio[name=q1]:checked").val()),
+        "st_answer2": Number($(":input:radio[name=q2]:checked").val()),
+        "st_answer3": Number($(":input:radio[name=q3]:checked").val()),
+        "st_answer4": Number($(":input:radio[name=q4]:checked").val())
+    };
+
+    console.log("st_answer1: "+Number($(":input:radio[name=q1]:checked").val()));
+    console.log("st_answer2: "+Number($(":input:radio[name=q2]:checked").val()));
+    console.log("st_answer3: "+Number($(":input:radio[name=q3]:checked").val()));
+    console.log("st_answer4: "+Number($(":input:radio[name=q4]:checked").val()));
+    
+    await axios.patch(`http://localhost:3000/self-test-results/${diaryId}`, req)
+        .then(async (result) => {
+            console.log(result);
+        }).catch((err) => {
+            console.log("self test result 값 수정 실패: " + err);
         })
 }
 
@@ -318,15 +346,14 @@ async function updateDiary() {
         "state": state,
         "companyId": companyId
     }
-    
-    if (state) {
-        await saveGoodCount(companyId);
-    }
-    await saveSelfCheckValue(diaryId);// self check test result 각각의 값 저장
     //location.href = "../list.html";
 
     axios.patch(`http://localhost:3000/diaries/${userId}/${diaryId}`, req)
         .then(async (result) => {
+            if (state) {
+                await saveGoodCount(companyId);
+            }
+            await updateSelfCheckValue(diaryId);// self check test result 각각의 값 저장
             console.log(result);
             //location.href = `../diary.html?id=${diaryId}`;
         }).catch((err) => {
