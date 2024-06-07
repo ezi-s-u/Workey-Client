@@ -15,14 +15,14 @@ header {
 .wrapper {
     height: 100vh;
     position: fixed;
-    background-image: linear-gradient(to bottom, #C8A1EE 0%, #D3B6E5 10%, #D9BEE9 40%,#F7F2D5 70%, #FFFFFF 95%);
+    background-image: linear-gradient(to bottom, #C8A1EE 0%, #D3B6E5 10%, #D9BEE9 40%, #F7F2D5 70%, #FFFFFF 95%);
 }
 
 .background-box1 {
     position: absolute;
     height: 60vh;
     width: 150vw;
-    top: -7vh;
+    top: -8vh;
     left: -11vh;
     border-radius: 50%;
     background-color: #A369FF;
@@ -33,7 +33,7 @@ header {
     position: absolute;
     height: 60vh;
     width: 150vw;
-    top: -8vh;
+    top: -9vh;
     left: -11vh;
     border-radius: 50%;
     background-color: #712EDA;
@@ -43,7 +43,7 @@ header {
     position: absolute;
     height: 60vh;
     width: 150vw;
-    top: -9vh;
+    top: -10vh;
     left: -11vh;
     border-radius: 50%;
     background-image: linear-gradient(to bottom, #9E66F8 7%, #7224EC 65%, #4404A8 100%);
@@ -52,6 +52,7 @@ header {
 .container {
     width: 100%;
     text-align: center;
+    padding-top: 10px;
 }
 
 /* 월급날까지 남은 일수 */
@@ -124,69 +125,64 @@ header {
 /* 현재 일한 시간 바 */
 .running-time-box {
     position: relative;
-    /* background-color: aqua; */
     text-align: center;
 }
 
+/* 말풍선 */
 .sentence {
     position: relative;
     width: 100%;
     height: fit-content;
-    /* background-color: bisque; */
-    /* margin: 10px auto; */
-    padding: 0;
+    padding-top: 50px;
+    margin-bottom: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
 }
-
-/* .sentence > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
+.sentence span {
+    position: absolute;
+}
 
 .sentence>.sentence-img>img {
+    display: block;
     position: right;
     padding: 0;
     width: 110%;
-    vertical-align: middle;
     margin-bottom: 5px;
 }
 
-.sentence>.sentence-comment > #comment1 {
+.sentence .sentence-top {
     position: absolute;
-    /* padding: 5px 10px; */
-    /* background-color: rgba(0, 0, 0, 0); */
-    text-align: center;
-    top: 35%;
-    left: 50%;
-    width: 100%;
-    transform: translate(-50%, -50%);
-    margin-top: 5px;
+    bottom: 0;
+    right: 0;
 }
 
-.sentence>.sentence-comment > #comment2 {
+.sentence .sentence-bottom {
     position: absolute;
-    /* padding: 5px 10px; */
-    /* background-color: rgba(0, 0, 0, 0); */
+    top: 55px;
+    left: 0;
+}
+
+.sentence .sentence-top  #comment1 {
     text-align: center;
-    top: 25%;
-    left: 50%;
+    top: 45%;
+    left: 48%;
     width: 100%;
     transform: translate(-50%, -50%);
-    margin-top: 5px;
 }
-    
-/* .sentence>.sentence-comment>#comment2 {
-    bottom: 10%;
-} */
-    
-    /* Real-time */
+
+.sentence .sentence-bottom #comment2 {
+    text-align: center;
+    top: 41%;
+    left: 53%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+}
+
+/* Real-time */
 .record-box {
     position: relative;
     float: right;
@@ -202,11 +198,13 @@ header {
     vertical-align: middle;
     z-index: 10;
 }
-.record-box > #current-state {
+
+.record-box>#current-state {
     position: relative;
     top: -1px;
 
 }
+
 #switch {
     position: absolute;
     /* hidden */
