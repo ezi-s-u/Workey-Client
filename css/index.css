@@ -12,13 +12,41 @@ header {
     background-color: rgba(0, 0, 0, 0);
 }
 
-.background-box {
+.wrapper {
+    height: 100vh;
+    position: fixed;
+    background-image: linear-gradient(to bottom, #C8A1EE 0%, #D3B6E5 10%, #D9BEE9 40%,#F7F2D5 70%, #FFFFFF 95%);
+}
+
+.background-box1 {
     position: absolute;
-    height: 43vh;
-    width: 100vw;
+    height: 60vh;
+    width: 150vw;
     top: -7vh;
-    border-radius: 1em;
-    background-image: linear-gradient(to top left, var(--purple-09) 30%, var(--purple-07) 60%);
+    left: -11vh;
+    border-radius: 50%;
+    background-color: #A369FF;
+    box-shadow: 0 0px 5px #5b5b5b;
+}
+
+.background-box2 {
+    position: absolute;
+    height: 60vh;
+    width: 150vw;
+    top: -8vh;
+    left: -11vh;
+    border-radius: 50%;
+    background-color: #712EDA;
+}
+
+.background-box3 {
+    position: absolute;
+    height: 60vh;
+    width: 150vw;
+    top: -9vh;
+    left: -11vh;
+    border-radius: 50%;
+    background-image: linear-gradient(to bottom, #9E66F8 7%, #7224EC 65%, #4404A8 100%);
 }
 
 .container {
@@ -33,7 +61,7 @@ header {
     margin: 10px auto;
     padding: 0;
     text-align: center;
-    margin: 6em 0 4em 0;
+    margin: 6em 0 1em 0;
     /* background-color: aqua; */
 }
 
@@ -106,21 +134,31 @@ header {
     height: fit-content;
     /* background-color: bisque; */
     /* margin: 10px auto; */
-    /* padding: 0; */
-    /* margin: 0; */
-    text-align: center;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: bold;
 }
+
+/* .sentence > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
 
 .sentence>.sentence-img>img {
-    position: relative;
-    width: fit-content;
-    width: 100%;
+    position: right;
     padding: 0;
-    height: 100%;
+    width: 110%;
     vertical-align: middle;
+    margin-bottom: 5px;
 }
 
-.sentence>.sentence-comment {
+.sentence>.sentence-comment > #comment1 {
     position: absolute;
     /* padding: 5px 10px; */
     /* background-color: rgba(0, 0, 0, 0); */
@@ -129,9 +167,26 @@ header {
     left: 50%;
     width: 100%;
     transform: translate(-50%, -50%);
+    margin-top: 5px;
 }
 
-/* Real-time */
+.sentence>.sentence-comment > #comment2 {
+    position: absolute;
+    /* padding: 5px 10px; */
+    /* background-color: rgba(0, 0, 0, 0); */
+    text-align: center;
+    top: 25%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    margin-top: 5px;
+}
+    
+/* .sentence>.sentence-comment>#comment2 {
+    bottom: 10%;
+} */
+    
+    /* Real-time */
 .record-box {
     position: relative;
     float: right;
@@ -241,7 +296,7 @@ header {
 
 /* progress bar */
 .progress-bar {
-    background-color: var(--purple-05);
+    background-color: #DBD4E6;
 }
 
 #working-time-bar {
