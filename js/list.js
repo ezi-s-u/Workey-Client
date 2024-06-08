@@ -170,13 +170,14 @@ async function showDiaries() {
 // 검색
 async function doKeyDown(event) {
     if (event.keyCode === 13 || event === 'onclick') {// enter키이거나 검색 버튼이 클릭됐다면
-        var input = $("#searchText").val();
+        let input = $("#searchText").val();
+        console.log("input: "+input);
         if (input === '') {// 빈칸 검색이면 전체 다이어리 띄우기
             deleteDivList();
             await showDiaries();
         } else {
             deleteDivList();
-            await findIncludedWord(input);// 검색한 값에 따른 question 보기
+            await findIncludedWord(input.toLowerCase());// 검색한 값에 따른 question 보기
         }
     }
 }
@@ -184,12 +185,15 @@ async function doKeyDown(event) {
 // 해당 키워드가 포함되어있는지를 확인
 async function findIncludedWord(input) {
     let userId = Cookies.get("user_id");
+    input = String(input).replaceAll(" ", "");
+    console.log("input1: "+input);
 
     await axios.get(`http://localhost:3000/diaries/${userId}`)
         .then(async (result) => {
             await result.data.forEach(async (element) => {
                 let index = Number(element.createdAt.substring(5, 7)) - 1;
                 let question = await getQuestion(element.quesId);
+                question = question.toLowerCase().replaceAll(" ", "");// 소문자로 변경, 공백제거
                 if (question.includes(input) && months[index] === (months[currentMonthIndex])) {// 월별로 필터링
                     await search(element.id);
                 }
