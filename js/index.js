@@ -5,7 +5,8 @@ var rotation = 8;
 
 let character = document.getElementById("illust") // 캐릭터
 let timeBar = document.getElementById("working-time-bar") // 바
-let comment = document.getElementById("comment"); // 말풍선 말
+let comment1 = document.getElementById("comment1"); // 노란 말풍선 말
+let comment2 = document.getElementById("comment2"); // 하얀 말풍선 말
 let illustrationState = document.getElementById("illustration-state");// rest or real
 // let barWidth = workingTimeBar.clientWidth; // 바 길이
 
@@ -94,7 +95,8 @@ function increaseProgressBar(startTimestamp, endTimestamp) {
     character.src = "./img/running_illustration.svg";
 
     // 말풍선
-    comment.textContent = "Hustling until it's time to punch out!";
+    comment1.textContent = "Hustling until it's time to punch out!";
+    comment2.textContent = "You can do it✨";
   } else {
     clearInterval(progressInterval);
     timeBar.style.width = '100%';
@@ -106,7 +108,8 @@ function increaseProgressBar(startTimestamp, endTimestamp) {
 
 
     // 말풍선
-    comment.textContent = "You did an amazing job today!";
+    comment1.textContent = "You did an amazing job today!";
+    comment2.textContent = "Well done✨";
   }
 
 }
@@ -145,7 +148,8 @@ function isClicked(element) {
     // 상태바 색 그라데이션으로 다 채우기
     timeBar.style.backgroundImage = "linear-gradient(to left, var(--purple-02) 20%, var(--purple-08) 60%)";
     // 말풍선 코멘트 변경
-    comment.textContent = "The quality of life is rising!";
+    comment1.textContent = "The quality of life is rising!";
+    comment2.textContent = "Let’s have a good rest✨";
   } else {
     progressInterval = setInterval(() => increaseProgressBar(startTimestamp, endTimestamp), 1000);
   }
