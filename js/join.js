@@ -4,11 +4,15 @@ const divInput = [...document.getElementsByClassName('div-input')];
 const warningIcon = document.getElementById('warning-icon')
 const warningMessage = document.getElementById('warning-message')
 
+document.addEventListener('DOMContentLoaded', function () {
+  getCompaniesList();
+});
+
 // First Name, Last Name, Password
 function writeData(value, index) {
   if (value.trim() !== '') {
-      checkIcons[index].style.display = 'block';
-      divInput[index].style.borderBottom = '1px solid #9F57FB';
+    checkIcons[index].style.display = 'block';
+    divInput[index].style.borderBottom = '1px solid #9F57FB';
   } else {
     checkIcons[index].style.display = 'none';
     divInput[index].style.borderBottom = '1px solid #868686';
@@ -44,7 +48,7 @@ function checkEmail(value) {
 // Check Password
 function checkPassword(value) {
   const password = document.getElementById('password');
-  if(value === password.value) {
+  if (value === password.value) {
     checkIcons[4].style.display = 'block';
     divInput[4].style.borderBottom = '1px solid #9F57FB';
   } else {
@@ -66,9 +70,9 @@ const labels = document.querySelectorAll('.label'); // 0 = company, 1 = payday
 
 const options = document.querySelectorAll('.optionItem');
 // 클릭한 옵션의 텍스트를 라벨 안에 넣음
-const handleSelect = function(item, i) {
-  labels.forEach(function(label){
-    if(i < 8) {
+const handleSelect = function (item, i) {
+  labels.forEach(function (label) {
+    if (i < 8) {
       labels[0].innerHTML = item.textContent;
       changeCompanySelect(item.textContent);
     } else {
@@ -80,17 +84,137 @@ const handleSelect = function(item, i) {
 
 // 옵션 클릭시 클릭한 옵션을 넘김
 for (let i = 0; i < options.length; i++) {
-  options[i].addEventListener('click', function() {
+  options[i].addEventListener('click', function () {
     handleSelect(options[i], i);
   });
 }
 
-labels.forEach(function(label){
-  label.addEventListener('click', function(){
-    if(label.parentNode.classList.contains('active')) {
+labels.forEach(function (label) {
+  label.addEventListener('click', function () {
+    if (label.parentNode.classList.contains('active')) {
       label.parentNode.classList.remove('active');
     } else {
       label.parentNode.classList.add('active');
     }
   });
 })
+
+async function signUp() {
+  let firstName = $('#firstName').val();
+  let lastName = $('#lastName').val();
+  let email = $('#email').val();
+  let password = $('#password').val();
+  let checkPassword = $('#check-password').val();
+  let companyId;
+  let company = $('#company').text();
+  let newCompanyName = $('#otherInput').val();
+  let startTime = $('#startTime').val();
+  let endTime = $('#endTime').val();
+  let payday = $('#payday').text();
+
+  // console.log(firstName);
+  // console.log(lastName);
+  // console.log(email);
+  // console.log(password);
+  // console.log(checkPassword);
+  // console.log(company);
+  // console.log(newCompanyName);
+  // console.log(`${startTime}:00`);
+  // console.log(`${endTime}:00`);
+  console.log(payday);
+  console.log(new Date());
+
+  if (company === 'Others') {
+    try {
+      const result = await axios.post('http://localhost:3000/companies', {
+        "name": newCompanyName,
+        "image": "basic-img.svg",
+        "total_good_state_count": 0
+      });
+      companyId = result.data.id;
+    } catch (err) {
+      console.err(err);
+      return; // 에러 발생 시 회원가입을 진행하지 않음
+    }
+  } else {
+    try {
+      await axios.get(`http://localhost:3000/companies/name/${company}`)
+        .then((result) => {
+          companyId = result.data.id;
+          console.log(companyId)
+        }).catch((err) => {
+          console.log(err)
+        });
+    } catch (err) {
+      console.err(err);
+      return; // 에러 발생 시 회원가입을 진행하지 않음
+    }
+  }
+
+  // }
+
+  // 공백 확인
+  if (firstName === '' ||
+    lastName === '' ||
+    email === '' ||
+    password === '' ||
+    checkPassword === '' ||
+    startTime === '' ||
+    endTime === ''
+  ) {
+    console.log("입력 필요한 것 있음");
+  } else {
+    let param = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "password": password,
+      "startTime": `${startTime}:00`,
+      "endTime": `${endTime}:00`,
+      "company": companyId,
+      "payday": payday,
+      "picture": '../img/img.jpg',
+      "goodStateCount": 0
+    };
+
+    $.support.cors = true;
+
+    await axios.post('http://localhost:3000/users/join', param, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(async function (response) {
+      let userId = response.data.userId;
+      console.log("회원가입 성공");
+      // location.href = `./index.html?user_id=${userId}`;
+      //location.href = './join_completed.html';
+    }).catch(function (error) {
+      console.error("회원가입 실패:", error);
+    });
+  }
+}
+
+function getCompaniesList() {
+  let companyId;
+
+  // 회사 list 가져오기 => 회사 dropdown
+  axios.get(`http://localhost:3000/companies`)
+    .then((result) => {
+      const optionList = document.getElementById('company-list');
+      const data = result.data;
+
+      // 데이터 순회하면서 각 항목에 대한 <li> 엘리먼트 생성 및 추가
+      data.forEach(item => {
+        console.log("company get api: " + item.id);
+        // 새로운 <li> 엘리먼트 생성
+        const listItem = document.createElement('li');
+        listItem.className = 'optionItem';
+        listItem.textContent = item.name; // 받아온 데이터의 필드를 사용하거나 조정
+
+        // 생성한 <li> 엘리먼트를 목록에 추가
+        optionList.appendChild(listItem);
+      });
+    }).catch((err) => {
+      console.error(err)
+    });
+}
