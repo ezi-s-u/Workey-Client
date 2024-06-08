@@ -33,8 +33,10 @@ object#important {
     width: 70px;
     height: 70px;
     margin: 1em auto 0 auto;
-    background-color: var(--purple-06);
+    background-color: var(--yellow-02);
     border-radius: 50em;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.1);
+    
 }
 
 .logo-img>img {
