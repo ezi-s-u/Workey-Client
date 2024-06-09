@@ -139,6 +139,7 @@ async function getCompany(companyId) {
 
 // 오늘 날짜 포맷 반환
 async function getTodayDate(date, quesId) {
+    console.log("date: "+date);
     let year = date.slice(0, 4);
     let month = date.slice(5, 7);
     let day = date.slice(8,10);
