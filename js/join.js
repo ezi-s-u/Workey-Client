@@ -4,6 +4,8 @@ const divInput = [...document.getElementsByClassName('div-input')];
 const warningIcon = document.getElementById('warning-icon')
 const warningMessage = document.getElementById('warning-message')
 
+let companyLength = 8;
+
 document.addEventListener('DOMContentLoaded', function () {
   getCompaniesList();
 });
@@ -67,16 +69,19 @@ function changeCompanySelect(item) {
 
 // SELECT 커스텀
 const labels = document.querySelectorAll('.label'); // 0 = company, 1 = payday
-
 const options = document.querySelectorAll('.optionItem');
 // 클릭한 옵션의 텍스트를 라벨 안에 넣음
 const handleSelect = function (item, i) {
+  console.log("i: " + i);
+  console.log("labels length: " + labels.length);
+  console.log("company length: " + companyLength);
   labels.forEach(function (label) {
-    if (i < 8) {
+    console.log("item.textContent: "+Number(item.textContent)+0);
+    if ( Number(item.textContent)+0 == item.textContent ){
+      labels[1].innerHTML = item.textContent;
+    } else {
       labels[0].innerHTML = item.textContent;
       changeCompanySelect(item.textContent);
-    } else {
-      labels[1].innerHTML = item.textContent;
     }
     label.parentNode.classList.remove('active');
   })
@@ -84,6 +89,7 @@ const handleSelect = function (item, i) {
 
 // 옵션 클릭시 클릭한 옵션을 넘김
 for (let i = 0; i < options.length; i++) {
+  console.log("options length: "+options.length);
   options[i].addEventListener('click', function () {
     handleSelect(options[i], i);
   });
@@ -124,19 +130,7 @@ async function signUp() {
   console.log(payday);
   console.log(new Date());
 
-  if (company === 'Others') {
-    try {
-      const result = await axios.post('http://localhost:3000/companies', {
-        "name": newCompanyName,
-        "image": "basic-img.svg",
-        "total_good_state_count": 0
-      });
-      companyId = result.data.id;
-    } catch (err) {
-      console.err(err);
-      return; // 에러 발생 시 회원가입을 진행하지 않음
-    }
-  } else {
+  if (company !== 'Others') {
     try {
       await axios.get(`http://localhost:3000/companies/name/${company}`)
         .then((result) => {
@@ -151,10 +145,8 @@ async function signUp() {
     }
   }
 
-  // }
-
   // 공백 확인
-  if (firstName === '' ||
+  if (firstName.trim() === '' ||
     lastName === '' ||
     email === '' ||
     password === '' ||
@@ -183,10 +175,21 @@ async function signUp() {
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(async function (response) {
-      let userId = response.data.userId;
+    }).then(async function() {
+      try {
+        const result = await axios.post('http://localhost:3000/companies', {
+          "name": newCompanyName,
+          "image": "basic-img.svg",
+          "total_good_state_count": 0
+        });
+        companyId = result.data.id;
+      } catch (err) {
+        console.err(err);
+        return; // 에러 발생 시 회원가입을 진행하지 않음
+      }
+
       console.log("회원가입 성공");
-      // location.href = `./index.html?user_id=${userId}`;
+
       //location.href = './join_completed.html';
     }).catch(function (error) {
       console.error("회원가입 실패:", error);
@@ -202,18 +205,27 @@ function getCompaniesList() {
     .then((result) => {
       const optionList = document.getElementById('company-list');
       const data = result.data;
-
+      companyLength = data.length;
       // 데이터 순회하면서 각 항목에 대한 <li> 엘리먼트 생성 및 추가
-      data.forEach(item => {
+      data.forEach((item, i) => {
         console.log("company get api: " + item.id);
         // 새로운 <li> 엘리먼트 생성
         const listItem = document.createElement('li');
         listItem.className = 'optionItem';
         listItem.textContent = item.name; // 받아온 데이터의 필드를 사용하거나 조정
-
+        listItem.addEventListener('click', function () {
+          handleSelect(listItem, i); // 적절한 i 값을 전달해야 합니다
+        });
         // 생성한 <li> 엘리먼트를 목록에 추가
         optionList.appendChild(listItem);
       });
+      const listItem = document.createElement('li');
+      listItem.className = 'optionItem';
+      listItem.textContent = 'Others';
+      listItem.addEventListener('click', function () {
+        handleSelect(listItem, companyLength); // 적절한 i 값을 전달해야 합니다
+      });
+      optionList.appendChild(listItem);
     }).catch((err) => {
       console.error(err)
     });
