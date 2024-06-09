@@ -35,6 +35,7 @@ if (urlParams.get('id') !== null) {
     turnOnLock();
     setEditPageBtn();
     getDiaryData();
+    setDiaryDateFormat();
 } else {
     turnOffLock();
     // 이미 답했다면 답한 diary를 불러오자
@@ -46,11 +47,16 @@ if (urlParams.get('id') !== null) {
         data: {},
         success: async function (result) { // 결과 성공 콜백함수
             let yourDate = String(today).substring(8, 10);
+            console.log("today: "+today);
+            let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
+            // 오늘 날짜 포맷팅 
+            dateFormat = await getTodayDate(String(today), Number(yourDate));
+            dateFormat = String(dateFormat).replace("undefined", String(today.getFullYear()));
+            $('#header-date').text(dateFormat);
             if (result.length === 0) {// 가장 처음 작성하는 글이라면
                 await setUserFirstName();
                 await setTodayQuestion(yourDate);
             } else {
-                let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
                 // 오늘 일기 작성 전이라면
                 if (lastDiaryDate !== yourDate) {
                     await setSendBtn();
@@ -65,6 +71,21 @@ if (urlParams.get('id') !== null) {
             }
         }
     });
+}
+
+async function setDiaryDateFormat() {
+    let dateFormat;
+
+    axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
+        .then(async (result) => {
+            console.log(result.data.quesId);
+            dateFormat = await getTodayDate(result.data.createdAt, result.data.quesId);
+            $('#header-date').text(dateFormat);
+
+        }).catch((err) => {
+            console.log("다이어리 createAt 출력 실패" + err);
+        });
+    console.log(dateFormat);
 }
 
 // user firtname 불러오기 
@@ -115,8 +136,8 @@ async function isStarClicked(star = isClicked) {
         document.getElementsByClassName("important")[0].src = "./img/icon_star_writing.svg";
         isClicked = false;
     }
-    console.log("star: "+star);
-    console.log("isClicked: "+isClicked);
+    console.log("star: " + star);
+    console.log("isClicked: " + isClicked);
 }
 
 async function getSelfCheckScoreSum() {
@@ -165,7 +186,7 @@ async function createDiary() {
         "companyId": Cookies.get("company_id")
     }
 
-    let quesId = Number(String(today).substring(8,10));
+    let quesId = Number(String(today).substring(8, 10));
 
     console.log("answer: " + answer);
     console.log("sum: " + sum);
@@ -328,7 +349,7 @@ async function getStarValue() {
     axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             isStar = result.data.star;
-            console.log("isStar: "+isStar);
+            console.log("isStar: " + isStar);
         }).catch((err) => {
             console.log("star값 불러오기 실패" + err);
         });
@@ -347,7 +368,7 @@ async function getCompanyIdValue() {
     axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             companyId = result.data.companyId;
-            console.log("companyId: "+companyId);
+            console.log("companyId: " + companyId);
         }).catch((err) => {
             console.log("companyId값 불러오기 실패" + err);
         });
@@ -375,11 +396,11 @@ async function updateDiary() {
         "state": state,
         "companyId": companyId
     }
-    console.log("answer: "+answer);
-    console.log("star: "+star);
-    console.log("score: "+sum);
-    console.log("state: "+state);
-    console.log("companyId: "+companyId);
+    console.log("answer: " + answer);
+    console.log("star: " + star);
+    console.log("score: " + sum);
+    console.log("state: " + state);
+    console.log("companyId: " + companyId);
 
     //location.href = "../list.html";
 
