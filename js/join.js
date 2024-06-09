@@ -76,8 +76,8 @@ const handleSelect = function (item, i) {
   console.log("labels length: " + labels.length);
   console.log("company length: " + companyLength);
   labels.forEach(function (label) {
-    console.log("item.textContent: "+Number(item.textContent)+0);
-    if ( Number(item.textContent)+0 == item.textContent ){
+    console.log("item.textContent: " + Number(item.textContent) + 0);
+    if (Number(item.textContent) + 0 == item.textContent) {
       labels[1].innerHTML = item.textContent;
     } else {
       labels[0].innerHTML = item.textContent;
@@ -89,7 +89,7 @@ const handleSelect = function (item, i) {
 
 // 옵션 클릭시 클릭한 옵션을 넘김
 for (let i = 0; i < options.length; i++) {
-  console.log("options length: "+options.length);
+  console.log("options length: " + options.length);
   options[i].addEventListener('click', function () {
     handleSelect(options[i], i);
   });
@@ -124,18 +124,20 @@ async function signUp() {
   // console.log(password);
   // console.log(checkPassword);
   // console.log(company);
-  // console.log(newCompanyName);
+  console.log(""+newCompanyName);
+  console.log(companyLength);
   // console.log(`${startTime}:00`);
   // console.log(`${endTime}:00`);
   console.log(payday);
   console.log(new Date());
 
   if (company !== 'Others') {
+    console.log("company가 Others가 아닙니다. ");
     try {
       await axios.get(`http://localhost:3000/companies/name/${company}`)
         .then((result) => {
           companyId = result.data.id;
-          console.log(companyId)
+          console.log(companyId);
         }).catch((err) => {
           console.log(err)
         });
@@ -143,19 +145,23 @@ async function signUp() {
       console.err(err);
       return; // 에러 발생 시 회원가입을 진행하지 않음
     }
+  } else {
+    companyId = companyLength+1;
   }
 
   // 공백 확인
-  if (firstName.trim() === '' ||
+  if (firstName === '' ||
     lastName === '' ||
     email === '' ||
     password === '' ||
     checkPassword === '' ||
     startTime === '' ||
-    endTime === ''
+    endTime === '' ||
+    ( company === 'Others' && newCompanyName.trim() === '')
   ) {
     console.log("입력 필요한 것 있음");
   } else {
+    console.log("입력은 다 됨");
     let param = {
       "firstName": firstName,
       "lastName": lastName,
@@ -175,17 +181,20 @@ async function signUp() {
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(async function() {
-      try {
-        const result = await axios.post('http://localhost:3000/companies', {
-          "name": newCompanyName,
-          "image": "basic-img.svg",
-          "total_good_state_count": 0
-        });
-        companyId = result.data.id;
-      } catch (err) {
-        console.err(err);
-        return; // 에러 발생 시 회원가입을 진행하지 않음
+    }).then(async function () {
+      if (company === 'Others') {
+        try {
+          const result = await axios.post('http://localhost:3000/companies', {
+            "name": newCompanyName,
+            "image": "basic-img.svg",
+            "total_good_state_count": 0
+          });
+          companyId = result.data.id;
+
+        } catch (err) {
+          console.error(err);
+          return; // 에러 발생 시 회원가입을 진행하지 않음
+        }
       }
 
       console.log("회원가입 성공");
@@ -198,8 +207,6 @@ async function signUp() {
 }
 
 function getCompaniesList() {
-  let companyId;
-
   // 회사 list 가져오기 => 회사 dropdown
   axios.get(`http://localhost:3000/companies`)
     .then((result) => {
