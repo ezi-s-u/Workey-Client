@@ -128,13 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // 클릭한 옵션의 텍스트를 라벨 안에 넣음
             const handleSelect = function (item, i) {
                 labels.forEach(function (label) {
-                    if (i < 8) {
+                    if (Number(item.textContent) + 0 == item.textContent) {
+                        labels[1].innerHTML = item.textContent;
+                      } else {
                         labels[0].innerHTML = item.textContent;
                         changeCompanySelect(item.textContent);
-                    } else {
-                        labels[1].innerHTML = item.textContent;
-                    }
-                    label.parentNode.classList.remove('active');
+                      }
+                      label.parentNode.classList.remove('active');
                 })
             }
 

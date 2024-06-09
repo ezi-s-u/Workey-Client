@@ -118,19 +118,6 @@ async function signUp() {
   let endTime = $('#endTime').val();
   let payday = $('#payday').text();
 
-  // console.log(firstName);
-  // console.log(lastName);
-  // console.log(email);
-  // console.log(password);
-  // console.log(checkPassword);
-  // console.log(company);
-  console.log(""+newCompanyName);
-  console.log(companyLength);
-  // console.log(`${startTime}:00`);
-  // console.log(`${endTime}:00`);
-  console.log(payday);
-  console.log(new Date());
-
   if (company !== 'Others') {
     console.log("company가 Others가 아닙니다. ");
     try {
@@ -196,10 +183,8 @@ async function signUp() {
           return; // 에러 발생 시 회원가입을 진행하지 않음
         }
       }
-
       console.log("회원가입 성공");
-
-      //location.href = './join_completed.html';
+      location.href = './join_completed.html';
     }).catch(function (error) {
       console.error("회원가입 실패:", error);
     });
