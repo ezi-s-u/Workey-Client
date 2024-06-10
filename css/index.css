@@ -295,6 +295,7 @@ header {
 /* progress bar */
 .progress-bar {
     background-color: #DBD4E6;
+    border-radius: 4px;
 }
 
 #working-time-bar {
@@ -303,4 +304,5 @@ header {
     width: 0%;
     background-color: #813CEE;
     /* border: 1px purple solid; */
+    border-radius: 4px;
 }
