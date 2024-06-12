@@ -116,6 +116,7 @@ header>#header-date {
     text-align: center;
     box-shadow: 1px 0px 10px -1px rgba(0, 0, 0, 0.1);
     border-radius: 15px; /* 모서리를 둥글게 만듦 */
+    background-color: #fff;
 }
 
 #nav-ul {
@@ -124,7 +125,7 @@ header>#header-date {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border-radius: 10em;
+    border-radius: 10vw;
     /* background-color: #aceaa6; */
     box-sizing: border-box;
     text-align: center;
