@@ -356,7 +356,7 @@ button {
     overflow: hidden;
     max-height: 0;
     transition: .3s ease-in;
-    z-index: -9999;
+    z-index: 20;
 }
 
 .selectBox.active .optionList {
@@ -368,6 +368,7 @@ button {
 .selectBox .optionItem {
     padding: 13px 15px 13px;
     transition: .1s;
+    z-index: 20;
 }
 
 .selectBox .optionItem:hover {

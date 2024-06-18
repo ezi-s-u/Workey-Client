@@ -52,60 +52,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const company_id = Cookies.get('company_id');
 
     axios.get(`http://localhost:3000/users/mypage/${user_id}`)
-    .then((result) => {
-        console.log(result.data)
-        const firstName = result.data.dataValues.firstName
-        const lastName = result.data.dataValues.lastName
-        const company = result.data.dataValues.company
-        startTime = result.data.dataValues.startTime
-        endTime = result.data.dataValues.endTime
-        
-        // 이름
-        spanFirstName.innerHTML = firstName;
-        spanLastName.innerHTML = lastName;
+        .then((result) => {
+            console.log(result.data)
+            const firstName = result.data.dataValues.firstName
+            const lastName = result.data.dataValues.lastName
+            const company = result.data.dataValues.company
+            startTime = result.data.dataValues.startTime
+            endTime = result.data.dataValues.endTime
 
-        // 일 시작, 끝 시간
-        inputStartTime.value = startTime;
-        inputEndTime.value = endTime;
+            // 이름
+            spanFirstName.innerHTML = firstName;
+            spanLastName.innerHTML = lastName;
 
-        let index = 8;// payday의 인덱스
-        let payday = result.data.dataValues.payday;
-        console.log("payday: "+payday);
-        dropPayday.innerHTML = payday;
-        console.log("payday: "+payday);
+            // 일 시작, 끝 시간
+            inputStartTime.value = startTime;
+            inputEndTime.value = endTime;
 
-        // 회사 가져오기 => 회사 이름
-        axios.get(`http://localhost:3000/companies/${company}`)
-            .then((result) => {
-                let companyName;
+            let index = 8;// payday의 인덱스
+            let payday = result.data.dataValues.payday;
+            console.log("payday: " + payday);
+            dropPayday.innerHTML = payday;
+            console.log("payday: " + payday);
 
-                companyName = result.data.name
-                console.log(companyName)
-                spanCompanyName.innerHTML = companyName;
-                dropCompany.innerHTML = companyName;
+            // 회사 가져오기 => 회사 이름
+            axios.get(`http://localhost:3000/companies/${company}`)
+                .then((result) => {
+                    let companyName;
 
-            }).catch((err) => {
-                console.error(err)
-            });
+                    companyName = result.data.name
+                    console.log(companyName)
+                    spanCompanyName.innerHTML = companyName;
+                    dropCompany.innerHTML = companyName;
 
-    }).catch((err) => {
-        console.error(err)
-    });
+                }).catch((err) => {
+                    console.error(err)
+                });
+
+        }).catch((err) => {
+            console.error(err)
+        });
 
     // 글 목록 가져오기 => 글 개수
     axios.get(`http://localhost:3000/diaries/${user_id}`)
-    .then((result) => {
-        const spanRecordCount = document.getElementById('record-count');
-        spanRecordCount.innerHTML = result.data.length;
+        .then((result) => {
+            const spanRecordCount = document.getElementById('record-count');
+            spanRecordCount.innerHTML = result.data.length;
 
-    }).catch((err) => {
-        console.error(err)
-    });
+        }).catch((err) => {
+            console.error(err)
+        });
 
     // 회사 list 가져오기 => 회사 dropdown
     axios.get(`http://localhost:3000/companies/`)
         .then((result) => {
             const optionList = document.getElementById('option-list');
+            optionList.style.zIndex = '20';
 
             const data = result.data;
             console.log(result.data);
@@ -130,11 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 labels.forEach(function (label) {
                     if (Number(item.textContent) + 0 == item.textContent) {
                         labels[1].innerHTML = item.textContent;
-                      } else {
+                    } else {
                         labels[0].innerHTML = item.textContent;
                         changeCompanySelect(item.textContent);
-                      }
-                      label.parentNode.classList.remove('active');
+                    }
+                    label.parentNode.classList.remove('active');
                 })
             }
 
@@ -175,7 +176,7 @@ function editMemberInfo() {
         .then((result) => {
             const optionList = document.getElementById('option-list');
             const data = result.data;
-            console.log("company get api: "+result.data);
+            console.log("company get api: " + result.data);
 
             // 데이터 순회하면서 각 항목에 대한 <li> 엘리먼트 생성 및 추가
             data.forEach(item => {
@@ -194,23 +195,23 @@ function editMemberInfo() {
             });
             console.log(dropPayday.innerHTML);
             let dataPatch = {
-                "startTime" : inputStartTime.value,
-                "endTime" : inputEndTime.value,
-                "company" : companyId,
-                "payday" : dropPayday.innerHTML
+                "startTime": inputStartTime.value,
+                "endTime": inputEndTime.value,
+                "company": companyId,
+                "payday": dropPayday.innerHTML
             }
-        
+
             axios.patch(`http://localhost:3000/users/mypage/${user_id}`, dataPatch)
-            .then(async (result) => {
-                Cookies.set("company_id", companyId);
-                const selectedCompany = data.find(company => company.id === companyId);
+                .then(async (result) => {
+                    Cookies.set("company_id", companyId);
+                    const selectedCompany = data.find(company => company.id === companyId);
 
-                spanCompanyName.innerHTML = selectedCompany.name;
+                    spanCompanyName.innerHTML = selectedCompany.name;
 
-                console.log("회원 정보 수정되었습니다.");
-            }).catch((err) => {
-                console.error("회원 정보 수정에 실패했습니다.");
-            });
+                    console.log("회원 정보 수정되었습니다.");
+                }).catch((err) => {
+                    console.error("회원 정보 수정에 실패했습니다.");
+                });
 
         }).catch((err) => {
             console.error(err)
@@ -221,5 +222,5 @@ function logout() {
     document.cookie = "user_id" + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
     document.cookie = "company_id" + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
     document.cookie = "diary_id" + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
-    location.href='./login.html'
+    location.href = './login.html'
 }

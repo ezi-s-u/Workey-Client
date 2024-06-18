@@ -295,12 +295,14 @@ option {
 .selectBox.active .optionList {
   max-height: 150px;
   overflow-y: auto;
-  border: 1px solid var(--gray-05);
+  border: 1px solid #D9D9D9;
+  z-index:9999;
 }
 
 .selectBox .optionItem {
   padding: 13px 15px 13px;
   transition: .1s;
+  z-index:20;
 }
 
 .selectBox .optionItem:hover {
