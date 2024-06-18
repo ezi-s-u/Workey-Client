@@ -28,8 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // console.log(parseInt(startTime))
       const endTime = result.data.endTime
       const payday = result.data.payday
-      console.log(payday)
-      console.log(typeof payday)
 
       /* 월급날 계산 */
       const todayDate = moment();
@@ -41,10 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const untilPayday = paydayDate.diff(todayDate, "days");
       // ajax innerHTML
+      if(untilPayday === 0) {
+        spanPayday.html("Day");
+      } else {
       spanPayday.html(untilPayday);
+      }
 
       spanStartTime.html(convertTimeFormat(startTime)) // 화면에 출근 시간 출력
       spanEndTime.html(convertTimeFormat(endTime)) // 화면에 출근 시간 출력
+
+      // console.log(startTime)
+      // console.log(endTime)
 
       /* 애니메이션 */
       startTimestamp = new Date().setHours(parseInt(startTime), 0, 0, 0);
@@ -61,6 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 바의 너비를 조절하는 함수
 function increaseProgressBar(startTimestamp, endTimestamp) {
+  const now = new Date();
+
   state.textContent = "Real-time";
 
   timeBar.style.backgroundColor = "#813CEE";
@@ -69,12 +76,8 @@ function increaseProgressBar(startTimestamp, endTimestamp) {
 
   // 현재 일하고 있는 시간인지
   function isWorkingTime() {
-    console.log('startTimestamp '+startTimestamp)
-    console.log('endTimestamp '+endTimestamp)
-    const now = new Date();
     return now >= startTimestamp && now <= endTimestamp;
   }
-
 
   if (isWorkingTime()) {
     var currentTime = new Date() // 현재 시간
@@ -93,6 +96,17 @@ function increaseProgressBar(startTimestamp, endTimestamp) {
     character.style.transform = 'rotate(' + rotation + 'deg)';
 
     character.src = "./img/running_illustration.svg";
+
+    // 말풍선
+    comment1.textContent = "Hustling until it's time to punch out!";
+    comment2.textContent = "You can do it✨";
+  } else if(now < startTimestamp && now > endTimestamp) {
+    timeBar.style.width = '0%';
+    character.style.marginLeft = '0%';
+
+    // 이미지의 각도를 변경합니다.
+    character.style.transform = 'rotate(' + 0 + 'deg)';
+    character.src = "./img/running_illustration_done.svg";
 
     // 말풍선
     comment1.textContent = "Hustling until it's time to punch out!";
