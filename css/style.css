@@ -1,9 +1,16 @@
-@font-face {
+/* @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
-}
+} */
+
+@font-face {
+    font-family: "SF-PRO-ROUNDED";
+    src: url("../font/SF-PRO-ROUNDED-REGULAR.OTF");
+    font-weight: 400;
+    font-style: normal;
+  }
 
 :root {
     --purple-01: #813CEE;
@@ -30,7 +37,7 @@
     --gray-08: #868686;
     --record-color: #D75A56;
     --white: #fff;
-    --main-font: 'Pretendard-Regular';
+    --main-font: "SF-PRO-ROUNDED";
 
     --header-height: 50px;
     --header-img-width: 45px;
@@ -109,6 +116,7 @@ header>#header-date {
     text-align: center;
     box-shadow: 1px 0px 10px -1px rgba(0, 0, 0, 0.1);
     border-radius: 15px; /* 모서리를 둥글게 만듦 */
+    background-color: #fff;
 }
 
 #nav-ul {
@@ -117,7 +125,7 @@ header>#header-date {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border-radius: 10em;
+    border-radius: 10vw;
     /* background-color: #aceaa6; */
     box-sizing: border-box;
     text-align: center;
