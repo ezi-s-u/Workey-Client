@@ -369,13 +369,13 @@ button {
 .selectBox.active .optionList {
     max-height: 200px;
     overflow-y: auto;
-    z-index: 20;
+    z-index:9999;
 }
 
 .selectBox .optionItem {
     padding: 13px 15px 13px;
     transition: .1s;
-    z-index: 20;
+    z-index: 30;
 }
 
 .selectBox .optionItem:hover {

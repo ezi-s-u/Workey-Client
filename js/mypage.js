@@ -106,8 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
     axios.get(`http://localhost:3000/companies/`)
         .then((result) => {
             const optionList = document.getElementById('option-list');
-            optionList.style.zIndex = '20';
-
             const data = result.data;
             console.log(result.data);
 
