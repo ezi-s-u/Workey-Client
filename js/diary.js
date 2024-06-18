@@ -41,7 +41,7 @@ if (urlParams.get('id') !== null) {
     // 이미 답했다면 답한 diary를 불러오자
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
-        url: `http://localhost:3000/diaries/${userId}`,           // 요청할 서버url
+        url: `http://54.180.251.177/diaries/${userId}`,           // 요청할 서버url
         async: true,            // 비동기화 여부 (default : true)
         dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
         data: {},
@@ -76,7 +76,7 @@ if (urlParams.get('id') !== null) {
 async function setDiaryDateFormat() {
     let dateFormat;
 
-    axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
+    axios.get(`http://54.180.251.177/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             console.log(result.data.quesId);
             dateFormat = await getTodayDate(result.data.createdAt, result.data.quesId);
@@ -94,7 +94,7 @@ async function setUserFirstName() {
     console.log("setUserFirstName()");
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
-        url: 'http://localhost:3000/users',           // 요청할 서버url
+        url: 'http://54.180.251.177/users',           // 요청할 서버url
         async: true,            // 비동기화 여부 (default : true)
         dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
         data: {},
@@ -115,7 +115,7 @@ async function setTodayQuestion(id) {
     let quesId = id;
     $.ajax({
         type: 'get',           // 타입 (get, post, put 등등)
-        url: `http://localhost:3000/questions/${quesId}`,           // 요청할 서버url
+        url: `http://54.180.251.177/questions/${quesId}`,           // 요청할 서버url
         async: true,            // 비동기화 여부 (default : true)
         dataType: 'json',       // 데이터 타입 (html, xml, json, text 등등)
         data: {},
@@ -196,7 +196,7 @@ async function createDiary() {
     console.log("quesId: " + quesId);
     console.log("userId: " + userId);
 
-    axios.post(`http://localhost:3000/diaries/${userId}/${quesId}`, req)
+    axios.post(`${process.env.SERVER_URL}/diaries/${userId}/${quesId}`, req)
         .then(async (result) => {
             if (result.data.data.state) {
                 await saveGoodCount(result.data.data.companyId);
@@ -226,7 +226,7 @@ async function saveSelfCheckValue(id) {
     console.log("st_answer3: " + Number($(":input:radio[name=q3]:checked").val()));
     console.log("st_answer4: " + Number($(":input:radio[name=q4]:checked").val()));
 
-    await axios.post(`http://localhost:3000/self-test-results/${diaryId}`, req)
+    await axios.post(`http://54.180.251.177/self-test-results/${diaryId}`, req)
         .then(async (result) => {
             console.log(result);
             //console.log("st_answer1: " + result.data.st_answer1);
@@ -251,7 +251,7 @@ async function updateSelfCheckValue(id) {
     console.log("st_answer3: " + Number($(":input:radio[name=q3]:checked").val()));
     console.log("st_answer4: " + Number($(":input:radio[name=q4]:checked").val()));
 
-    await axios.patch(`http://localhost:3000/self-test-results/${diaryId}`, req)
+    await axios.patch(`http://54.180.251.177/self-test-results/${diaryId}`, req)
         .then(async (result) => {
             console.log(result);
         }).catch((err) => {
@@ -262,7 +262,7 @@ async function updateSelfCheckValue(id) {
 async function getSelfCheckValue(id) {
     console.log("getSelfCheckValue()");
     diaryId = id;
-    axios.get(`http://localhost:3000/self-test-results/${diaryId}`)
+    axios.get(`http://54.180.251.177/self-test-results/${diaryId}`)
         .then(async (result) => {
             await setSelfCheckValueHtml(result.data.st_answer1, "q1");
             await setSelfCheckValueHtml(result.data.st_answer2, "q2");
@@ -286,7 +286,7 @@ async function saveGoodCount(companyId) {
     console.log("saveGoodCount()");
     let req = {};
 
-    axios.patch(`http://localhost:3000/companies/${companyId}`, req)
+    axios.patch(`http://54.180.251.177/companies/${companyId}`, req)
         .then(async (result) => {
             console.log(result);
         }).catch((err) => {
@@ -297,7 +297,7 @@ async function saveGoodCount(companyId) {
 async function getDiaryData() {
     console.log("getDiaryData()");
     await setUserFirstName();
-    axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
+    axios.get(`http://54.180.251.177/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             await setTodayQuestion(result.data.quesId);
             $("#answer").text(result.data.answer + " ");
@@ -346,7 +346,7 @@ async function goDiaryEditViewPage() {
 async function getStarValue() {
     console.log("getStarValue()");
     let isStar;
-    axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
+    axios.get(`http://54.180.251.177/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             isStar = result.data.star;
             console.log("isStar: " + isStar);
@@ -365,7 +365,7 @@ async function getStarValue() {
 async function getCompanyIdValue() {
     console.log("getCompanyIdValue()");
     let companyId;
-    axios.get(`http://localhost:3000/diaries/${userId}/${diaryId}`)
+    axios.get(`http://54.180.251.177/diaries/${userId}/${diaryId}`)
         .then(async (result) => {
             companyId = result.data.companyId;
             console.log("companyId: " + companyId);
@@ -404,7 +404,7 @@ async function updateDiary() {
 
     //location.href = "../list.html";
 
-    axios.patch(`http://localhost:3000/diaries/${userId}/${diaryId}`, req)
+    axios.patch(`http://54.180.251.177/diaries/${userId}/${diaryId}`, req)
         .then(async (result) => {
             if (state) {
                 await saveGoodCount(companyId);

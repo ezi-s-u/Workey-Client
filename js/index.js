@@ -22,7 +22,7 @@ let endTimestamp
 
 document.addEventListener('DOMContentLoaded', () => {
   user_id = Cookies.get("user_id");
-  axios.get(`http://localhost:3000/main/${user_id}`)
+  axios.get(`http://54.180.251.177/main/${user_id}`)
     .then((result) => {
       const startTime = result.data.startTime
       // console.log(parseInt(startTime))
