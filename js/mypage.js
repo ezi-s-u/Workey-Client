@@ -51,18 +51,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const user_id = Cookies.get('user_id');
     const company_id = Cookies.get('company_id');
 
-    axios.get(`http://localhost:3000/users/mypage/${user_id}`)
-        .then((result) => {
-            console.log(result.data)
-            const firstName = result.data.dataValues.firstName
-            const lastName = result.data.dataValues.lastName
-            const company = result.data.dataValues.company
-            startTime = result.data.dataValues.startTime
-            endTime = result.data.dataValues.endTime
-
-            // 이름
-            spanFirstName.innerHTML = firstName;
-            spanLastName.innerHTML = lastName;
+    axios.get(`http://54.180.251.177/users/mypage/${user_id}`)
+    .then((result) => {
+        console.log(result.data)
+        const firstName = result.data.dataValues.firstName
+        const lastName = result.data.dataValues.lastName
+        const company = result.data.dataValues.company
+        startTime = result.data.dataValues.startTime
+        endTime = result.data.dataValues.endTime
+        
+        // 이름
+        spanFirstName.innerHTML = firstName;
+        spanLastName.innerHTML = lastName;
 
             // 일 시작, 끝 시간
             inputStartTime.value = startTime;
@@ -74,10 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
             dropPayday.innerHTML = payday;
             console.log("payday: " + payday);
 
-            // 회사 가져오기 => 회사 이름
-            axios.get(`http://localhost:3000/companies/${company}`)
-                .then((result) => {
-                    let companyName;
+        // 회사 가져오기 => 회사 이름
+        axios.get(`http://54.180.251.177/companies/${company}`)
+            .then((result) => {
+                let companyName;
 
                     companyName = result.data.name
                     console.log(companyName)
@@ -93,17 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // 글 목록 가져오기 => 글 개수
-    axios.get(`http://localhost:3000/diaries/${user_id}`)
-        .then((result) => {
-            const spanRecordCount = document.getElementById('record-count');
-            spanRecordCount.innerHTML = result.data.length;
+    axios.get(`http://54.180.251.177/diaries/${user_id}`)
+    .then((result) => {
+        const spanRecordCount = document.getElementById('record-count');
+        spanRecordCount.innerHTML = result.data.length;
 
         }).catch((err) => {
             console.error(err)
         });
 
     // 회사 list 가져오기 => 회사 dropdown
-    axios.get(`http://localhost:3000/companies/`)
+    axios.get(`http://54.180.251.177/companies/`)
         .then((result) => {
             const optionList = document.getElementById('option-list');
             const data = result.data;
@@ -170,7 +170,7 @@ function editMemberInfo() {
     let companyId;
 
     // 회사 list 가져오기 => 회사 dropdown
-    axios.get(`http://localhost:3000/companies/`)
+    axios.get(`http://54.180.251.177/companies/`)
         .then((result) => {
             const optionList = document.getElementById('option-list');
             const data = result.data;
@@ -198,11 +198,11 @@ function editMemberInfo() {
                 "company": companyId,
                 "payday": dropPayday.innerHTML
             }
-
-            axios.patch(`http://localhost:3000/users/mypage/${user_id}`, dataPatch)
-                .then(async (result) => {
-                    Cookies.set("company_id", companyId);
-                    const selectedCompany = data.find(company => company.id === companyId);
+        
+            axios.patch(`http://54.180.251.177/users/mypage/${user_id}`, dataPatch)
+            .then(async (result) => {
+                Cookies.set("company_id", companyId);
+                const selectedCompany = data.find(company => company.id === companyId);
 
                     spanCompanyName.innerHTML = selectedCompany.name;
 
