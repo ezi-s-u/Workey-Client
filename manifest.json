@@ -1,0 +1,14 @@
+{
+  "short_name": "Workey",
+  "name": "Workey",
+  "icons": [
+    {
+      "src": "workey_icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "landscape"
+}

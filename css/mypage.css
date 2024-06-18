@@ -40,6 +40,13 @@
     --bold-weight: 900;
 }
 
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 모바일 크롬, 사파리 등 */
+    -webkit-tap-highlight-color: transparent; /* 모바일 크롬, 사파리 등 */
+    -webkit-touch-callout: none; /* iOS에서의 터치 콜아웃 제거 */
+    user-select: none; /* 텍스트 선택 비활성화 */
+}
+
 header>.title {
     position: absolute;
     left: 7%;

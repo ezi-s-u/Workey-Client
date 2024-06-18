@@ -100,17 +100,6 @@ function increaseProgressBar(startTimestamp, endTimestamp) {
     // 말풍선
     comment1.textContent = "Hustling until it's time to punch out!";
     comment2.textContent = "You can do it✨";
-  } else if(now < startTimestamp && now > endTimestamp) {
-    timeBar.style.width = '0%';
-    character.style.marginLeft = '0%';
-
-    // 이미지의 각도를 변경합니다.
-    character.style.transform = 'rotate(' + 0 + 'deg)';
-    character.src = "./img/running_illustration_done.svg";
-
-    // 말풍선
-    comment1.textContent = "Hustling until it's time to punch out!";
-    comment2.textContent = "You can do it✨";
   } else {
     clearInterval(progressInterval);
     timeBar.style.width = '100%';

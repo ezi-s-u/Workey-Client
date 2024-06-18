@@ -4,14 +4,12 @@
     font-weight: 400;
     font-style: normal;
 } */
-
 @font-face {
     font-family: "SF-PRO-ROUNDED";
     src: url("../font/SF-PRO-ROUNDED-REGULAR.OTF");
     font-weight: 400;
     font-style: normal;
-  }
-
+}
 :root {
     --purple-01: #813CEE;
     --purple-02: #C18FFF;
@@ -58,6 +56,10 @@
     margin: 0;
     padding: 0;
     font-family: var(--main-font);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 모바일 크롬, 사파리 등 */
+    -webkit-tap-highlight-color: transparent; /* 모바일 크롬, 사파리 등 */
+    -webkit-touch-callout: none; /* iOS에서의 터치 콜아웃 제거 */
+    user-select: none; /* 텍스트 선택 비활성화 */
 }
 
 body {
