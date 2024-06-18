@@ -232,20 +232,20 @@ function deleteDivList() {
     }
 }
 
-//
-let selectDate = document.getElementById("select-date");
-selectDate.addEventListener("change", showDiaryByDate());
+// //
+// let selectDate = document.getElementById("select-date");
+// selectDate.addEventListener("change", showDiaryByDate());
 
-async function showDiaryByDate() {
-    const selectedDate = selectDate.value;
-    console.log(selectDate)
+// async function showDiaryByDate() {
+//     const selectedDate = selectDate.value;
+//     console.log(selectDate)
     
-    await axios.get(`http://54.180.251.177/diaries/date/detail?date=${selectedDate}`)
-        .then(async (result) => {
-            await setDiaryHtml(result.id, result.quesId, result.companyId, result.createdAt, result.star);
-    }).catch((err) => {
-        console.log("err : " + err)
-        console.log("해당 날짜의 다이어리 불러오기 실패")
-    })
+//     await axios.get(`http://54.180.251.177/diaries/date/detail?date=${selectedDate}`)
+//         .then(async (result) => {
+//             await setDiaryHtml(result.id, result.quesId, result.companyId, result.createdAt, result.star);
+//     }).catch((err) => {
+//         console.log("err : " + err)
+//         console.log("해당 날짜의 다이어리 불러오기 실패")
+//     })
 
-}
+// }

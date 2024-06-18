@@ -29,8 +29,8 @@ const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 
 // 하나의 diary에 접속했을 경우
-console.log(urlParams.get("id"));
 if (urlParams.get('id') !== null) {
+    console.log(urlParams.get("id"));
     diaryId = urlParams.get('id');
     turnOnLock();
     setEditPageBtn();
@@ -47,8 +47,7 @@ if (urlParams.get('id') !== null) {
         data: {},
         success: async function (result) { // 결과 성공 콜백함수
             let yourDate = String(today).substring(8, 10);
-            console.log("today: "+today);
-            let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
+            console.log("today: " + today);
             // 오늘 날짜 포맷팅 
             dateFormat = await getTodayDate(String(today), Number(yourDate));
             dateFormat = String(dateFormat).replace("undefined", String(today.getFullYear()));
@@ -57,6 +56,7 @@ if (urlParams.get('id') !== null) {
                 await setUserFirstName();
                 await setTodayQuestion(yourDate);
             } else {
+                let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
                 // 오늘 일기 작성 전이라면
                 if (lastDiaryDate !== yourDate) {
                     await setSendBtn();
