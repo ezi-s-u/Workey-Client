@@ -52,32 +52,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const company_id = Cookies.get('company_id');
 
     axios.get(`http://54.180.251.177/users/mypage/${user_id}`)
-    .then((result) => {
-        console.log(result.data)
-        const firstName = result.data.dataValues.firstName
-        const lastName = result.data.dataValues.lastName
-        const company = result.data.dataValues.company
-        startTime = result.data.dataValues.startTime
-        endTime = result.data.dataValues.endTime
-        
-        // 이름
-        spanFirstName.innerHTML = firstName;
-        spanLastName.innerHTML = lastName;
+        .then((result) => {
+            console.log(result.data);
+            const firstName = result.data.firstName;
+            const lastName = result.data.lastName;
+            const company = result.data.company;
+            startTime = result.data.startTime;
+            endTime = result.data.endTime;
+
+            console.log("firstName: "+firstName);
+            console.log("lastName: "+lastName);
+            console.log("company: "+company);
+            console.log("startTime: "+startTime);
+            console.log("endTime: "+endTime);
+
+            // 이름
+            spanFirstName.innerHTML = firstName;
+            spanLastName.innerHTML = lastName;
 
             // 일 시작, 끝 시간
             inputStartTime.value = startTime;
             inputEndTime.value = endTime;
 
             let index = 8;// payday의 인덱스
-            let payday = result.data.dataValues.payday;
-            console.log("payday: " + payday);
+            let payday = result.data.payday;
             dropPayday.innerHTML = payday;
-            console.log("payday: " + payday);
 
-        // 회사 가져오기 => 회사 이름
-        axios.get(`http://54.180.251.177/companies/${company}`)
-            .then((result) => {
-                let companyName;
+            // 회사 가져오기 => 회사 이름
+            axios.get(`http://54.180.251.177/companies/${company}`)
+                .then((result) => {
+                    let companyName;
 
                     companyName = result.data.name
                     console.log(companyName)
@@ -94,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 글 목록 가져오기 => 글 개수
     axios.get(`http://54.180.251.177/diaries/${user_id}`)
-    .then((result) => {
-        const spanRecordCount = document.getElementById('record-count');
-        spanRecordCount.innerHTML = result.data.length;
+        .then((result) => {
+            const spanRecordCount = document.getElementById('record-count');
+            spanRecordCount.innerHTML = result.data.length;
 
         }).catch((err) => {
             console.error(err)
@@ -170,7 +174,7 @@ function editMemberInfo() {
     let companyId;
 
     // 회사 list 가져오기 => 회사 dropdown
-    axios.get(`http://54.180.251.177/companies/`)
+    axios.get(`http://54.180.251.177/companies`)
         .then((result) => {
             const optionList = document.getElementById('option-list');
             const data = result.data;
@@ -192,18 +196,49 @@ function editMemberInfo() {
                 }
             });
             console.log(dropPayday.innerHTML);
-            let dataPatch = {
+
+            console.log("들어갑니당");
+            let firstName, lastName, email, password, picture;
+            let goodStateCount;
+            // 기존 user 정보 가져오기
+            $.support.cors = true;
+            axios.get(`http://54.180.251.177/users`)
+                .then(async (result) => {
+                    console.log("result"+result.data);
+                    const data = result.data;
+                    data.forEach(item => {
+                        console.log("item: "+item.id);
+                        if ( item.id === user_id ) {
+                            fisrtName = item.firstName;
+                            lastName = item.lastName;
+                            email = item.email;
+                            password = item.password;
+                            picture = item.picture;
+                            goodStateCount = item.goodStateCount;
+                        }
+                    });
+                }).catch((err) => {
+                    console.error("회원 정보 불러오기에 실패했습니다.: "+err);
+                });
+
+            let req = {
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "password": password,
                 "startTime": inputStartTime.value,
                 "endTime": inputEndTime.value,
                 "company": companyId,
+                "picture": picture,
+                "goodStateCount": goodStateCount,
                 "payday": dropPayday.innerHTML
             }
-        
-            axios.patch(`http://54.180.251.177/users/mypage/${user_id}`, dataPatch)
-            .then(async (result) => {
-                Cookies.set("company_id", companyId);
-                const selectedCompany = data.find(company => company.id === companyId);
 
+            $.support.cors = true;
+            axios.put(`http://54.180.251.177/users/mypage/${user_id}`, req)
+                .then(async (result) => {
+                    Cookies.set("company_id", companyId);
+                    const selectedCompany = data.find(company => company.id === companyId);
                     spanCompanyName.innerHTML = selectedCompany.name;
 
                     console.log("회원 정보 수정되었습니다.");
@@ -212,7 +247,7 @@ function editMemberInfo() {
                 });
 
         }).catch((err) => {
-            console.error(err)
+            console.error(err);
         });
 }
 

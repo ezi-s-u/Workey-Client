@@ -53,11 +53,14 @@ if (urlParams.get('id') !== null) {
             dateFormat = String(dateFormat).replace("undefined", String(today.getFullYear()));
             $('#header-date').text(dateFormat);
             if (result.length === 0) {// 가장 처음 작성하는 글이라면
+                await setSendBtn();
                 await setUserFirstName();
                 await setTodayQuestion(yourDate);
             } else {
                 let lastDiaryDate = result[result.length - 1].createdAt.substring(8, 10);
                 // 오늘 일기 작성 전이라면
+                console.log("lastDiaryDate: "+lastDiaryDate);
+                console.log("yourDate: "+yourDate);
                 if (lastDiaryDate !== yourDate) {
                     await setSendBtn();
                     await setUserFirstName();
@@ -196,7 +199,7 @@ async function createDiary() {
     console.log("quesId: " + quesId);
     console.log("userId: " + userId);
 
-    axios.post(`${process.env.SERVER_URL}/diaries/${userId}/${quesId}`, req)
+    axios.post(`http://54.180.251.177/diaries/${userId}/${quesId}`, req)
         .then(async (result) => {
             if (result.data.data.state) {
                 await saveGoodCount(result.data.data.companyId);
@@ -240,6 +243,7 @@ async function updateSelfCheckValue(id) {
     console.log("updateSelfCheckValue()");
     diaryId = id;
     let req = {
+        "diaryId": diaryId,
         "st_answer1": Number($(":input:radio[name=q1]:checked").val()),
         "st_answer2": Number($(":input:radio[name=q2]:checked").val()),
         "st_answer3": Number($(":input:radio[name=q3]:checked").val()),
@@ -251,7 +255,8 @@ async function updateSelfCheckValue(id) {
     console.log("st_answer3: " + Number($(":input:radio[name=q3]:checked").val()));
     console.log("st_answer4: " + Number($(":input:radio[name=q4]:checked").val()));
 
-    await axios.patch(`http://54.180.251.177/self-test-results/${diaryId}`, req)
+    $.support.cors = true;
+    await axios.put(`http://54.180.251.177/self-test-results/${diaryId}`, req)
         .then(async (result) => {
             console.log(result);
         }).catch((err) => {
@@ -286,7 +291,8 @@ async function saveGoodCount(companyId) {
     console.log("saveGoodCount()");
     let req = {};
 
-    axios.patch(`http://54.180.251.177/companies/${companyId}`, req)
+    $.support.cors = true;
+    axios.post(`http://54.180.251.177/companies/${companyId}`, req)
         .then(async (result) => {
             console.log(result);
         }).catch((err) => {
@@ -388,8 +394,11 @@ async function updateDiary() {
         state = true;
     let star = isClicked;
     let companyId = await getCompanyIdValue();
+    let quesId = Number(String(today).substring(8, 10));
 
     const req = {
+        "userId": userId,
+        "quesId": quesId,
         "answer": answer,
         "star": star,
         "score": sum,
@@ -404,7 +413,8 @@ async function updateDiary() {
 
     //location.href = "../list.html";
 
-    axios.patch(`http://54.180.251.177/diaries/${userId}/${diaryId}`, req)
+    $.support.cors = true;
+    axios.put(`http://54.180.251.177/diaries/${userId}/${diaryId}`, req)
         .then(async (result) => {
             if (state) {
                 await saveGoodCount(companyId);
