@@ -61,7 +61,7 @@ getRanking()
 function getRanking() {
   const company_id = Cookies.get('company_id');
 
-  axios.get(`http://54.180.251.177/companies`)
+  axios.get(`https://54.180.251.177/companies`)
   .then((result) => {
     console.log(result.data);
 
